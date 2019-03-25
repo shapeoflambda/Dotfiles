@@ -1,6 +1,8 @@
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
+set runtimepath+=~/.vim/
+
 " Download vim-plug if not already installed
 if has('unix')
   if empty(glob('~/.vim/autoload/plug.vim'))
