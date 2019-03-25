@@ -1,0 +1,3 @@
+inoremap jj <ESC> 
+set number relativenumber
+set surround

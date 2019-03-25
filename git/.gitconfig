@@ -1,0 +1,22 @@
+[user]
+	email = shapeoflambda@gmail.com
+	name = Harish C
+[color]
+	ui = auto
+[core]
+	pager = less -FMRiX
+	excludesfile = ~/.gitignore
+	editor = vim
+[push]
+	default = simple
+[alias]
+	a  = add
+	b  = branch
+	co  = checkout
+	d  = diff
+	l1  = log -1
+	l2  = log -2
+	l3  = log -3
+	s   = status
+[commit]
+	template = ~/.gitmessage

@@ -1,0 +1,11 @@
+/out
+/build
+.DS_Store
+*.iml
+.idea
+.npm_modules
+tags
+.gradle/
+gradle/
+gradlew
+gradlew.bat
