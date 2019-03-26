@@ -1,9 +1,9 @@
 let configs = [
 \  "general",
-\  "ui",
 \  "mappings",
 \  "plugins",
 \  "plugin-settings",
+\  "ui",
 \]
 for file in configs
   let x = expand("~/.vim/".file.".vim")

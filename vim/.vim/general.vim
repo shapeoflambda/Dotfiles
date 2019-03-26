@@ -12,7 +12,6 @@ set laststatus=2
 set lazyredraw
 set listchars=
 set noerrorbells
-set noesckeys
 set noshowmode 
 set noswapfile
 set novisualbell
