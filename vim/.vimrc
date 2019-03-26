@@ -1,7 +1,7 @@
 let configs = [
 \  "general",
 \  "ui",
-\  "commands",
+\  "mappings",
 \  "plugins",
 \  "plugin-settings",
 \]
