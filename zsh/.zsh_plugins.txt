@@ -4,6 +4,6 @@ mafredri/zsh-async
 rupa/z
 zsh-users/zsh-autosuggestions branch:develop
 zsh-users/zsh-completions
-zsh-users/zsh-history-substring-search
 zsh-users/zsh-syntax-highlighting
+zsh-users/zsh-history-substring-search
 denysdovhan/spaceship-prompt

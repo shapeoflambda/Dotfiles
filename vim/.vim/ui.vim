@@ -2,10 +2,11 @@
 let &t_ZH="\e[3m"
 let &t_ZR="\e[23m"
 
-set termguicolors
+set notermguicolors
 let g:gruvbox_italic = 1
 let g:dracula_italic = 1
 colorscheme dracula
+autocmd BufEnter * :highlight Normal ctermbg=NONE ctermfg=NONE
 set background=dark
 
 " Statusline theme

@@ -1,5 +1,4 @@
 " Autocompletion Settings
-let g:deoplete#enable_at_startup = 1
 set completeopt-=preview    "disable the annoying scratch windows
 let g:LanguageClient_serverCommands = {
 			\ 'python': ['/usr/local/bin/pyls'],
@@ -65,6 +64,7 @@ autocmd FileType java   setlocal shiftwidth=4 tabstop=4 expandtab
 autocmd FileType json   setlocal shiftwidth=2 tabstop=2 expandtab
 autocmd FileType kotlin setlocal shiftwidth=4 tabstop=4 expandtab
 autocmd FileType ruby   setlocal shiftwidth=2 tabstop=2 expandtab
+autocmd FileType zsh   setlocal shiftwidth=2 tabstop=2 expandtab
 au BufNewFile,BufRead COMMIT_EDITMSG setlocal spell! spelllang=en_us
 
 autocmd FileType go         set formatprg=gofmt\ --stdin
@@ -101,7 +101,7 @@ command! -bang -nargs=? -complete=dir GitFiles
   \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview(), <bang>0)
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   'rg --column --line-number --no-heading --color=always --smart-case --hidden --ignore .git -g '.shellescape(<q-args>), 1,
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)

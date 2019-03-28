@@ -3,7 +3,6 @@ set nocompatible
 filetype plugin indent on
 set autoread
 set backspace=indent,eol,start
-set cursorline
 set hidden
 set hlsearch
 set ignorecase smartcase

@@ -1,0 +1,47 @@
+! General Settings
+URxvt.saveLines: 2000
+URxvt.scrollBar: False
+URxvt.scrollstyle: rxvt
+URxvt.termName: xterm-256color
+URxvt.urgentOnBell: True
+URxvt.cursorBlink: False
+URxvt.letterSpace: 1
+
+! Font
+URxvt.font:     xft:Native:size=14:antialias=true:minspace=False, xft:FuraCode Nerd Font Mono:size=14:antialias=true:minspace=False
+URxvt.boldFont: xft:Native:bold:size=14:antialias=true:minspace=False, xft:FuraCode Nerd Font Mono:size=14:antialias=true:minspace=False
+
+! Extensions
+URxvt.perl-ext-common: default,clipboard,keyboard-select,url-select,tabbedex
+URxvt.urlLauncher: xdg-open
+URxvt.urlButton: 1
+URxvt.underlineURLs: True
+
+! Keybindings
+URxvt.keysym.Shift-Control-V: eval:paste_clipboard
+URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
+
+! Tabs
+URxvt.keysym.Control-Shift-t:	perl:tabbedex:new_tab
+URxvt.keysym.Shifft-Right:	perl:tabbedex:next_tab
+URxvt.keysym.Shift-Left:	perl:tabbedex:prev_tab
+
+! Dracula Theme
+*.foreground: #F8F8F2
+*.background: #282A36
+*.color0:     #000000
+*.color8:     #4D4D4D
+*.color1:     #FF5555
+*.color9:     #FF6E67
+*.color2:     #50FA7B
+*.color10:    #5AF78E
+*.color3:     #F1FA8C
+*.color11:    #F4F99D
+*.color4:     #BD93F9
+*.color12:    #CAA9FA
+*.color5:     #FF79C6
+*.color13:    #FF92D0
+*.color6:     #8BE9FD
+*.color14:    #9AEDFE
+*.color7:     #BFBFBF
+*.color15: #E6E6E6
