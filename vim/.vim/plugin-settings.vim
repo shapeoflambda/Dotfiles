@@ -69,7 +69,7 @@ au BufNewFile,BufRead COMMIT_EDITMSG setlocal spell! spelllang=en_us
 
 autocmd FileType go         set formatprg=gofmt\ --stdin
 autocmd FileType javascript set formatprg=prettier\ --stdin
-autocmd FileType json       set formatprg=prettier\ --stdin
+autocmd FileType json       set formatprg=jq
 
 " Go Settings
 let g:go_highlight_build_constraints = 1
