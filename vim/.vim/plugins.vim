@@ -37,6 +37,7 @@ Plug 'w0rp/ale'
 
 " NERDTree
 Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'kristijanhusak/defx-icons'
 
 " Snippets
 Plug 'Shougo/neosnippet.vim'

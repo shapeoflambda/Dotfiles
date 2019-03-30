@@ -1,3 +1,19 @@
-inoremap jj <ESC> 
-set number relativenumber
+set number
+set relativenumber
+set hlsearch
+set ignorecase
+set smartcase
+
+"-------------------------------------------------------------------------------
+" IdeaVim Plugin Emulations
+"-------------------------------------------------------------------------------
 set surround
+
+"-------------------------------------------------------------------------------
+" Mappings
+"-------------------------------------------------------------------------------
+inoremap jj <ESC>
+
+" Keep a block highlighted while indenting
+vnoremap < <gv
+vnoremap > >gv
