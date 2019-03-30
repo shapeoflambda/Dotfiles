@@ -74,7 +74,7 @@ else
 fi
 
 # # FZF Options
-export FZF_DEFAULT_COMMAND='git ls-tree -r --name-only HEAD 2>/dev/null || fd --hidden --no-ignore --type f 2>/dev/null'
+export FZF_DEFAULT_COMMAND='rg --files --hidden -g "!.git" 2>/dev/null || fd --hidden --no-ignore --type f 2>/dev/null'
 export FZF_DEFAULT_OPTS='--extended --preview=" [[ $(file --mime {}) =~ binary ]] &&
 	echo {} is a binary file ||
 	(bat --color always {} || head -500 {}) 2> /dev/null | head -$LINES"'
