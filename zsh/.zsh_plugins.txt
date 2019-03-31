@@ -6,4 +6,9 @@ zsh-users/zsh-autosuggestions branch:develop
 zsh-users/zsh-completions
 zsh-users/zsh-syntax-highlighting
 zsh-users/zsh-history-substring-search
+
+# Some useful oh-my-zsh plugins
+robbyrussell/oh-my-zsh path:plugins/colored-man-pages
+
+# Prompt
 denysdovhan/spaceship-prompt
