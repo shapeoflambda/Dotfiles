@@ -35,6 +35,7 @@ endfunction
 " Linters
 let g:ale_linters = {
 			\ 'java': ['checkstyle'] ,
+			\ 'python': ['pylint'] ,
 			\ }
 " Fixers
 let g:ale_fixers = {
