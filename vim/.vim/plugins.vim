@@ -20,6 +20,7 @@ endif
 call plug#begin('~/.local/share/nvim/plugged')
 
 " Look and feel
+Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/lightline.vim'
 Plug 'Erichain/vim-monokai-pro'
 Plug 'kaicataldo/material.vim'
