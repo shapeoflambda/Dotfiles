@@ -50,6 +50,7 @@ xmap <C-k> <Plug>(neosnippet_expand_target)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
 nmap ga <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
 
 function! IsInsideGitRepo()
 	let root = split(system('git rev-parse --show-toplevel'), '\n')[0]
