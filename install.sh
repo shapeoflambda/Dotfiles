@@ -68,7 +68,9 @@ doHelp() {
 setWallpaper() {
   info "Setting wallpaper..."
   if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-    gsettings set org.gnome.desktop.background picture-uri file:///home/$USER/.wallpaper_01.jpg
+    if [ "$GDMSESSION" == "gnome" ];  then
+      gsettings set org.gnome.desktop.background picture-uri file:///home/$USER/.wallpaper_01.jpg
+    fi
   fi
 }
 
