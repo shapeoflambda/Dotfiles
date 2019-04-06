@@ -1,13 +1,8 @@
-source <(antibody init)
-
-antibody bundle < ~/.zsh_plugins.txt
-
-eval $(thefuck --alias 'jesus')
-
+source ~/.zplugin/bin/zplugin.zsh
 
 export PATH=$PATH:$(go env GOPATH)/bin
 
-declare -a zshFiles=("aliases" "completion" "configurations")
+declare -a zshFiles=("plugins" "aliases" "configurations")
 
 for fileName in "${zshFiles[@]}"
 do

@@ -15,6 +15,9 @@ installPackages() {
 
   info "Installing Extras.."
 
+  # zplugin
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zplugin/master/doc/install.sh)" 
+
   # plug.vim
   curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
