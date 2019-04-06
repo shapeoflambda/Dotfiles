@@ -12,3 +12,5 @@ do
 	    print "404: ~/.zsh/$fileName.zsh not found."
 	fi
 done
+
+eval $(thefuck --alias jesus)
