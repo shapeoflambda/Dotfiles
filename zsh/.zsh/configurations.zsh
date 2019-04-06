@@ -58,8 +58,8 @@ bindkey '^?' backward-delete-char
 bindkey '^[[3;5~' backward-delete-word
 # bindkey '^[[3~' backward-delete-word
 
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
+bindkey '^[[A' up-line-or-search
+bindkey '^[[B' down-line-or-search
 
 # # search history with fzf if installed, default otherwise
 # For Arch
