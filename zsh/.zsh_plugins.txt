@@ -3,12 +3,15 @@ junegunn/fzf
 mafredri/zsh-async
 rupa/z
 zsh-users/zsh-autosuggestions branch:develop
-zsh-users/zsh-completions
+zsh-users/zsh-completions kind:fpath
 zsh-users/zsh-syntax-highlighting
 zsh-users/zsh-history-substring-search
 
 # Some useful oh-my-zsh plugins
 robbyrussell/oh-my-zsh path:plugins/colored-man-pages
+
+# Dracula themme
+dracula/zsh
 
 # Prompt
 denysdovhan/spaceship-prompt
