@@ -7,11 +7,13 @@ fi
 alias ls='ls --color=auto'
 alias grep='grep  --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 
+# Navigation
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias ~='cd ~'
 alias /='cd /'
+alias cdgo='cd ~/go/src/'
 
 # vim habbits
 alias :q=exit
