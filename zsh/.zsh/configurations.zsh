@@ -58,8 +58,14 @@ bindkey '^?' backward-delete-char
 bindkey '^[[3;5~' backward-delete-word
 # bindkey '^[[3~' backward-delete-word
 
+# Search up/down using the text entered so far
 bindkey '^[[A' up-line-or-search
 bindkey '^[[B' down-line-or-search
+
+# Open vi to edit the command on pressing <C-x><C-e>
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd v edit-command-line
 
 # # search history with fzf if installed, default otherwise
 # For Arch
@@ -85,4 +91,4 @@ export FZF_CTRL_R_OPTS='--no-preview'
 BAT_THEME="DarkNeon"
 
 # autoload -U compinit && compinit
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
