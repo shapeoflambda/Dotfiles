@@ -2,16 +2,20 @@
 let &t_ZH="\e[3m"
 let &t_ZR="\e[23m"
 
-set notermguicolors
+set background=dark
+set termguicolors
+
+" Enable italics for themes
 let g:gruvbox_italic = 1
 let g:dracula_italic = 1
+
+" Colorscheme
 colorscheme dracula
 autocmd BufEnter * :highlight Normal ctermbg=NONE ctermfg=NONE
-set background=dark
 
 " Statusline theme
 let g:lightline = {
-			\ 'colorscheme': 'material',
+			\ 'colorscheme': 'dracula',
 			\ 'active': {
 			\   'right': [ [ 'lineinfo' ],
 			\             [ 'filetype' ],
