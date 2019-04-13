@@ -20,7 +20,9 @@ augroup go
 	autocmd!
 	autocmd FileType go nn <buffer> <F2> :GoRename<CR>
 	autocmd FileType go nn <buffer> <F5> :GoRun<CR>
+	autocmd BufWritePost *.go :GoImports
 augroup END
+let g:go_fmt_command = "goimports"
 
 " Javacomplete 2 settings
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
@@ -39,14 +41,15 @@ let g:ale_linters = {
 			\ }
 " Fixers
 let g:ale_fixers = {
-			\   'html'       : ['tidy'],
-			\   'javascript' : ['prettier'],
-			\   'json'       : ['prettier'],
-			\   'ruby'       : ['rubocop'],
-			\   'python'     : ['yapf', 'isort'],
-			\   'go'         : ['gofmt', 'goimports'],
-			\   'java'       : ['google_java_format'],
-			\   'xml'        : ['xmllint'],
+      \   '*':          ['remove_trailing_lines', 'trim_whitespace'],
+			\   'html':       ['tidy'],
+			\   'javascript': ['prettier'],
+			\   'json':       ['prettier'],
+			\   'ruby':       ['rubocop'],
+			\   'python':     ['yapf', 'isort'],
+			\   'go':         ['gofmt', 'goimports'],
+			\   'java':       ['google_java_format'],
+			\   'xml':        ['xmllint'],
 			\}
 let g:ale_kotlin_languageserver_executable = "/Users/chndha/.config/nvim/tools/bin/kotlin-language-server"
 let g:ale_java_google_java_format_options  = "-aosp"
