@@ -1,0 +1,90 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: 'Product Sans';
+    font-size: 15px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: rgba(11, 12, 13, 0.40);
+    border-bottom: 3px solid rgba(100, 114, 125, 0.5);
+    color: white;
+}
+
+#workspaces button {
+    padding: 0 5px;
+    background: transparent;
+    color: white;
+    border-bottom: 3px solid transparent;
+}
+
+#workspaces button.focused {
+    border-bottom: 3px solid white;
+}
+
+#mode {
+    border-bottom: 3px solid white;
+}
+
+#clock, #battery, #cpu, #memory, #network, #pulseaudio, #custom-spotify, #tray, #mode {
+    padding: 0 5px;
+    margin: 0 0px;
+}
+
+#clock {
+
+}
+
+#battery {
+    color: white;
+}
+
+#battery.charging {
+    color: white;
+
+}
+
+@keyframes blink {
+    to {
+        color: white;
+    }
+}
+
+#battery.warning:not(.charging) {
+    color: white;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction : alternate;
+}
+
+#cpu {
+    color: white;
+}
+
+
+#network.disconnected {
+    background: #dd7c7e;
+}
+
+#pulseaudio {
+    color: white;
+}
+
+#pulseaudio.muted {
+    color: white;
+}
+
+#custom-spotify {
+    color: white;
+}
+
+#custom-weather{
+    color: white;
+}
+
+#tray {
+}
+
