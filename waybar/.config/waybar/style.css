@@ -2,13 +2,13 @@
     border: none;
     border-radius: 0;
     font-family: 'Product Sans';
-    font-size: 15px;
+    font-size: 16px;
     min-height: 0;
 }
 
 window#waybar {
     background: rgba(11, 12, 13, 0.40);
-    border-bottom: 3px solid rgba(100, 114, 125, 0.5);
+    /* border-bottom: 3px solid rgba(100, 114, 125, 0.5); */
     color: white;
 }
 
@@ -16,7 +16,6 @@ window#waybar {
     padding: 0 5px;
     background: transparent;
     color: white;
-    border-bottom: 3px solid transparent;
 }
 
 #workspaces button.focused {
