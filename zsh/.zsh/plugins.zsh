@@ -6,6 +6,9 @@ zplugin light tj/git-extras
 zplugin light zsh-users/zsh-autosuggestions
 zplugin light zdharma/fast-syntax-highlighting
 
+# Oh my zsh plugins
+zplugin snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
+
 # Prompt theme
 zplugin light denysdovhan/spaceship-prompt
 
