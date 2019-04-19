@@ -16,7 +16,8 @@ set $right l
 
 font 'Product Sans' 11
 
-gaps inner 20
+smart_gaps on
+gaps inner 25
 hide_edge_borders smart
 default_border none
 focus_follows_mouse no
@@ -161,7 +162,7 @@ bindsym $mod+Alt+l exec 'swaylock -e -f -i ~/.config/sway/LOCKSCREEN.jpg -c "#$(
     bindsym $mod+f fullscreen
 
     # # Toggle the current focus between tiling and floating mode
-    # bindsym $mod+Shift+space floating toggle
+    bindsym $mod+Shift+space floating toggle
 
     # # Swap focus between the tiling area and the floating area
     # bindsym $mod+space focus mode_toggle
@@ -227,6 +228,11 @@ exec_always import-gsettings \
     cursor-theme:gtk-cursor-theme-name
 
 ###
+### Print screen
+###
+bindsym print exec --no-startup-id slurp | grim -g - $(xdg-user-dir PICTURES)/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')
+
+###
 ### Screen Brightness
 ###
 bindsym XF86MonBrightnessUp exec light -A 5
@@ -251,5 +257,15 @@ client.focused          #151515a0 #151515a0 #f5f5f5 #151515a0 #151515a0
 client.focused_inactive #151515a0 #151515a0 #d0d0d0 #151515a0 #151515a0
 client.unfocused        #15151580 #15151580 #d0d0d0 #15151580 #15151580
 client.urgent           #151515f0 #151515f0 #e1a3ee #151515f0 #151515f0
+
+exec --no-startup-id libinput-gestures-setup start
+exec mako
+
+# Assign specific workspaces for specific applications
+assign [class="Firefox"] workspace 2
+assign [title="Google Chrome"] workspace 3
+assign [title="Alacritty"] workspace 1 floating enable
+assign [class="Code"] workspace 4
+assign [class="qBittorrent"] workspace 6
 
 include /etc/sway/config.d/*
