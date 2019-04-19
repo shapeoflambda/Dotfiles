@@ -1,0 +1,7 @@
+font=Product Sans 14
+width=450
+height=200
+padding=10
+border-size=0
+background-color=#0B0C0DAA
+format=[%a] <b>%s</b>\n%b
