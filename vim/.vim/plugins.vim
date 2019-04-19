@@ -25,6 +25,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'Erichain/vim-monokai-pro'
 Plug 'kaicataldo/material.vim'
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'connorholyday/vim-snazzy'
 
 " Autocompletion
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
