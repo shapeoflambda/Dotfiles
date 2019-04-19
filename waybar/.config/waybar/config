@@ -18,9 +18,10 @@
     "max-length": 50
   },
   "battery": {
-    "tooltip": "false",
+    "tooltip": false,
     "states": {
-      "critical": 25
+      "warning": 20,
+      "critical": 15
     },
     "format": "{capacity}%{icon}",
     "format-charging": "{capacity}%",
@@ -35,18 +36,23 @@
       "",
       "",
       ""
-    ]
+    ],
+    "on-click": "~/.bin/scripts/power"
   },
   "clock": {
-    "format": "{:%a %d %b  %I:%M %p}"
+    "format": "{:%a %d %b  %I:%M %p}",
+    "tooltip": false
   },
   "network": {
     "interface": "wlp2s0",
     "format": "{ifname}",
-    "format-wifi": "{essid} ({signalStrength}%) ",
+    //"format-wifi": "{essid} ({signalStrength}%) ",
+    "format-wifi": "蠟",
     "format-ethernet": "{ifname} ",
     "format-disconnected": "",
-    "max-length": 50
+    "max-length": 50,
+    "tooltip": true,
+    "tooltip-format": "{essid} ({signalStrength}%) "
   },
   "pulseaudio": {
     "format": "{volume}% {icon}",
@@ -65,7 +71,7 @@
         ""
       ]
     },
-    "onlick": "pavucontrol"
+    "on-click": "pavucontrol"
   },
   "backlight": {
     "device": "intel_backlight",
