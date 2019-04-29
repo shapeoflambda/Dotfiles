@@ -132,6 +132,9 @@ inoremap <silent><expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
 inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+" Fix typos staying in insert mode
+inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
+
 " Autocommands {{{1
 " Reload vimrc as soon as it's saved
 augroup vimrc
