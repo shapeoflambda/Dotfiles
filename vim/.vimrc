@@ -88,7 +88,7 @@ nnoremap <leader>b :buffers<cr>
 nnoremap <leader>h :nohl<cr>
 
 " Strip (a)ll trailing white (s)paces
-nnoremap <leader>as :call StripTrailingWhitespace()<cr>
+nnoremap <silent> <leader>as :call StripTrailingWhitespace()<cr>
 
 " Retain selection when indenting
 xnoremap < <gv
