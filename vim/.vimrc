@@ -20,9 +20,27 @@ set autoindent
 
 filetype plugin indent on
 
-set wildmenu
+set wildmenu                           " Use wildmenu
+silent! set wildignorecase             " Case insensitive, if supported
+
 set hidden
 set showcmd
+
+" Add completion options
+if exists('+completeopt')
+  set completeopt+=longest             " Insert longest common substring
+  set completeopt+=menuone             " Show the menu even if only one match
+endif
+
+" Keep undo files, hopefully in a dedicated directory
+if has('persistent_undo')
+  set undofile
+  set undodir^=~/.vim/cache/undo//
+  if has('win32') || has('win64')
+    set undodir-=~/.vim/cache/undo//
+    set undodir^=~/vimfiles/cache/undo//
+  endif
+endif
 
 " `matchit.vim` is built-in so let's enable it!
 " " Hit `%` on `if` to jump to `else`.
@@ -76,6 +94,38 @@ nnoremap <leader>as :call StripTrailingWhitespace()<cr>
 " Retain selection when indenting
 xnoremap < <gv
 xnoremap > >gv
+
+" Cycle through argument list
+nnoremap [a :previous<CR>
+nnoremap ]a :next<CR>
+
+" Cycle through buffers
+nnoremap [b :bprevious<CR>
+nnoremap ]b :bnext<CR>
+
+" Cycle through quicklist/:helpgrep items
+nnoremap [c :cprevious<CR>
+nnoremap ]c :cnext<CR>
+
+" Cycle through location list items
+nnoremap [l :lprevious<CR>
+
+" Cycle through argument list
+nnoremap [a :previous<CR>
+nnoremap ]a :next<CR>
+
+" Cycle through buffers
+nnoremap [b :bprevious<CR>
+nnoremap ]b :bnext<CR>
+
+" Cycle through quicklist/:helpgrep items
+nnoremap [c :cprevious<CR>
+nnoremap ]c :cnext<CR>
+
+" Cycle through location list items
+nnoremap [l :lprevious<CR>
+nnoremap ]l :lnext<CR>
+nnoremap ]l :lnext<CR>
 
 " Autocompletion - Tab complete menu options
 inoremap <silent><expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
