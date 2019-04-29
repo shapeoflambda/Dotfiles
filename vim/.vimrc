@@ -4,7 +4,6 @@
 " Basics {{{1
 set number
 set relativenumber
-
 set ignorecase
 set smartcase
 set incsearch
