@@ -114,6 +114,7 @@ nnoremap <leader>b :buffers<cr>
 
 " Stop (h)ighighting
 nnoremap <leader>h :nohl<cr>
+nnoremap <leader><cr> :nohl<cr>
 
 " Strip (a)ll trailing white (s)paces
 nnoremap <silent> <leader>as :call StripTrailingWhitespace()<cr>
@@ -162,6 +163,12 @@ inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Fix typos staying in insert mode
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
+
+" Copy/Paste to/from system's clipboard
+xnoremap <C-c> "+y
+xnoremap <C-v> "+p
+nnoremap <C-v> "+p
+
 
 " Autocommands {{{1
 " Reload vimrc as soon as it's saved
