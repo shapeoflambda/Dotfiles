@@ -1,5 +1,33 @@
-" My no/bare minimum plugins vimrc
+" A minimal vimrc
 " vim: foldmethod=marker
+
+" Plugins {{{1
+" Download vim-plug if not already installed
+if has('unix')
+  if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+          \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall | source $MYVIMRC
+  endif
+elseif has('win32')
+  if empty(glob('~/vimfiles/autoload/plug.vim'))
+    echom "Install vim-plug!"
+  endif
+endif
+
+call plug#begin('~/.vim/plugged')
+
+" Essentials {{{2
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+
+" Look and feel {{{2
+Plug 'airblade/vim-gitgutter'
+
+call plug#end()
 
 " Basics {{{1
 set number
@@ -47,7 +75,7 @@ runtime macros/matchit.vim
 
 " Look & Feel {{{1
 syntax enable
-colorscheme elflord
+colorscheme kuroi
 
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
