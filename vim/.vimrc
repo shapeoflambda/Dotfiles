@@ -23,6 +23,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+Plug 'junegunn/vim-easy-align'
 
 " Fuzzy find, everything! {{{2
 Plug 'junegunn/fzf.vim'
@@ -170,6 +171,9 @@ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 " Copy to system's clipboard
 xnoremap <C-c> "+y
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
 
 " Autocommands {{{1
 " Reload vimrc as soon as it's saved
