@@ -181,3 +181,11 @@ augroup vimrc
   autocmd!
   autocmd! BufwritePost .vimrc source $MYVIMRC
 augroup END
+
+" Plugin Settings {{{1
+" Ultisnip Settings {{{2
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+let g:UltiSnipsSnippetDirectories=["custom_snippets"]
