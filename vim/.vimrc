@@ -2,7 +2,7 @@
 " vim: foldmethod=marker
 
 " Plugins {{{1
-" Download vim-plug if not already installed
+" Vim plug install {{{2
 if has('unix')
   if empty(glob('~/.vim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -17,15 +17,23 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-" Essentials {{{2
+" Editing {{{2
 Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 
-" Look and feel {{{2
+" Fuzzy find, everything! {{{2
+Plug 'junegunn/fzf.vim'
+
+" Git {{{2
+Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
+
+" Snippets {{{2
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 call plug#end()
 
@@ -75,6 +83,7 @@ runtime macros/matchit.vim
 
 " Look & Feel {{{1
 syntax enable
+set background=dark
 colorscheme kuroi
 
 highlight ExtraWhitespace ctermbg=red guibg=red
@@ -101,16 +110,32 @@ set statusline+=\ %P\                            "percent through file
 " Define leader
 let mapleader=","
 
-" Builtin file open
-set wildcharm=<Tab>
-set path-=/usr/include
-nnoremap ,f :find **/*<Tab><S-Tab>
+" Fuzzy finding mappings {{{2
+" Find all (f)iles
+nnoremap <leader>f :Files<cr>
+
+" Find files tracked by git aka (g)it (f)iles
+nnoremap <leader>gf :GitFiles<cr>
 
 " Open (r)ecent (f)iles
-nnoremap <leader>rf :browse oldfiles<cr>
+nnoremap <leader>rf :History<cr>
 
-" List all open (b)uffers
-nnoremap <leader>b :buffers<cr>
+" Find all open (b)uffers
+nnoremap <leader>b :Buffers<cr>
+
+" Find all available (c)olorschemes
+nnoremap <leader>c :Colors<cr>
+
+" Find all (t)ags
+nnoremap <leader>t :Tags<cr>
+
+" Find all (t)ags in the current (b)uffer
+nnoremap <leader>tb :BTags<cr>
+
+" Find all (s)nippets
+nnoremap <leader>s :Snippets<cr>
+
+" }}}
 
 " Stop (h)ighighting
 nnoremap <leader>h :nohl<cr>
@@ -137,38 +162,14 @@ nnoremap ]c :cnext<CR>
 
 " Cycle through location list items
 nnoremap [l :lprevious<CR>
-
-" Cycle through argument list
-nnoremap [a :previous<CR>
-nnoremap ]a :next<CR>
-
-" Cycle through buffers
-nnoremap [b :bprevious<CR>
-nnoremap ]b :bnext<CR>
-
-" Cycle through quicklist/:helpgrep items
-nnoremap [c :cprevious<CR>
-nnoremap ]c :cnext<CR>
-
-" Cycle through location list items
-nnoremap [l :lprevious<CR>
 nnoremap ]l :lnext<CR>
 nnoremap ]l :lnext<CR>
-
-" Autocompletion - Tab complete menu options
-inoremap <silent><expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
-inoremap <silent><expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
-inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Fix typos staying in insert mode
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
-" Copy/Paste to/from system's clipboard
+" Copy to system's clipboard
 xnoremap <C-c> "+y
-xnoremap <C-v> "+p
-nnoremap <C-v> "+p
-
 
 " Autocommands {{{1
 " Reload vimrc as soon as it's saved
