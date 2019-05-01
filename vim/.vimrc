@@ -137,18 +137,7 @@ nnoremap <leader>tb :BTags<cr>
 nnoremap <leader>s :Snippets<cr>
 
 " }}}
-
-" Stop (h)ighighting
-nnoremap <leader>h :nohl<cr>
-nnoremap <leader><cr> :nohl<cr>
-
-" Strip (a)ll trailing white (s)paces
-nnoremap <silent> <leader>as :call StripTrailingWhitespace()<cr>
-
-" Retain selection when indenting
-xnoremap < <gv
-xnoremap > >gv
-
+" Cycle through stuff {{{2
 " Cycle through argument list
 nnoremap [a :previous<CR>
 nnoremap ]a :next<CR>
@@ -166,14 +155,30 @@ nnoremap [l :lprevious<CR>
 nnoremap ]l :lnext<CR>
 nnoremap ]l :lnext<CR>
 
+" Misc {{{2
 " Fix typos staying in insert mode
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 " Copy to system's clipboard
 xnoremap <C-c> "+y
 
+" Stop (h)ighighting
+nnoremap <leader>h :nohl<cr>
+nnoremap <leader><cr> :nohl<cr>
+
+" Strip (a)ll trailing white (s)paces
+nnoremap <silent> <leader>as :call StripTrailingWhitespace()<cr>
+
+" Retain selection when indenting
+xnoremap < <gv
+xnoremap > >gv
+
+" Easy align mappings {{{2
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 " Autocommands {{{1
 " Reload vimrc as soon as it's saved
@@ -187,5 +192,3 @@ augroup END
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
-let g:UltiSnipsSnippetDirectories=["custom_snippets"]
