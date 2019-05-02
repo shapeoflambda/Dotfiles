@@ -36,6 +36,10 @@ Plug 'airblade/vim-gitgutter'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
+" Look & feel {{{2
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'itchyny/lightline.vim'
+
 call plug#end()
 
 " Basics {{{1
@@ -84,28 +88,14 @@ runtime macros/matchit.vim
 
 " Look & Feel {{{1
 syntax enable
+set termguicolors
 set background=dark
-colorscheme kuroi
+colorscheme dracula
 
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
 
-" Statusline {{{2
 set laststatus=2
-set noshowmode
-
-set statusline=%{CurrentMode()}\                 "Readable mode name
-set statusline+=%t                               "tail of the filename
-set statusline+=%m                               "modified flag
-set statusline+=%r                               "read only flag
-set statusline+=%=                               "left/right separator
-set statusline+=%{StatuslineGit()}               "git branch name
-set statusline+=%{strlen(&fenc)?&fenc:'none'}\   "file encoding
-set statusline+=%{&ff}\                          "file format
-set statusline+=%y\                              "filetype
-set statusline+=%l,                              "cursor line
-set statusline+=%c                               "cursor column
-set statusline+=\ %P\                            "percent through file
 
 " Mappings {{{1
 " Define leader
@@ -184,7 +174,7 @@ nmap ga <Plug>(EasyAlign)
 " Reload vimrc as soon as it's saved
 augroup vimrc
   autocmd!
-  autocmd! BufwritePost .vimrc source $MYVIMRC
+  autocmd! BufwritePost .vimrc source $MYVIMRC | call LightlineReload()
 augroup END
 
 " Plugin Settings {{{1
@@ -192,3 +182,24 @@ augroup END
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+" Lightline Settings {{{2
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             ['readonly', 'filename', 'modified' ] ],
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'filetype' ],
+      \              [  'gitbranch', 'fileformat', 'fileencoding' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
+
+function! LightlineReload()
+	call lightline#init()
+	call lightline#colorscheme()
+	call lightline#update()
+endfunction
