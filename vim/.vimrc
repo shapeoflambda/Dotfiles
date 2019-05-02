@@ -143,8 +143,8 @@ nnoremap [b :bprevious<CR>
 nnoremap ]b :bnext<CR>
 
 " Cycle through quicklist/:helpgrep items
-nnoremap [c :cprevious<CR>
-nnoremap ]c :cnext<CR>
+nnoremap [q :cprevious<CR>
+nnoremap ]q :cnext<CR>
 
 " Cycle through location list items
 nnoremap [l :lprevious<CR>
@@ -200,7 +200,7 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " Lightline Settings {{{2
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
+      \ 'colorscheme': 'landscape',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             ['readonly', 'filename', 'modified' ] ],
