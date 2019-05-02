@@ -209,7 +209,8 @@ let g:lightline = {
       \             ['readonly', 'filename', 'modified' ] ],
       \   'right': [ [ 'lineinfo' ],
       \              [ 'filetype' ],
-      \              [  'gitbranch', 'fileformat', 'fileencoding' ] ]
+      \              [  'fileencoding' ],
+      \              [ 'gitbranch'] ]
       \ },
       \ 'component_function': {
       \   'gitbranch': 'fugitive#head'
