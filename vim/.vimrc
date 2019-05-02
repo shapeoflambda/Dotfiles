@@ -87,6 +87,8 @@ endif
 " " Hit `%` on `if` to jump to `else`.
 runtime macros/matchit.vim
 
+set diffopt+=vertical
+
 " Look & Feel {{{1
 syntax enable
 set termguicolors
