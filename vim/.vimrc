@@ -99,7 +99,7 @@ match ExtraWhitespace /\s\+$/
 set laststatus=2
 
 " Mappings {{{1
-" Define leader
+" Leader {{{2
 let mapleader=","
 
 " Fuzzy finding mappings {{{2
@@ -126,6 +126,9 @@ nnoremap <leader>tb :BTags<cr>
 
 " Find all (s)nippets
 nnoremap <leader>s :Snippets<cr>
+
+" Find all (m)appings
+nnoremap <leader>m :Maps<cr>
 
 " }}}
 " Cycle through stuff {{{2
