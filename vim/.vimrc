@@ -146,6 +146,15 @@ nnoremap [l :lprevious<CR>
 nnoremap ]l :lnext<CR>
 nnoremap ]l :lnext<CR>
 
+" Git {{{2
+nnoremap <leader>gd :Gdiff<cr>
+nnoremap <leader>gs :Gstatus<cr>
+nnoremap <leader>gr :Gread<cr>
+nnoremap <leader>ga :execute "normal \<Plug>GitGutterStageHunk"<cr>
+nnoremap <leader>gu :execute "normal \<Plug>GitGutterUndoHunk"<cr>
+nnoremap <leader>gp :execute "normal \<Plug>GitGutterPrevHunk"<cr>
+nnoremap <leader>gn :execute "normal \<Plug>GitGutterNextHunk"<cr>
+
 " Misc {{{2
 " Fix typos staying in insert mode
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
