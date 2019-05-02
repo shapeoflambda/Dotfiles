@@ -161,6 +161,9 @@ nnoremap <leader>gp :execute "normal \<Plug>GitGutterPrevHunk"<cr>
 nnoremap <leader>gn :execute "normal \<Plug>GitGutterNextHunk"<cr>
 
 " Misc {{{2
+" Open explorer
+nnoremap <leader>e :Ex<cr>
+
 " Fix typos staying in insert mode
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
