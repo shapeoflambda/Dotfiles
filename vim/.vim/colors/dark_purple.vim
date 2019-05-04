@@ -37,9 +37,9 @@ highlight Define         guifg=#BD9800 guibg=NONE    guisp=NONE    gui=NONE     
 highlight Delimiter      guifg=#BD9800 guibg=NONE    guisp=NONE    gui=NONE      ctermfg=1    ctermbg=NONE cterm=NONE
 highlight DiffAdd        guifg=#a3bbb5 guibg=#1e4723 guisp=#1e4723 gui=NONE      ctermfg=109  ctermbg=22   cterm=NONE
 highlight DiffChange     guifg=#c8c8d0 guibg=#19324a guisp=#19324a gui=NONE      ctermfg=252  ctermbg=23   cterm=NONE
-highlight DiffDelete     guifg=NONE    guibg=#192224 guisp=#192224 gui=NONE      ctermfg=NONE ctermbg=235  cterm=NONE
+highlight DiffDelete     guifg=NONE    guibg=#45243b guisp=#45243b gui=NONE      ctermfg=167 ctermbg=167  cterm=NONE
 highlight DiffText       guifg=NONE    guibg=#44597f guisp=#44597f gui=bold      ctermfg=NONE ctermbg=60   cterm=bold
-highlight Directory      guifg=#536991 guibg=NONE    guisp=NONE    gui=bold      ctermfg=60   ctermbg=NONE cterm=bold
+highlight Directory      guifg=NONE guibg=NONE    guisp=NONE    gui=bold      ctermfg=NONE   ctermbg=NONE cterm=bold
 highlight ErrorMsg       guifg=#d2334b guibg=#1d1d26 guisp=#1d1d26 gui=NONE      ctermfg=167  ctermbg=235  cterm=NONE
 highlight Float          guifg=#A1A6A8 guibg=NONE    guisp=NONE    gui=NONE      ctermfg=248  ctermbg=NONE cterm=NONE
 highlight FoldColumn     guifg=#c8c8d0 guibg=#1d1d26 guisp=#1d1d26 gui=NONE      ctermfg=252  ctermbg=235  cterm=NONE
