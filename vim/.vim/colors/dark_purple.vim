@@ -24,6 +24,7 @@ highlight Normal guifg=#c8c8d0 guibg=#1d1d26 guisp=#1d1d26 gui=NONE ctermfg=252 
 "highlight LocalVariable -- no settings --
 "highlight CTagsClass -- no settings --
 "highlight clear -- no settings --
+
 highlight Boolean        guifg=#e0947b guibg=NONE    guisp=NONE    gui=NONE      ctermfg=174  ctermbg=NONE cterm=NONE
 highlight Character      guifg=#A1A6A8 guibg=NONE    guisp=NONE    gui=NONE      ctermfg=248  ctermbg=NONE cterm=NONE
 highlight Comment        guifg=#575566 guibg=NONE    guisp=NONE    gui=italic    ctermfg=241  ctermbg=NONE cterm=NONE
@@ -35,11 +36,10 @@ highlight CursorLine     guifg=NONE    guibg=#222E30 guisp=#222E30 gui=NONE     
 highlight Debug          guifg=#BD9800 guibg=NONE    guisp=NONE    gui=NONE      ctermfg=1    ctermbg=NONE cterm=NONE
 highlight Define         guifg=#BD9800 guibg=NONE    guisp=NONE    gui=NONE      ctermfg=1    ctermbg=NONE cterm=NONE
 highlight Delimiter      guifg=#BD9800 guibg=NONE    guisp=NONE    gui=NONE      ctermfg=1    ctermbg=NONE cterm=NONE
-highlight DiffAdd        guifg=#a3bbb5 guibg=#1e4723 guisp=#1e4723 gui=NONE      ctermfg=109  ctermbg=22   cterm=NONE
+highlight DiffAdd        guifg=#d0d0d9 guibg=#213d37 guisp=#1d1d26 gui=NONE      ctermfg=71  ctermbg=235   cterm=NONE
 highlight DiffChange     guifg=#c8c8d0 guibg=#19324a guisp=#19324a gui=NONE      ctermfg=252  ctermbg=23   cterm=NONE
-highlight DiffDelete     guifg=NONE    guibg=#45243b guisp=#45243b gui=NONE      ctermfg=167 ctermbg=167  cterm=NONE
-highlight DiffText       guifg=NONE    guibg=#44597f guisp=#44597f gui=bold      ctermfg=NONE ctermbg=60   cterm=bold
-highlight Directory      guifg=NONE guibg=NONE    guisp=NONE    gui=bold      ctermfg=NONE   ctermbg=NONE cterm=bold
+highlight DiffDelete     guifg=#933150 guibg=#45243b guisp=#45243b gui=NONE      ctermfg=167  ctermbg=235   cterm=NONE
+highlight DiffText       guifg=#c8c8d0 guibg=#44597f guisp=#44597f gui=bold      ctermfg=252  ctermbg=60   cterm=bold
 highlight ErrorMsg       guifg=#d2334b guibg=#1d1d26 guisp=#1d1d26 gui=NONE      ctermfg=167  ctermbg=235  cterm=NONE
 highlight Float          guifg=#A1A6A8 guibg=NONE    guisp=NONE    gui=NONE      ctermfg=248  ctermbg=NONE cterm=NONE
 highlight FoldColumn     guifg=#c8c8d0 guibg=#1d1d26 guisp=#1d1d26 gui=NONE      ctermfg=252  ctermbg=235  cterm=NONE
@@ -55,8 +55,8 @@ highlight Macro          guifg=#BD9800 guibg=NONE    guisp=NONE    gui=NONE     
 highlight MatchParen     guifg=#BD9800 guibg=NONE    guisp=NONE    gui=bold      ctermfg=1    ctermbg=NONE cterm=bold
 highlight ModeMsg        guifg=#F9F9F9 guibg=#192224 guisp=#192224 gui=bold      ctermfg=15   ctermbg=235  cterm=bold
 highlight MoreMsg        guifg=#BD9800 guibg=NONE    guisp=NONE    gui=bold      ctermfg=1    ctermbg=NONE cterm=bold
-highlight NonText        guifg=#1d1d26 guibg=#1d1d26 guisp=#1d1d26 gui=NONE ctermfg=235 ctermbg=235 cterm=NONE
-highlight Number         guifg=#6789e4 guibg=NONE guisp=#536991 gui=NONE      ctermfg=224  ctermbg=60   cterm=NONE
+highlight NonText        guifg=#1d1d26 guibg=#1d1d26 guisp=#1d1d26 gui=NONE      ctermfg=235  ctermbg=235  cterm=NONE
+highlight Number         guifg=#6789e4 guibg=NONE    guisp=#536991 gui=NONE      ctermfg=224  ctermbg=60   cterm=NONE
 highlight Operator       guifg=#BD9800 guibg=NONE    guisp=NONE    gui=bold      ctermfg=1    ctermbg=NONE cterm=bold
 highlight PMenu          guifg=#cfcfcc guibg=#2c2c3b guisp=#2c2c3b gui=NONE      ctermfg=187  ctermbg=237  cterm=NONE
 highlight PMenuSbar      guifg=#e2e4e5 guibg=#404045 guisp=#404045 gui=NONE      ctermfg=254  ctermbg=238  cterm=NONE
@@ -97,10 +97,10 @@ highlight WarningMsg     guifg=#A1A6A8 guibg=#912C00 guisp=#912C00 gui=NONE     
 highlight WildMenu       guifg=#E2E4E5 guibg=#44597F guisp=#44597F GUI=bold      ctermfg=NONE ctermbg=218  cterm=bold
 highlight cursorim       guifg=#192224 guibg=#536991 guisp=#536991 gui=NONE      ctermfg=235  ctermbg=60   cterm=NONE
 
-highlight link Error ErrorMsg
+highlight link Error     ErrorMsg
 highlight link Exception ErrorMsg
+highlight link Directory Type
 
 " Highlighting fo vim
 highlight link vimVar Number
 highlight link vimOption Number
-
