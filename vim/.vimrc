@@ -66,6 +66,7 @@ set wildmenu                           " Use wildmenu
 silent! set wildignorecase             " Case insensitive, if supported
 
 set hidden
+set autoread
 set showcmd
 
 " Add completion options
