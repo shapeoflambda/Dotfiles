@@ -1,4 +1,4 @@
-" Harish's humble attempt at a sane vimrc
+" Attempt at a sane vimrc
 " vim: foldmethod=marker
 
 " Plugins {{{1
