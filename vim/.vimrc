@@ -94,7 +94,7 @@ set diffopt+=vertical
 syntax enable
 set termguicolors
 set background=dark
-colorscheme dracula
+colorscheme dark_purple
 
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
@@ -223,3 +223,12 @@ function! LightlineReload()
 	call lightline#colorscheme()
 	call lightline#update()
 endfunction
+
+" Show syntax highlighting groups for word under cursor
+nmap <C-S-P> :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
