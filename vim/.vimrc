@@ -42,6 +42,9 @@ Plug 'honza/vim-snippets'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'itchyny/lightline.vim'
 
+" Language Plugins {{{1
+Plug 'fatih/vim-go', { 'for': 'go' }
+
 call plug#end()
 
 " Basics {{{1
