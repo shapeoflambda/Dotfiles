@@ -56,7 +56,7 @@ set incsearch
 set hlsearch
 
 set noswapfile
-set scrolloff=3
+set autoread
 
 set shiftwidth=2 tabstop=2
 set expandtab
@@ -92,7 +92,7 @@ endif
 " " Hit `%` on `if` to jump to `else`.
 runtime macros/matchit.vim
 
-set diffopt+=vertical
+set diffopt+=vertical,filler,algorithm:patience
 
 " Look & Feel {{{1
 syntax enable
