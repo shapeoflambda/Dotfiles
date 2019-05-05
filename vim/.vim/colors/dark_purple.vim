@@ -46,7 +46,7 @@ highlight FoldColumn     guifg=#c8c8d0 guibg=#1d1d26 guisp=#1d1d26 gui=NONE     
 highlight Folded         guifg=#cfcfcc guibg=#2c2c3b guisp=#2c2c3b gui=NONE      ctermfg=187  ctermbg=237  cterm=NONE
 highlight Function       guifg=#536991 guibg=NONE    guisp=NONE    gui=bold      ctermfg=60   ctermbg=NONE cterm=bold
 highlight Identifier     guifg=#BD9800 guibg=NONE    guisp=NONE    gui=NONE      ctermfg=1    ctermbg=NONE cterm=NONE
-highlight IncSearch      guifg=#d0d0d9 guibg=#213d37 guisp=#213d37 gui=bold      ctermfg=253  ctermbg=237  cterm=bold
+highlight IncSearch      guifg=#c8c8d0 guibg=#44597f guisp=#44597f gui=bold      ctermfg=252  ctermbg=60   cterm=bold
 highlight Include        guifg=#BD9800 guibg=NONE    guisp=NONE    gui=NONE      ctermfg=1    ctermbg=NONE cterm=NONE
 highlight Keyword        guifg=#BD9800 guibg=NONE    guisp=NONE    gui=bold      ctermfg=1    ctermbg=NONE cterm=bold
 highlight Label          guifg=#BD9800 guibg=NONE    guisp=NONE    gui=bold      ctermfg=1    ctermbg=NONE cterm=bold
@@ -65,7 +65,7 @@ highlight PMenuThumb     guifg=NONE    guibg=#a4a6a8 guisp=#a4a6a8 gui=NONE     
 highlight PreCondit      guifg=#BD9800 guibg=NONE    guisp=NONE    gui=NONE      ctermfg=1    ctermbg=NONE cterm=NONE
 highlight PreProc        guifg=#BD9800 guibg=NONE    guisp=NONE    gui=NONE      ctermfg=1    ctermbg=NONE cterm=NONE
 highlight Repeat         guifg=#BD9800 guibg=NONE    guisp=NONE    gui=bold      ctermfg=1    ctermbg=NONE cterm=bold
-highlight Search         guifg=#d0d0d9 guibg=#213d37 guisp=#213d37 gui=NONE      ctermfg=253  ctermbg=237  cterm=NONE
+highlight Search         guifg=#c8c8d0 guibg=#44597f guisp=#44597f gui=NONE      ctermfg=252  ctermbg=60   cterm=NONE
 highlight SignColumn     guifg=#192224 guibg=#536991 guisp=#536991 gui=NONE      ctermfg=235  ctermbg=60   cterm=NONE
 highlight Special        guifg=#BD9800 guibg=NONE    guisp=NONE    gui=NONE      ctermfg=1    ctermbg=NONE cterm=NONE
 highlight SpecialChar    guifg=#BD9800 guibg=NONE    guisp=NONE    gui=NONE      ctermfg=1    ctermbg=NONE cterm=NONE
@@ -100,6 +100,9 @@ highlight cursorim       guifg=#192224 guibg=#536991 guisp=#536991 gui=NONE     
 highlight link Error     ErrorMsg
 highlight link Exception ErrorMsg
 highlight link Directory Type
+
+highlight link qfLineNr Number
+highlight link qfFileName Statement
 
 " Highlighting fo vim
 highlight link vimVar Number
