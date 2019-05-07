@@ -92,7 +92,7 @@ highlight Type           guifg=#8899e3 guibg=NONE    guisp=NONE    gui=bold     
 highlight Typedef        guifg=#536991 guibg=NONE    guisp=NONE    gui=bold      ctermfg=60   ctermbg=NONE cterm=bold
 highlight Underlined     guifg=#F9F9FF guibg=#192224 guisp=#192224 gui=underline ctermfg=189  ctermbg=235  cterm=underline
 highlight VertSplit      guifg=#252431 guibg=#252431 guisp=#252431 gui=bold      ctermfg=236  ctermbg=236  cterm=bold
-highlight Visual         guifg=NONE    guibg=#214283 guisp=#214283 gui=NONE      ctermfg=NONE ctermbg=23   cterm=NONE
+highlight Visual         guifg=NONE    guibg=#19324a guisp=#19324a gui=NONE      ctermfg=NONE ctermbg=23   cterm=NONE
 highlight VisualNOS      guifg=#192224 guibg=#F9F9FF guisp=#F9F9FF gui=underline ctermfg=235  ctermbg=189  cterm=underline
 highlight WarningMsg     guifg=#A1A6A8 guibg=#912C00 guisp=#912C00 gui=NONE      ctermfg=248  ctermbg=88   cterm=NONE
 highlight WildMenu       guifg=#E2E4E5 guibg=#44597F guisp=#44597F GUI=bold      ctermfg=NONE ctermbg=218  cterm=bold
@@ -108,6 +108,9 @@ highlight link qfFileName Statement
 highlight link vimVar Number
 highlight link vimOption Number
 
-" Highlighting for GitGutter
-highlight GitGutterAdd guifg=#39703f guibg=NONE guisp=NONE gui=NONE
-highlight GitGutterChangeDefault guifg=#39703f guibg=NONE guisp=NONE gui=NONE
+" Highlighting for Markdown
+highlight link markdownH1 Type
+highlight link markdownH2 Type
+highlight link markdownH3 Type
+highlight link markdownH4 Type
+highlight link markdownBold Statement
