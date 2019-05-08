@@ -105,6 +105,16 @@ match ExtraWhitespace /\s\+$/
 
 set laststatus=2
 
+" External tools {{{1
+" Grepping {{{2
+if executable("rg")
+    set grepprg=rg\ --vimgrep\ --no-heading
+    set grepformat=%f:%l:%c:%m,%f:%l:%m
+elseif executable("ag")
+    set grepprg=ag\ --nogroup\ --nocolor\ --ignore-case\ --column
+    set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
+command! -nargs=1 -bar Grep execute 'silent! grep! <q-args>' | redraw! | copen
 " Mappings {{{1
 " Leader {{{2
 let mapleader=","
@@ -198,6 +208,8 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
+" Grepping
+nnoremap \ :Grep 
 " Autocommands {{{1
 " Reload vimrc as soon as it's saved
 augroup vimrc
@@ -240,11 +252,3 @@ function! LightlineReload()
 	call lightline#colorscheme()
 	call lightline#update()
 endfunction
-" External tools {{{1
-if executable("ag")
-    set grepprg=ag\ --nogroup\ --nocolor\ --ignore-case\ --column
-    set grepformat=%f:%l:%c:%m,%f:%l:%m
-elseif executable("rg")
-    set grepprg=rg\ --vimgrep\ --hidden\ --no-heading
-    set grepformat=%f:%l:%c:%m,%f:%l:%m
-endif
