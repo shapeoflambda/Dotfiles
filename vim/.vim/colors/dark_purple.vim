@@ -98,6 +98,8 @@ highlight! link qfFileName   Statement
 " Highlighting for vim
 highlight! link vimVar       Number
 highlight! link vimOption    Number
+highlight! link helpExample  String
+highlight! link helpHyperTextEntry  Todo
 
 " Highlighting for Markdown
 highlight! link markdownH1   Type
@@ -105,3 +107,20 @@ highlight! link markdownH2   Type
 highlight! link markdownH3   Type
 highlight! link markdownH4   Type
 highlight! link markdownBold Statement
+
+
+" colors for FZF
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Number'],
+  \ 'fg+':     ['fg', 'PmenuSel'],
+  \ 'bg+':     ['bg', 'Visual'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
