@@ -10,20 +10,7 @@ endif
 
 let g:colors_name = "dark_purple"
 
-"highlight CTagsMember -- no settings --
-"highlight CTagsGlobalConstant -- no settings --
-"highlight Ignore -- no settings --
-highlight Normal guifg=#c8c8d0 guibg=#1d1d26 guisp=#1d1d26 gui=NONE ctermfg=252 ctermbg=235 cterm=NONE
-"highlight CTagsImport -- no settings --
-"highlight CTagsGlobalVariable -- no settings --
-"highlight EnumerationValue -- no settings --
-"highlight Union -- no settings --
-"highlight Question -- no settings --
-"highlight EnumerationName -- no settings --
-"highlight DefinedName -- no settings --
-"highlight LocalVariable -- no settings --
-"highlight CTagsClass -- no settings --
-"highlight clear -- no settings --
+highlight Normal         guifg=#c8c8d0 guibg=#1d1d26 guisp=#1d1d26 gui=NONE      ctermfg=252  ctermbg=235  cterm=NONE
 
 highlight Boolean        guifg=#e0947b guibg=NONE    guisp=NONE    gui=NONE      ctermfg=174  ctermbg=NONE cterm=NONE
 highlight Character      guifg=#A1A6A8 guibg=NONE    guisp=NONE    gui=NONE      ctermfg=248  ctermbg=NONE cterm=NONE
@@ -36,9 +23,9 @@ highlight CursorLine     guifg=NONE    guibg=#222E30 guisp=#222E30 gui=NONE     
 highlight Debug          guifg=#BD9800 guibg=NONE    guisp=NONE    gui=NONE      ctermfg=1    ctermbg=NONE cterm=NONE
 highlight Define         guifg=#BD9800 guibg=NONE    guisp=NONE    gui=NONE      ctermfg=1    ctermbg=NONE cterm=NONE
 highlight Delimiter      guifg=#BD9800 guibg=NONE    guisp=NONE    gui=NONE      ctermfg=1    ctermbg=NONE cterm=NONE
-highlight DiffAdd        guifg=#d0d0d9 guibg=#213d37 guisp=#1d1d26 gui=NONE      ctermfg=71   ctermbg=235  cterm=NONE
+highlight DiffAdd        guifg=#d0d0d9 guibg=#39703f guisp=#39703f gui=NONE      ctermfg=71   ctermbg=235  cterm=NONE
 highlight DiffChange     guifg=#c8c8d0 guibg=#19324a guisp=#19324a gui=NONE      ctermfg=252  ctermbg=23   cterm=NONE
-highlight DiffDelete     guifg=#933150 guibg=#45243b guisp=#45243b gui=NONE      ctermfg=167  ctermbg=235  cterm=NONE
+highlight DiffDelete     guifg=#45243b guibg=#45243b guisp=#45243b gui=NONE      ctermfg=167  ctermbg=235  cterm=NONE
 highlight DiffText       guifg=#c8c8d0 guibg=#44597f guisp=#44597f gui=bold      ctermfg=252  ctermbg=60   cterm=bold
 highlight Directory      guifg=#62a362 guibg=NONE    guisp=NONE    gui=bold      ctermfg=71   ctermbg=NONE cterm=NONE
 highlight ErrorMsg       guifg=#d2334b guibg=#1d1d26 guisp=#1d1d26 gui=NONE      ctermfg=167  ctermbg=235  cterm=NONE
@@ -72,45 +59,49 @@ highlight Special        guifg=#BD9800 guibg=NONE    guisp=NONE    gui=NONE     
 highlight SpecialChar    guifg=#BD9800 guibg=NONE    guisp=NONE    gui=NONE      ctermfg=1    ctermbg=NONE cterm=NONE
 highlight SpecialComment guifg=#BD9800 guibg=NONE    guisp=NONE    gui=NONE      ctermfg=1    ctermbg=NONE cterm=NONE
 highlight SpecialKey     guifg=#5E6C70 guibg=NONE    guisp=NONE    gui=italic    ctermfg=66   ctermbg=NONE cterm=NONE
-highlight SpellBad       guifg=#d2334b guibg=#1d1d26 guisp=#1d1d26 gui=underline ctermfg=167  ctermbg=235  cterm=underline
+highlight SpellBad       guifg=#d2334b guibg=#1d1d26 guisp=#1d1d26 gui=undercurl ctermfg=167  ctermbg=235  cterm=undercurl
 highlight SpellCap       guifg=#F9F9FF guibg=#192224 guisp=#192224 gui=underline ctermfg=189  ctermbg=235  cterm=underline
 highlight SpellLocal     guifg=#F9F9FF guibg=#192224 guisp=#192224 gui=underline ctermfg=189  ctermbg=235  cterm=underline
 highlight SpellRare      guifg=#F9F9FF guibg=#192224 guisp=#192224 gui=underline ctermfg=189  ctermbg=235  cterm=underline
 highlight Statement      guifg=#c2a15b guibg=NONE    guisp=NONE    gui=bold      ctermfg=179  ctermbg=NONE cterm=bold
-highlight StatusLine     guifg=#d0d0d9 guibg=#713a91 guisp=#713a91 gui=bold      ctermfg=253  ctermbg=97   cterm=bold
+highlight WildMenu       guifg=#d0d0d9 guibg=#713a91 guisp=#713a91 gui=bold      ctermfg=253  ctermbg=97   cterm=bold
 highlight StatusLineNC   guifg=#d0d0d9 guibg=#202340 guisp=#202340 gui=bold      ctermfg=253  ctermbg=238  cterm=bold
 highlight StorageClass   guifg=#536991 guibg=NONE    guisp=NONE    gui=bold      ctermfg=60   ctermbg=NONE cterm=bold
 highlight String         guifg=#62a362 guibg=NONE    guisp=NONE    gui=NONE      ctermfg=71   ctermbg=NONE cterm=NONE
 highlight Structure      guifg=#536991 guibg=NONE    guisp=NONE    gui=bold      ctermfg=60   ctermbg=NONE cterm=bold
-highlight TabLine        guifg=#192224 guibg=#5E6C70 guisp=#5E6C70 gui=bold      ctermfg=235  ctermbg=66   cterm=bold
-highlight TabLineFill    guifg=#192224 guibg=#2c2c3b guisp=#2c2c3b gui=bold      ctermfg=235  ctermbg=237  cterm=bold
-highlight TabLineSel     guifg=#d0d0d9 guibg=#713a91 guisp=#713a91 gui=bold      ctermfg=253  ctermbg=97   cterm=bold
 highlight Tag            guifg=#BD9800 guibg=NONE    guisp=NONE    gui=NONE      ctermfg=1    ctermbg=NONE cterm=NONE
 highlight Title          guifg=#F9F9FF guibg=#192224 guisp=#192224 gui=bold      ctermfg=189  ctermbg=235  cterm=bold
 highlight Todo           guifg=#c3a45b guibg=#1d1d26 guisp=#1d1d26 gui=NONE      ctermfg=179  ctermbg=235  cterm=NONE
 highlight Type           guifg=#8899e3 guibg=NONE    guisp=NONE    gui=bold      ctermfg=104  ctermbg=NONE cterm=bold
 highlight Typedef        guifg=#536991 guibg=NONE    guisp=NONE    gui=bold      ctermfg=60   ctermbg=NONE cterm=bold
-highlight Underlined     guifg=#F9F9FF guibg=#192224 guisp=#192224 gui=underline ctermfg=189  ctermbg=235  cterm=underline
+highlight Underlined     guifg=#575566 guibg=NONE    guisp=NONE    gui=underline ctermfg=189  ctermbg=235  cterm=underline
 highlight VertSplit      guifg=#252431 guibg=#252431 guisp=#252431 gui=bold      ctermfg=236  ctermbg=236  cterm=bold
-highlight Visual         guifg=NONE    guibg=#19324a guisp=#19324a gui=NONE      ctermfg=NONE ctermbg=23   cterm=NONE
+highlight Visual         guifg=NONE    guibg=#214283 guisp=#214283 gui=NONE      ctermfg=NONE ctermbg=23   cterm=NONE
 highlight VisualNOS      guifg=#192224 guibg=#F9F9FF guisp=#F9F9FF gui=underline ctermfg=235  ctermbg=189  cterm=underline
-highlight WarningMsg     guifg=#A1A6A8 guibg=#912C00 guisp=#912C00 gui=NONE      ctermfg=248  ctermbg=88   cterm=NONE
-highlight WildMenu       guifg=#E2E4E5 guibg=#44597F guisp=#44597F GUI=bold      ctermfg=NONE ctermbg=218  cterm=bold
 highlight cursorim       guifg=#192224 guibg=#536991 guisp=#536991 gui=NONE      ctermfg=235  ctermbg=60   cterm=NONE
 
-highlight link Error     ErrorMsg
-highlight link Exception ErrorMsg
+highlight! link Error        ErrorMsg
+highlight! link Exception    ErrorMsg
 
-highlight link qfLineNr Number
-highlight link qfFileName Statement
+highlight! link StatusLine   Normal
+highlight! link WildMenu     PmenuSel
+highlight! link CursorLineNr Normal
+highlight! link MatchParen   Search
+highlight! link TabLine      PmenuSbar
+highlight! link TabLineFill  PmenuSbar
+highlight! link TabLineSel   PmenuSel
+highlight! link WarningMsg   Todo
+
+highlight! link qfLineNr     Number
+highlight! link qfFileName   Statement
 
 " Highlighting for vim
-highlight link vimVar Number
-highlight link vimOption Number
+highlight! link vimVar       Number
+highlight! link vimOption    Number
 
 " Highlighting for Markdown
-highlight link markdownH1 Type
-highlight link markdownH2 Type
-highlight link markdownH3 Type
-highlight link markdownH4 Type
-highlight link markdownBold Statement
+highlight! link markdownH1   Type
+highlight! link markdownH2   Type
+highlight! link markdownH3   Type
+highlight! link markdownH4   Type
+highlight! link markdownBold Statement
