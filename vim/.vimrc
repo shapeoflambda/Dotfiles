@@ -137,6 +137,11 @@ nnoremap <leader>s :Snippets<cr>
 " Find all (m)appings
 nnoremap <leader>m :Maps<cr>
 
+" Use Rg for grepping
+if executable('rg')
+  nnoremap <leader>rg :Rg<cr>
+endif
+
 " }}}
 " Cycle through stuff {{{2
 " Cycle through argument list
@@ -200,6 +205,14 @@ augroup vimrc
   autocmd! BufwritePost .vimrc source $MYVIMRC | call LightlineReload()
 augroup END
 
+" Open quickfix list as soon as messages are posted
+" Useful when performing grep, make, etc.
+augroup qfList
+    autocmd!
+    autocmd QuickFixCmdPost [^l]* cwindow
+    autocmd QuickFixCmdPost l*    lwindow
+augroup END
+
 " Plugin Settings {{{1
 " Ultisnip Settings {{{2
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -208,7 +221,7 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " Lightline Settings {{{2
 let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
+      \ 'colorscheme': 'one',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             ['readonly', 'filename', 'modified' ] ],
@@ -227,3 +240,11 @@ function! LightlineReload()
 	call lightline#colorscheme()
 	call lightline#update()
 endfunction
+" External tools {{{1
+if executable("ag")
+    set grepprg=ag\ --nogroup\ --nocolor\ --ignore-case\ --column
+    set grepformat=%f:%l:%c:%m,%f:%l:%m
+elseif executable("rg")
+    set grepprg=rg\ --vimgrep\ --hidden\ --no-heading
+    set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
