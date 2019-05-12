@@ -228,9 +228,3 @@ let g:lightline = {
       \   'gitbranch': 'fugitive#head'
       \ },
       \ }
-
-function! LightlineReload()
-	call lightline#init()
-	call lightline#colorscheme()
-	call lightline#update()
-endfunction
