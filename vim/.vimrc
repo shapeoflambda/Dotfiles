@@ -215,7 +215,7 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " Lightline Settings {{{2
 let g:lightline = {
-      \ 'colorscheme': 'PaperColor_light',
+      \ 'colorscheme': 'one',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             ['readonly', 'filename', 'modified' ] ],
