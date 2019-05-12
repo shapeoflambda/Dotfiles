@@ -41,8 +41,7 @@ hi DiffChange     guifg=NONE    guibg=#e7edfb guisp=#e7edfb gui=NONE      ctermf
 hi DiffDelete     guifg=#d6d6d6 guibg=#d6d6d6 guisp=#d6d6d6 gui=NONE      ctermfg=188  ctermbg=188  cterm=NONE
 hi DiffText       guifg=NONE    guibg=#bee6be guisp=#bee6be gui=NONE      ctermfg=NONE ctermbg=151  cterm=NONE
 hi Directory      guifg=#536991 guibg=NONE    guisp=NONE    gui=bold      ctermfg=60   ctermbg=NONE cterm=bold
-hi Error          guifg=#A1A6A8 guibg=#912C00 guisp=#912C00 gui=NONE      ctermfg=248  ctermbg=88   cterm=NONE
-hi ErrorMsg       guifg=#eef0f4 guibg=#e1788a guisp=#e1788a gui=NONE      ctermfg=248  ctermbg=88   cterm=NONE
+hi ErrorMsg       guifg=NONE    guibg=#e1788a guisp=#e1788a gui=NONE      ctermfg=248  ctermbg=88   cterm=NONE
 hi Float          guifg=#A1A6A8 guibg=NONE    guisp=NONE    gui=NONE      ctermfg=248  ctermbg=NONE cterm=NONE
 hi Folded         guifg=#192224 guibg=#A1A6A8 guisp=#A1A6A8 gui=italic    ctermfg=235  ctermbg=248  cterm=NONE
 hi Function       guifg=#7e64c2 guibg=NONE    guisp=NONE    gui=bold      ctermfg=97   ctermbg=NONE cterm=bold
