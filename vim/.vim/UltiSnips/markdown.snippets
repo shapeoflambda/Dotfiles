@@ -1,12 +1,23 @@
-snippet table2 "inserts a two column table"
-
+############
+#  Tables  #
+############
+snippet tbl2 "inserts a two column table"
 | ${1:Heading 1}      | ${2:Heading 2}      |
 | -------------- | -------------- |
 | ${3:cell value}     | ${4:cell value}     |
 $0
-
 endsnippet
 
+snippet tbl3 "inserts a three column table"
+| ${1:Heading 1}      | ${2:Heading 2}      |      ${3:Heading 3}      |
+| -------------- | -------------- |      -------------- |
+| ${4:cell value}     | ${5:cell value}     |      ${6:cell value}     |
+$0
+endsnippet
+
+##############
+#  Metadata  #
+##############
 snippet md "Meta information"
 ---
 Title: ${1:"Title of the document"}
@@ -14,4 +25,27 @@ Author: ${2:Harish Chandran}
 Date: `date`
 tags: ${3:tag1}
 ---
+endsnippet
+
+##############
+#  Headings  #
+##############
+snippet h1 "#"
+# ${1:Heading}
+endsnippet
+
+snippet h2 "#"
+## ${1:Heading}
+endsnippet
+
+snippet h3 "#"
+### ${1:Heading}
+endsnippet
+
+snippet h4 "#"
+#### ${1:Heading}
+endsnippet
+
+snippet h5 "#"
+##### ${1:Heading}
 endsnippet
