@@ -105,16 +105,6 @@ match ExtraWhitespace /\s\+$/
 
 set laststatus=2
 
-" External tools {{{1
-" Grepping {{{2
-if executable("rg")
-    set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case\ --hidden
-    set grepformat=%f:%l:%c:%m,%f:%l:%m
-elseif executable("ag")
-    set grepprg=ag\ --nogroup\ --nocolor\ --ignore-case\ --column
-    set grepformat=%f:%l:%c:%m,%f:%l:%m
-endif
-command! -nargs=+ -complete=file_in_path -bar Grep cgetexpr system(&grepprg . ' ' . shellescape(<q-args>))
 " Mappings {{{1
 " Leader {{{2
 let mapleader=","
@@ -190,8 +180,6 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-" Grepping
-nnoremap \ :Grep 
 " Autocommands {{{1
 " Reload vimrc as soon as it's saved
 augroup vimrc
