@@ -153,24 +153,6 @@ if executable('rg')
 endif
 
 " }}}
-" Cycle through stuff {{{2
-" Cycle through argument list
-nnoremap [a :previous<CR>
-nnoremap ]a :next<CR>
-
-" Cycle through buffers
-nnoremap [b :bprevious<CR>
-nnoremap ]b :bnext<CR>
-
-" Cycle through quicklist/:helpgrep items
-nnoremap [q :cprevious<CR>
-nnoremap ]q :cnext<CR>
-
-" Cycle through location list items
-nnoremap [l :lprevious<CR>
-nnoremap ]l :lnext<CR>
-nnoremap ]l :lnext<CR>
-
 " Git {{{2
 nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>gs :Gstatus<cr>
