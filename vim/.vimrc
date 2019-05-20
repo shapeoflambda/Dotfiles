@@ -71,6 +71,7 @@ silent! set wildignorecase             " Case insensitive, if supported
 set hidden
 set autoread
 set showcmd
+set noshowmode
 
 " Add completion options
 if exists('+completeopt')
