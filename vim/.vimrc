@@ -25,6 +25,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/vim-easy-align'
+Plug 'AndrewRadev/switch.vim'
 
 " Fuzzy find, everything! {{{2
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
