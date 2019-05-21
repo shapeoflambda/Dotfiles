@@ -70,7 +70,6 @@ hi Special        guifg=#438b3a guibg=NONE    guisp=NONE    gui=NONE      ctermf
 hi SpecialChar    guifg=#BD9800 guibg=NONE    guisp=NONE    gui=NONE      ctermfg=1    ctermbg=NONE cterm=NONE
 hi SpecialComment guifg=#BD9800 guibg=NONE    guisp=NONE    gui=NONE      ctermfg=1    ctermbg=NONE cterm=NONE
 hi SpecialKey     guifg=#5E6C70 guibg=NONE    guisp=NONE    gui=italic    ctermfg=66   ctermbg=NONE cterm=NONE
-hi SpellBad       guifg=#F9F9FF guibg=#192224 guisp=#192224 gui=underline ctermfg=189  ctermbg=235  cterm=underline
 hi SpellCap       guifg=#F9F9FF guibg=#192224 guisp=#192224 gui=underline ctermfg=189  ctermbg=235  cterm=underline
 hi SpellLocal     guifg=#F9F9FF guibg=#192224 guisp=#192224 gui=underline ctermfg=189  ctermbg=235  cterm=underline
 hi SpellRare      guifg=#F9F9FF guibg=#192224 guisp=#192224 gui=underline ctermfg=189  ctermbg=235  cterm=underline
@@ -98,6 +97,7 @@ hi cursorim       guifg=#192224 guibg=#536991 guisp=#536991 gui=NONE      ctermf
 
 highlight! link Error              ErrorMsg
 highlight! link Exception          ErrorMsg
+highlight! link SpellBad           ErrorMsg
 
 highlight! link StatusLine         Normal
 highlight! link CursorLineNr       Normal

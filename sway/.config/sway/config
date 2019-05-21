@@ -80,6 +80,7 @@ bindsym $mod+Alt+l exec 'swaylock'
     # start your launcher
     # bindsym $mod+d exec $menu
     bindsym $mod+d exec rofi -show drun -config ~/.config/rofi/config.rasi
+    bindsym $mod+Space exec rofi -show drun -config ~/.config/rofi/config.rasi
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -263,9 +264,22 @@ exec mako
 
 # Assign specific workspaces for specific applications
 assign [class="Firefox"] workspace 2
+assign [title="Firefox Nightly"] workspace 2
 assign [title="Google Chrome"] workspace 3
-assign [title="Alacritty"] workspace 1 floating enable
+assign [title="Alacritty"] workspace 5
 assign [class="Code"] workspace 4
 assign [class="qBittorrent"] workspace 6
+assign [class="vlc"] workspace 10
+
+# Prevent locking the screen when using full screen applications
+for_window [class="Firefox"] inhibit_idle fullscreen
+for_window [title="Firefox Nightly"] inhibit_idle fullscreen
+for_window [title="Google Chrome"] inhibit_idle fullscreen
+for_window [class="vlc"] inhibit_idle open
+
+for_window [title="Alacritty"] floating enable; opacity 0.95
 
 include /etc/sway/config.d/*
+
+# Transparency for terminal
+for_window [class="st"] opacity 0.95

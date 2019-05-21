@@ -43,8 +43,9 @@ Plug 'honza/vim-snippets'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'itchyny/lightline.vim'
 
-" Language Plugins {{{1
+" Autocompletion & Language Plugins {{{1
 Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
 
 call plug#end()
 
@@ -205,7 +206,7 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " Lightline Settings {{{2
 let g:lightline = {
-      \ 'colorscheme': 'one',
+      \ 'colorscheme': 'wombat',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             ['readonly', 'filename', 'modified' ] ],

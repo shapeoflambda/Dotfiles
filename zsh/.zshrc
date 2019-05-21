@@ -12,3 +12,5 @@ do
 done
 
 eval $(thefuck --alias jesus)
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
