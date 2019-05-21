@@ -15,6 +15,8 @@ alias ~='cd ~'
 alias /='cd /'
 alias cdgo='cd ~/go/src/'
 
+alias mkdirs='mkdir -p'
+
 # vim habbits
 alias :q=exit
 alias :wq=exit
