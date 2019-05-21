@@ -2,7 +2,7 @@ source ~/.zplugin/bin/zplugin.zsh
 
 export PATH=$PATH:$(go env GOPATH)/bin
 
-declare -a zshFiles=("plugins" "aliases" "configurations" "work")
+declare -a zshFiles=("plugins" "aliases" "functions" "configurations" "work")
 
 for fileName in "${zshFiles[@]}"
 do
