@@ -12,7 +12,7 @@ let g:colors_name = "dark_purple"
 
 highlight Normal         guifg=#c8c8d0 guibg=#1d1d26 guisp=#1d1d26 gui=NONE      ctermfg=252  ctermbg=235  cterm=NONE
 
-highlight Boolean        guifg=#e0947b guibg=NONE    guisp=NONE    gui=NONE      ctermfg=174  ctermbg=NONE cterm=NONE
+highlight Boolean        guifg=#6789e4 guibg=NONE    guisp=NONE    gui=NONE      ctermfg=174  ctermbg=NONE cterm=NONE
 highlight Character      guifg=#A1A6A8 guibg=NONE    guisp=NONE    gui=NONE      ctermfg=248  ctermbg=NONE cterm=NONE
 highlight Comment        guifg=#575566 guibg=NONE    guisp=NONE    gui=italic    ctermfg=241  ctermbg=NONE cterm=NONE
 highlight Conditional    guifg=#e0947b guibg=NONE    guisp=NONE    gui=NONE      ctermfg=1    ctermbg=NONE cterm=NONE
