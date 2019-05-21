@@ -45,7 +45,6 @@ Plug 'itchyny/lightline.vim'
 
 " Autocompletion & Language Plugins {{{1
 Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
 
 call plug#end()
 
@@ -203,6 +202,7 @@ augroup END
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips']
 
 " Lightline Settings {{{2
 let g:lightline = {
