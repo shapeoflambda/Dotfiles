@@ -28,3 +28,5 @@ alias -s {html,htm}=xdg-open
 # Number videos when downloading playlist using youtube-dl
 # Ref: https://askubuntu.com/questions/694848/how-to-download-a-youtube-playlist-with-numbered-prefix-via-youtube-dl
 alias youtube-dl-playlist=youtube-dl -o "%(playlist_index)s-%(title)s.%(ext)s"
+
+eval $(thefuck --alias f)
