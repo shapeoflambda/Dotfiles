@@ -29,3 +29,7 @@ endif
 
 " Disable opening of the scratch buffer during completion
 setlocal completeopt-=preview
+
+" (l)anguae mappings
+nnoremap <leader>lr :GoRun
+nnoremap <leader>ll :GoLint<cr>
