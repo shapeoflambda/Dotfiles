@@ -187,6 +187,7 @@ nmap ga <Plug>(EasyAlign)
 augroup vimrc
   autocmd!
   autocmd! BufwritePost .vimrc source $MYVIMRC | call LightlineReload()
+  autocmd! BufwritePost *.vim source $MYVIMRC | call LightlineReload()
 augroup END
 
 " Open quickfix list as soon as messages are posted
@@ -206,13 +207,12 @@ let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips']
 
 " Lightline Settings {{{2
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
+      \ 'colorscheme': 'dark_purple',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             ['readonly', 'filename', 'modified' ] ],
       \   'right': [ [ 'lineinfo' ],
       \              [ 'filetype' ],
-      \              [  'fileencoding' ],
       \              [ 'gitbranch'] ]
       \ },
       \ 'component_function': {
