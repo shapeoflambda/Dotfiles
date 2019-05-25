@@ -23,10 +23,10 @@ highlight CursorLine     guifg=NONE    guibg=#222E30 guisp=#222E30 gui=NONE     
 highlight Debug          guifg=#e0947b guibg=NONE    guisp=NONE    gui=NONE      ctermfg=1    ctermbg=NONE cterm=NONE
 highlight Define         guifg=#e0947b guibg=NONE    guisp=NONE    gui=NONE      ctermfg=1    ctermbg=NONE cterm=NONE
 highlight Delimiter      guifg=#e0947b guibg=NONE    guisp=NONE    gui=NONE      ctermfg=1    ctermbg=NONE cterm=NONE
-highlight DiffAdd        guifg=#d0d0d9 guibg=#39703f guisp=#39703f gui=NONE      ctermfg=71   ctermbg=235  cterm=NONE
-highlight DiffChange     guifg=#c8c8d0 guibg=#19324a guisp=#19324a gui=NONE      ctermfg=252  ctermbg=23   cterm=NONE
-highlight DiffDelete     guifg=#45243b guibg=#45243b guisp=#45243b gui=NONE      ctermfg=167  ctermbg=235  cterm=NONE
-highlight DiffText       guifg=#c8c8d0 guibg=#44597f guisp=#44597f gui=bold      ctermfg=252  ctermbg=60   cterm=bold
+highlight DiffAdd        guifg=NONE    guibg=#1e4723 guisp=#39703f gui=NONE      ctermfg=71   ctermbg=235  cterm=NONE
+highlight DiffChange     guifg=NONE    guibg=#19324a guisp=#19324a gui=NONE      ctermfg=252  ctermbg=23   cterm=NONE
+highlight DiffDelete     guifg=#474755 guibg=#474755 guisp=#474755 gui=NONE      ctermfg=167  ctermbg=235  cterm=NONE
+highlight DiffText       guifg=#c8c8d0 guibg=#005384 guisp=NONE    gui=NONE      ctermfg=252  ctermbg=60   cterm=NONE
 highlight Directory      guifg=#62a362 guibg=NONE    guisp=NONE    gui=bold      ctermfg=71   ctermbg=NONE cterm=NONE
 highlight ErrorMsg       guifg=#d2334b guibg=#1d1d26 guisp=#1d1d26 gui=NONE      ctermfg=167  ctermbg=235  cterm=NONE
 highlight Float          guifg=#A1A6A8 guibg=NONE    guisp=NONE    gui=NONE      ctermfg=248  ctermbg=NONE cterm=NONE
@@ -108,6 +108,8 @@ highlight! link markdownH3   Type
 highlight! link markdownH4   Type
 highlight! link markdownBold Statement
 
+highlight! link ExtraWhitespace DiffDelete
+match ExtraWhitespace /\s\+$/
 
 " colors for FZF
 let g:fzf_colors =
