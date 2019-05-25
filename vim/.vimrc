@@ -101,9 +101,6 @@ set diffopt+=vertical,filler,algorithm:patience
 syntax enable
 set termguicolors
 
-" Use dark theme as default. This can be toggled using <leader>tc
-call DarkTheme()
-
 " Always show lightline
 set laststatus=2
 

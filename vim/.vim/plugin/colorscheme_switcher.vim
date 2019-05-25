@@ -66,3 +66,5 @@ endfunction
 
 " Mappings to (t)oggle (c)olor schemes
 nnoremap <silent> <leader>tc :ToggleColorScheme<cr>
+
+call DarkTheme()
