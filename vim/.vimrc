@@ -42,6 +42,7 @@ Plug 'honza/vim-snippets'
 " Look & feel {{{2
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'itchyny/lightline.vim'
+Plug 'lifepillar/vim-solarized8'
 
 " Autocompletion & Language Plugins {{{1
 Plug 'fatih/vim-go', { 'for': 'go' }
@@ -99,12 +100,11 @@ set diffopt+=vertical,filler,algorithm:patience
 " Look & Feel {{{1
 syntax enable
 set termguicolors
-set background=dark
-colorscheme dark_purple
 
-highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
+" Use dark theme as default. This can be toggled using <leader>tc
+call DarkTheme()
 
+" Always show lightline
 set laststatus=2
 
 " Mappings {{{1
@@ -205,17 +205,3 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/UltiSnips']
 
-" Lightline Settings {{{2
-let g:lightline = {
-      \ 'colorscheme': 'dark_purple',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             ['readonly', 'filename', 'modified' ] ],
-      \   'right': [ [ 'lineinfo' ],
-      \              [ 'filetype' ],
-      \              [ 'gitbranch'] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
-      \ },
-      \ }
