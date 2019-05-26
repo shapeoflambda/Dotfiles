@@ -28,7 +28,7 @@ highlight DiffChange     guifg=NONE    guibg=#19324a guisp=#19324a gui=NONE     
 highlight DiffDelete     guifg=#474755 guibg=#474755 guisp=#474755 gui=NONE      ctermfg=167  ctermbg=235  cterm=NONE
 highlight DiffText       guifg=#c8c8d0 guibg=#005384 guisp=NONE    gui=NONE      ctermfg=252  ctermbg=60   cterm=NONE
 highlight Directory      guifg=#62a362 guibg=NONE    guisp=NONE    gui=bold      ctermfg=71   ctermbg=NONE cterm=NONE
-highlight ErrorMsg       guifg=#d2334b guibg=#1d1d26 guisp=#1d1d26 gui=NONE      ctermfg=167  ctermbg=235  cterm=NONE
+highlight ErrorMsg       guifg=#ff1f66 guibg=#1d1d26 guisp=#1d1d26 gui=NONE      ctermfg=167  ctermbg=235  cterm=NONE
 highlight Float          guifg=#A1A6A8 guibg=NONE    guisp=NONE    gui=NONE      ctermfg=248  ctermbg=NONE cterm=NONE
 highlight FoldColumn     guifg=#c8c8d0 guibg=#1d1d26 guisp=#1d1d26 gui=NONE      ctermfg=252  ctermbg=235  cterm=NONE
 highlight Folded         guifg=#cfcfcc guibg=#2c2c3b guisp=#2c2c3b gui=NONE      ctermfg=187  ctermbg=237  cterm=NONE
@@ -54,12 +54,11 @@ highlight PreCondit      guifg=#e78b6f guibg=NONE    guisp=NONE    gui=NONE     
 highlight PreProc        guifg=#e78b6f guibg=NONE    guisp=NONE    gui=NONE      ctermfg=1    ctermbg=NONE cterm=NONE
 highlight Repeat         guifg=#e78b6f guibg=NONE    guisp=NONE    gui=bold      ctermfg=1    ctermbg=NONE cterm=bold
 highlight Search         guifg=#c8c8d0 guibg=#6b388f guisp=#44597f gui=NONE      ctermfg=252  ctermbg=60   cterm=NONE
-highlight SignColumn     guifg=#192224 guibg=#8899e3 guisp=#8899e3 gui=NONE      ctermfg=235  ctermbg=60   cterm=NONE
 highlight Special        guifg=#e78b6f guibg=NONE    guisp=NONE    gui=NONE      ctermfg=1    ctermbg=NONE cterm=NONE
 highlight SpecialChar    guifg=#e78b6f guibg=NONE    guisp=NONE    gui=NONE      ctermfg=1    ctermbg=NONE cterm=NONE
 highlight SpecialComment guifg=#e78b6f guibg=NONE    guisp=NONE    gui=NONE      ctermfg=1    ctermbg=NONE cterm=NONE
 highlight SpecialKey     guifg=#5E6C70 guibg=NONE    guisp=NONE    gui=italic    ctermfg=66   ctermbg=NONE cterm=NONE
-highlight SpellBad       guifg=#d2334b guibg=#1d1d26 guisp=#1d1d26 gui=undercurl ctermfg=167  ctermbg=235  cterm=undercurl
+highlight SpellBad       guifg=#ff1f66 guibg=#1d1d26 guisp=#1d1d26 gui=undercurl ctermfg=167  ctermbg=235  cterm=undercurl
 highlight SpellCap       guifg=#F9F9FF guibg=#192224 guisp=#192224 gui=underline ctermfg=189  ctermbg=235  cterm=underline
 highlight SpellLocal     guifg=#F9F9FF guibg=#192224 guisp=#192224 gui=underline ctermfg=189  ctermbg=235  cterm=underline
 highlight SpellRare      guifg=#F9F9FF guibg=#192224 guisp=#192224 gui=underline ctermfg=189  ctermbg=235  cterm=underline
@@ -90,10 +89,10 @@ highlight! link MatchParen   Search
 highlight! link TabLine      PmenuSbar
 highlight! link TabLineFill  PmenuSbar
 highlight! link TabLineSel   PmenuSel
-highlight! link WarningMsg   Todo
 
-highlight! link qfLineNr     Number
-highlight! link qfFileName   Statement
+highlight! link qfLineNr   Number
+highlight! link qfFileName Statement
+highlight! link SignColumn LineNr
 
 " Highlighting for vim
 highlight! link vimVar       Number
@@ -111,7 +110,9 @@ highlight! link markdownBold Statement
 highlight! link ExtraWhitespace DiffDelete
 match ExtraWhitespace /\s\+$/
 
-" colors for FZF
+highlight! link GitGutterAdd String
+highlight! link GitGutterDeleteDefault ErrorMsg
+
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],

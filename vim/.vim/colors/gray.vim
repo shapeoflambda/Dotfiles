@@ -112,6 +112,7 @@ highlight! link qfFileName         Statement
 highlight! link Search             DiffAdd
 highlight! link ModeMsg            Normal
 highlight! link FoldColumn         Normal
+highlight! link SignColumn         Normal
 
 " Highlighting for vim
 highlight! link vimVar             Number
@@ -129,3 +130,5 @@ highlight! link markdownBold       Statement
 " Highlighting for Extraspace
 highlight! link ExtraWhitespace DiffDelete
 match ExtraWhitespace /\s\+$/
+
+highlight! link GitGutterAdd String
