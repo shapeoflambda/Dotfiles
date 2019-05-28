@@ -1,11 +1,22 @@
 setlocal nonumber norelativenumber
 
+""""""""""""""""""""""
+"  Spelling options  "
+""""""""""""""""""""""
 setlocal spelllang=en_us
 setlocal spell
-
 setlocal complete+=kspell
 
-" Folding based on heading levels. Source: https://gist.github.com/anonymous/4149842
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"  Folding
+"  Folding based on heading levels. Source: https://gist.github.com/anonymous/4149842  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! MarkdownFoldText()
+  let foldsize = (v:foldend-v:foldstart)
+  return getline(v:foldstart).' ('.foldsize.' lines)'
+endfunction
+setlocal foldtext=MarkdownFoldText()
+
 function! MarkdownFolds()
   let thisline = getline(v:lnum)
   if match(thisline, '^##') >= 0
@@ -20,8 +31,8 @@ endfunction
 setlocal foldmethod=expr
 setlocal foldexpr=MarkdownFolds()
 
-function! MarkdownFoldText()
-  let foldsize = (v:foldend-v:foldstart)
-  return getline(v:foldstart).' ('.foldsize.' lines)'
-endfunction
-setlocal foldtext=MarkdownFoldText()
+""""""""""""""""""""
+"  Format options  "
+""""""""""""""""""""
+set comments+=n:#
+nnoremap <leader>aa mmggVGgw`m
