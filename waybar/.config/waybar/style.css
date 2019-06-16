@@ -1,8 +1,9 @@
 * {
     border: none;
     border-radius: 0;
-    font-family: 'Product Sans';
+    font-family: 'SF Mono';
     font-size: 16px;
+    padding: 0px 3px 0px 0px;
     min-height: 0;
 }
 

@@ -5,14 +5,16 @@
     "sway/mode"
   ],
   "modules-center": [
-    "sway/window"
   ],
   "modules-right": [
+    "custom/spotify",
     "tray",
+    "idle_inhibitor",
     "pulseaudio",
     "network",
     "battery",
-    "clock"
+    "clock",
+    "custom/power"
   ],
   "sway/window": {
     "max-length": 50
@@ -79,5 +81,24 @@
       "",
       ""
     ]
+  },
+  "custom/power": {
+    "format": "",
+    "exec": "$HOME/.config/waybar/dummy 2> /dev/null",
+    "on-click": "~/.bin/scripts/power"
+  },
+  "custom/spotify": {
+    "format": "{}",
+    "max-length": 40,
+    "interval": 10,
+    "exec": "$HOME/.config/waybar/mediaplayer 2> /dev/null",
+    "exec-if": "pgrep spotify"
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    }
   }
 }

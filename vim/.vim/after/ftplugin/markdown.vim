@@ -25,3 +25,7 @@ function! MarkdownFoldText()
   return getline(v:foldstart).' ('.foldsize.' lines)'
 endfunction
 setlocal foldtext=MarkdownFoldText()
+
+" Mappings for bold and italics
+xmap silent <leader>b <Tab>**<Tab><Tab>
+xmap silent <leader>i <Tab>*<Tab><Tab>
