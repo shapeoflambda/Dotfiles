@@ -14,8 +14,14 @@ if executable('javac')
   autocmd QuickFixCmdPost * copen
 endif
 
-
 " Code formatting {{{1
 if executable('google-java-format')
   setlocal formatprg=google-java-format\ -a\ %
+endif
+
+" format on save by default
+let g:java_format_on_save=1
+
+if g:java_format_on_save
+  autocmd BufWritePost * exec "normal gggqG"
 endif
