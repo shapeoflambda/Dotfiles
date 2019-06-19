@@ -1,5 +1,3 @@
-setlocal nonumber norelativenumber
-
 """"""""""""""""""""""
 "  Spelling options  "
 """"""""""""""""""""""
@@ -35,13 +33,17 @@ setlocal foldexpr=MarkdownFolds()
 "  Format options  "
 """"""""""""""""""""
 set comments+=n:#
-nnoremap <leader>aa mmggVGgw`m
-function! MarkdownFoldText()
-  let foldsize = (v:foldend-v:foldstart)
-  return getline(v:foldstart).' ('.foldsize.' lines)'
-endfunction
-setlocal foldtext=MarkdownFoldText()
+nnoremap <leader>aa mmggVGgw`mzz
 
-" Mappings for bold and italics
-xmap silent <leader>b <Tab>**<Tab><Tab>
-xmap silent <leader>i <Tab>*<Tab><Tab>
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+"  Shortcut for opening & previewing current file  "
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+if has("unix")
+  echom("something")
+  let s:uname = system("uname -s")
+  if s:uname == "Darwin\n"
+    nnoremap <leader>o :!open % -b com.google.Chrome<cr>
+    echom "has mac"
+  endif
+endif
+

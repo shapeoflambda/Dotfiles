@@ -42,11 +42,14 @@ Plug 'honza/vim-snippets'
 
 " Look & feel {{{2
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'gruvbox-community/gruvbox'
 Plug 'itchyny/lightline.vim'
 Plug 'lifepillar/vim-solarized8'
 
-" Autocompletion & Language Plugins {{{1
+" Autocompletion & Language Plugins {{{2
 Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+
 
 call plug#end()
 
@@ -206,3 +209,10 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:gitgutter_sign_added = '>>'
 let g:gitgutter_sign_modified = '>>'
 let g:gitgutter_sign_removed = '--'
+
+" Vim Wiki Settings {{{2
+" For disabling insert mode tab mappings
+let g:vimwiki_table_mappings=0
+
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]

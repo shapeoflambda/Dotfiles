@@ -1,5 +1,6 @@
 vim/.vim/undodir
 vim/.vim/plugged
 vim/.vim/autoload/plug.vim
+vim/.vim/spell/
 zsh/.zsh/work.zsh
 *.netrwhist

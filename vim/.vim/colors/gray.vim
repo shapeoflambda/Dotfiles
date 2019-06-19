@@ -126,6 +126,7 @@ highlight! link markdownH2         Type
 highlight! link markdownH3         Type
 highlight! link markdownH4         Type
 highlight! link markdownBold       Statement
+highlight! link markdownLinkText Number
 
 " Highlighting for Extraspace
 highlight! link ExtraWhitespace DiffDelete

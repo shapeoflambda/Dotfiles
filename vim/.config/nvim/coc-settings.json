@@ -1,4 +1,4 @@
-{ 
+{
   "languageserver": {
     "golang": {
       "command": "go-langserver",
