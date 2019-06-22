@@ -231,7 +231,7 @@ exec_always import-gsettings \
 ###
 ### Print screen
 ###
-bindsym print exec --no-startup-id slurp | grim -g - $(xdg-user-dir PICTURES)/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')
+bindsym print exec --no-startup-id slurp | grim -g - '/home/harish/Pictures'/$(date +'screenshot_%Y-%m-%d-%H%M%S.png')
 
 ###
 ### Screen Brightness
@@ -277,7 +277,7 @@ for_window [title="Firefox Nightly"] inhibit_idle fullscreen
 for_window [title="Google Chrome"] inhibit_idle fullscreen
 for_window [class="vlc"] inhibit_idle open
 
-for_window [title="Alacritty"] floating enable; opacity 0.95
+for_window [title="Alacritty"] floating enable;
 
 include /etc/sway/config.d/*
 
