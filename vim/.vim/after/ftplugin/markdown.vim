@@ -27,7 +27,7 @@ endfunction
 " Mapping to toggle status of TODO item
 nnoremap <buffer> <silent> <space>  :call winrestview(<SID>toggle('^\s*\*\s*\[\zs.\ze\]', {' ': '.', '.': 'x', 'x': ' '}))<cr>
 
-function s:toggle(pattern, dict, ...)
+function! s:toggle(pattern, dict, ...)
   let view = winsaveview()
   execute 'keeppatterns s/' . a:pattern . '/\=get(a:dict, submatch(0), a:0 ? a:1 : " ")/e'
   return view
