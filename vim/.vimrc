@@ -173,8 +173,8 @@ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 xnoremap <C-c> "+y
 
 " Stop (h)ighighting
-nnoremap <leader>h :nohl<cr>
-nnoremap <leader><cr> :nohl<cr>
+nnoremap <silent> <leader>h :nohl<cr>
+nnoremap <silent> <leader><cr> :nohl<cr>
 
 " Strip (a)ll trailing white (s)paces
 nnoremap <silent> <leader>as :call StripTrailingWhitespace()<cr>
