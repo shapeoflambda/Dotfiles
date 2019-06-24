@@ -46,5 +46,19 @@ if has("unix")
   endif
 endif
 
+" Jump to the next and previous headings using ']]' and '[[' respectively
+let s:headersRegexp = '\v^(#|.+\n(\=+|-+)$)'
+function! MoveToNextHeader()
+  if search(s:headersRegexp, 'W') == 0
+    echo 'no next header'
+  endif
+endfunction
+
+function! MoveToPreviousHeader()
+  if search(s:headersRegexp, 'b') == 0
+    echo 'no previous header'
+  endif
+endfunction
+
 nnoremap <buffer> <silent> ]] :call MoveToNextHeader()<cr>
 nnoremap <buffer> <silent> [[ :call MoveToPreviousHeader()<cr>
