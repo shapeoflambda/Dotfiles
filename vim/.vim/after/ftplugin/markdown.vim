@@ -6,7 +6,6 @@ setlocal spell
 setlocal complete+=kspell
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"  Folding
 "  Folding based on heading levels. Source: https://gist.github.com/anonymous/4149842  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! MarkdownFoldText()
@@ -47,3 +46,5 @@ if has("unix")
   endif
 endif
 
+nnoremap <buffer> <silent> ]] :call MoveToNextHeader()<cr>
+nnoremap <buffer> <silent> [[ :call MoveToPreviousHeader()<cr>

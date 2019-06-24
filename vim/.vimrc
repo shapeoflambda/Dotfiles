@@ -42,14 +42,22 @@ Plug 'honza/vim-snippets'
 
 " Look & feel {{{2
 Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'gruvbox-community/gruvbox'
 Plug 'itchyny/lightline.vim'
 Plug 'lifepillar/vim-solarized8'
 
 " Autocompletion & Language Plugins {{{2
+" Golang {{{3
 Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
 
+
+" Coc with and extensions {{{2
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Extensions
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-emmet', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
 
 call plug#end()
 
@@ -166,8 +174,8 @@ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 xnoremap <C-c> "+y
 
 " Stop (h)ighighting
-nnoremap <leader>h :nohl<cr>
-nnoremap <leader><cr> :nohl<cr>
+nnoremap <silent> <leader>h :nohl<cr>
+nnoremap <silent> <leader><cr> :nohl<cr>
 
 " Strip (a)ll trailing white (s)paces
 nnoremap <silent> <leader>as :call StripTrailingWhitespace()<cr>
@@ -210,9 +218,35 @@ let g:gitgutter_sign_added = '>>'
 let g:gitgutter_sign_modified = '>>'
 let g:gitgutter_sign_removed = '--'
 
-" Vim Wiki Settings {{{2
-" For disabling insert mode tab mappings
-let g:vimwiki_table_mappings=0
+" coc settings {{{2
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
 
-let g:vimwiki_list = [{'path': '~/vimwiki/',
-                      \ 'syntax': 'markdown', 'ext': '.md'}]
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Remap keys for gotos
+nnoremap <silent> gD <Plug>(coc-definition)
+nnoremap <silent> gy <Plug>(coc-type-definition)
+nnoremap <silent> gI <Plug>(coc-implementation)
+nnoremap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Navigate diagnostics
+nmap <silent> <leader>lp <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>ln <Plug>(coc-diagnostic-next)
+
+" Format the selected region
+xmap <silent> <leader>lf  <Plug>(coc-format-selected)
+
+" Fix autofix problem of current line
+nmap <silent> <leader>qf  <Plug>(coc-fix-current)
