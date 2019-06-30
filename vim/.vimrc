@@ -42,8 +42,9 @@ Plug 'honza/vim-snippets'
 
 " Look & feel {{{2
 Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'itchyny/lightline.vim'
 Plug 'lifepillar/vim-solarized8'
+Plug '~/code/vim/dark-purple.vim'
+Plug 'itchyny/lightline.vim'
 
 " Autocompletion & Language Plugins {{{2
 " Golang {{{3

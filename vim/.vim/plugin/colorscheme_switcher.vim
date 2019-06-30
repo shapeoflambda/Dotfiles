@@ -24,20 +24,25 @@ endfunction
 
 " Set Dark theme
 function! DarkTheme()
+  if !exists('g:lightline')
+    let g:lightline = ''
+  endif
+
   colorscheme dark_purple
-let g:lightline = {
-      \ 'colorscheme': 'dark_purple',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             ['readonly', 'filename', 'modified' ] ],
-      \   'right': [ [ 'lineinfo' ],
-      \              [ 'filetype' ],
-      \              [ 'gitbranch'] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
-      \ },
-      \ }
+
+  let g:lightline = {
+        \ 'colorscheme': 'dark_purple',
+        \ 'active': {
+        \   'left': [ [ 'mode', 'paste' ],
+        \             ['readonly', 'filename', 'modified' ] ],
+        \   'right': [ [ 'lineinfo' ],
+        \              [ 'filetype' ],
+        \              [ 'gitbranch'] ]
+        \ },
+        \ 'component_function': {
+        \   'gitbranch': 'fugitive#head'
+        \ },
+        \ }
   call LightlineReload()
 
   let g:isLightTheme=0
