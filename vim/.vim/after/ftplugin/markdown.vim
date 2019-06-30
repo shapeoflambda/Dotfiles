@@ -38,11 +38,11 @@ nnoremap <leader>aa mmggVGgw`mzz
 "  Shortcut for opening & previewing current file  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 if has("unix")
-  echom("something")
   let s:uname = system("uname -s")
   if s:uname == "Darwin\n"
-    nnoremap <leader>o :!open % -b com.google.Chrome<cr>
-    echom "has mac"
+    nnoremap <silent> <leader>o :!open % -b com.google.Chrome<cr>
+  else
+    nnoremap <silent> <leader>o :!google-chrome-stable %<cr><cr>
   endif
 endif
 
