@@ -8,9 +8,13 @@
 }
 
 window#waybar {
-    background: rgba(29, 29, 38, 0.65);
+    background: rgba(29, 29, 38, 0.80);
     /* border-bottom: 3px solid rgba(100, 114, 125, 0.5); */
     color: white;
+}
+
+#workspaces {
+    margin-left: 10px;
 }
 
 #workspaces button {
@@ -37,16 +41,16 @@ window#waybar {
 }
 
 #clock, #battery, #cpu, #memory, #network, #pulseaudio, #custom-spotify, #tray, #mode {
-    padding: 0 5px;
+    padding: 0 8px;
     margin: 0 0px;
 }
 
-#custom-harish {
-    padding: 0 5px;
+#custom-power {
+    margin-right: 5px;
 }
 
 #idle_inhibitor {
-  padding: 0 5px;
+  padding: 0 8px;
 }
 
 #clock {
