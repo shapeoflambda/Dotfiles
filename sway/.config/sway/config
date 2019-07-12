@@ -81,6 +81,7 @@ bindsym $mod+Alt+l exec 'swaylock'
     # bindsym $mod+d exec $menu
     bindsym $mod+d exec rofi -show drun -config ~/.config/rofi/config.rasi
     bindsym $mod+Space exec rofi -show drun -config ~/.config/rofi/config.rasi
+    for_window [app_id="^launcher$"] floating enable, border none, opacity 0.8
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -280,6 +281,3 @@ for_window [class="vlc"] inhibit_idle open
 for_window [title="Alacritty"] floating enable;
 
 include /etc/sway/config.d/*
-
-# Transparency for terminal
-for_window [class="st"] opacity 0.95
