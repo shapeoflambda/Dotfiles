@@ -20,7 +20,7 @@ if executable('google-java-format')
 endif
 
 " format on save by default
-let g:java_format_on_save=1
+let g:java_format_on_save=0
 
 if g:java_format_on_save
   autocmd BufWritePost * exec "normal gggqG"

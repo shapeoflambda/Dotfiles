@@ -64,7 +64,7 @@ nnoremap <buffer> <silent> ]] :call MoveToNextHeader()<cr>
 nnoremap <buffer> <silent> [[ :call MoveToPreviousHeader()<cr>
 
 " Mapping to toggle status of TODO item
-nnoremap <buffer> <silent> <space>  :call winrestview(<SID>toggle('^\s*\*\s*\[\zs.\ze\]', {' ': '.', '.': 'x', 'x': ' '}))<cr>
+nnoremap <buffer> <silent> <space>  :call winrestview(<SID>toggle('^\s*\*\s*\[\zs.\ze\]', {' ': 'x', 'x': ' '}))<cr>
 
 function! s:toggle(pattern, dict, ...)
   let view = winsaveview()

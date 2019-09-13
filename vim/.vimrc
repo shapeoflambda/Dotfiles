@@ -34,6 +34,7 @@ Plug 'junegunn/fzf.vim'
 
 " Git {{{2
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 Plug 'airblade/vim-gitgutter'
 
 " Snippets {{{2
@@ -43,7 +44,7 @@ Plug 'honza/vim-snippets'
 " Look & feel {{{2
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'lifepillar/vim-solarized8'
-Plug '~/code/vim/dark-purple.vim'
+Plug 'shapeoflambda/dark-purple.vim'
 Plug 'itchyny/lightline.vim'
 
 " Autocompletion & Language Plugins {{{2
@@ -159,10 +160,13 @@ endif
 nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>gs :Gstatus<cr>
 nnoremap <leader>gr :Gread<cr>
-nnoremap <leader>ga :execute "normal \<Plug>GitGutterStageHunk"<cr>
-nnoremap <leader>gu :execute "normal \<Plug>GitGutterUndoHunk"<cr>
-nnoremap <leader>gp :execute "normal \<Plug>GitGutterPrevHunk"<cr>
-nnoremap <leader>gn :execute "normal \<Plug>GitGutterNextHunk"<cr>
+nnoremap <leader>gbl :Gblame<cr>
+nnoremap <leader>gbr :Gbrowse<cr>
+xnoremap <leader>gbr :Gbrowse<cr>
+nnoremap <leader>ga :execute "normal \<Plug>(GitGutterStageHunk)"<cr>
+nnoremap <leader>gu :execute "normal \<Plug>(GitGutterUndoHunk)"<cr>
+nnoremap <leader>gp :execute "normal \<Plug>(GitGutterPrevHunk)"<cr>
+nnoremap <leader>gn :execute "normal \<Plug>(GitGutterNextHunk)"<cr>
 
 " Misc {{{2
 " Open explorer
@@ -215,9 +219,9 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " Gitgutter settings {{{2
-let g:gitgutter_sign_added = '>>'
-let g:gitgutter_sign_modified = '>>'
-let g:gitgutter_sign_removed = '--'
+let g:gitgutter_sign_added = '+'
+let g:gitgutter_sign_modified = '~'
+let g:gitgutter_sign_removed = '-'
 
 " coc settings {{{2
 " don't give |ins-completion-menu| messages.

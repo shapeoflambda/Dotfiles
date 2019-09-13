@@ -12,8 +12,28 @@ set surround
 "-------------------------------------------------------------------------------
 " Mappings
 "-------------------------------------------------------------------------------
+
+let mapleader=","
+
 inoremap jj <ESC>
 
 " Keep a block highlighted while indenting
 vnoremap < <gv
 vnoremap > >gv
+
+" Turn off highlighting
+nnoremap <silent> <leader><cr> :nohl<cr>
+
+" unimpaired mappings
+nnoremap [<Space> O<esc>j0
+nnoremap ]<Space> o<esc>k0
+nnoremap [e ddkP
+nnoremap ]e ddp
+
+nnoremap ]] :action MethodDown<CR>
+nnoremap [[ :action MethodUp<CR>
+
+" Mimic my vim's gitgutter mappings
+nnoremap <leader>gp :action VcsShowPrevChangeMarker<CR>
+nnoremap <leader>gn :action VcsShowNextChangeMarker<CR>
+nnoremap <leader>gu :action Vcs.RollbackChangedLines<CR>
