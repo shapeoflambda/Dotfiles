@@ -47,6 +47,9 @@ Plug 'lifepillar/vim-solarized8'
 Plug 'shapeoflambda/dark-purple.vim'
 Plug 'itchyny/lightline.vim'
 
+" Work {{{2
+Plug 'ssh://git.amazon.com:2222/pkg/VimIon.git'
+
 " Autocompletion & Language Plugins {{{2
 " Golang {{{3
 Plug 'fatih/vim-go', { 'for': 'go' }
@@ -58,7 +61,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Extensions
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-emmet', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
 
 call plug#end()
@@ -188,6 +190,9 @@ nnoremap <silent> <leader>as :call StripTrailingWhitespace()<cr>
 " Retain selection when indenting
 xnoremap < <gv
 xnoremap > >gv
+
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+cmap w!! w !sudo tee > /dev/null %
 
 " Easy align mappings {{{2
 " Start interactive EasyAlign in visual mode (e.g. vipga)
