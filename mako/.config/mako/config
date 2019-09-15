@@ -1,7 +1,9 @@
 font=Product Sans 14
 width=450
 height=200
-padding=10
+padding=20
 border-size=0
-background-color=#0B0C0DAA
-format=[%a] <b>%s</b>\n%b
+border-radius=10
+background-color=#1F1F1FDD
+text-color=#FEFEFE
+format=<b>%s</b>\n%b

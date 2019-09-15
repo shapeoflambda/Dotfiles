@@ -13,8 +13,7 @@
     "pulseaudio",
     "network",
     "battery",
-    "clock",
-    "custom/power"
+    "clock"
   ],
   "sway/window": {
     "max-length": 50
@@ -42,18 +41,19 @@
     "on-click": "~/.bin/scripts/power"
   },
   "clock": {
-    "format": "{:%a %d %b  %I:%M %p}",
+    "format": "{:%a %d %b  %I:%M %p} ",
     "tooltip": false
   },
   "network": {
     "interface": "wlp2s0",
     "format": "{ifname}",
-    "format-wifi": "蠟",
+    "format-wifi": "{essid} 蠟",
     "format-ethernet": "{ifname} ",
     "format-disconnected": "",
     "max-length": 50,
     "tooltip": true,
-    "tooltip-format": "{essid} ({signalStrength}%) "
+    "tooltip-format": "{essid} ({signalStrength}%) ",
+    "on-click": "~/.bin/scripts/wifi_menu"
   },
   "pulseaudio": {
     "format": "{volume}% {icon}",

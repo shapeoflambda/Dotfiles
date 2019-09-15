@@ -4,7 +4,7 @@
 window:
   # Padding
   padding:
-    x: 10
+    x: 20
     y: 10
 
 # The FreeType rasterizer needs to know the device DPI for best results
@@ -17,12 +17,12 @@ font:
   # The normal (roman) font face to use.
   # Style can be specified to pick a specific face.
   normal:
-    family: "Fira Code"
+    family: "SF Mono"
     style: Medium
 
   # The bold font face
   bold:
-    family: "Fira Code"
+    family: "SF Mono"
     style: Medium
 
   # The italic font face
@@ -40,30 +40,30 @@ debug.render_timer: false
 colors:
   # Default colors
   primary:
-    background: '0x1d1d2e'
-    foreground: '0xf8f8f2'
+    background: '0x1f1f1f'
+    foreground: '0xfefefe'
 
   # Normal colors
   normal:
-    black:   '0x000000'
+    black:   '0x1F1F1F'
     red:     '0xff5555'
     green:   '0x50fa7b'
-    yellow:  '0xf1fa8c'
-    blue:    '0xcaa9fa'
+    yellow:  '0xfeba12'
+    blue:    '0x6991FF'
     magenta: '0xff79c6'
-    cyan:    '0x8be9fd'
+    cyan:    '0x82E5FF'
     white:   '0xbfbfbf'
 
   # Bright colors
   bright:
-    black:   '0x575b70'
-    red:     '0xff6e67'
-    green:   '0x5af78e'
-    yellow:  '0xf4f99d'
-    blue:    '0xcaa9fa'
-    magenta: '0xff92d0'
-    cyan:    '0x9aedfe'
-    white:   '0xe6e6e6'
+    black:   '0x404040'
+    red:     '0xff5555'
+    green:   '0x50fa7b'
+    yellow:  '0xfeba12'
+    blue:    '0x6991FF'
+    magenta: '0x734280'
+    cyan:    '0x75CFE6'
+    white:   '0xbfbfbf'
 
 # Key bindings
 #

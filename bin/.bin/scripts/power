@@ -11,22 +11,18 @@
 # - Give it exec priviledge, or chmod +x /path/to/power.sh
 # - Run it
 
-chosen=$(echo -e "[Cancel]\nLogout\nShutdown\nReboot\nSuspend\nHibernate\nHybrid-sleep\nSuspend-then-hibernate" | rofi -dmenu -i)
+chosen=$(echo -e " Cancel\n Lock\n Logout\n更 Shutdown\n連 Reboot\n賈 Suspend" | rofi -p "" -config '~/.config/rofi/wifi.rasi' -dmenu -i)
 # Info about some states are available here:
 # https://www.freedesktop.org/software/systemd/man/systemd-sleep.conf.html#Description
 
-if [[ $chosen = "Logout" ]]; then
+if [[ $chosen = " Lock" ]]; then
+	swaylock -i "~/.wallpapers/wallpaper_01.jpg" --clock --indicator --indicator-radius 100 --effect-blur 7x5 --key-hl-color 880033
+elif [[ $chosen = " Logout" ]]; then
 	jwm -exit
-elif [[ $chosen = "Shutdown" ]]; then
+elif [[ $chosen = "更 Shutdown" ]]; then
 	systemctl poweroff
-elif [[ $chosen = "Reboot" ]]; then
+elif [[ $chosen = "連 Reboot" ]]; then
 	systemctl reboot
-elif [[ $chosen = "Suspend" ]]; then
+elif [[ $chosen = "賈 Suspend" ]]; then
 	systemctl suspend
-elif [[ $chosen = "Hibernate" ]]; then
-	systemctl hibernate
-elif [[ $chosen = "Hybrid-sleep" ]]; then
-	systemctl hibernate
-elif [[ $chosen = "Suspend-then-hibernate" ]]; then
-	systemctl suspend-then-hibernate
 fi

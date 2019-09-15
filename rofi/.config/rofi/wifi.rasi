@@ -1,0 +1,59 @@
+configuration {
+  columns: 1;
+  font: "Helvetica 15";
+  bw: 0;
+  location: 0;
+  padding: 0;
+  fixed-num-lines: true;
+  lines: 5;
+  hide-scrollbar: true;
+  fullscreen: false;
+  fake-transparency: false;
+  scroll-method: 1;
+  click-to-exit: true;
+  show-match: false;
+  show-icons: true;
+  display-drun: "";
+}
+
+* {
+  background-color: #1f1f1f;
+  text-color: #fefefe;
+}
+
+#window {
+  padding: 20px;
+  width: 750px;
+}
+
+listview {
+  fixed-height: 0;
+  border:       0px;
+  spacing:      20px;
+  scrollbar:    false;
+  padding:      2px 0px 0px;
+}
+
+element {
+  border: 0;
+  padding: 5px;
+}
+
+prompt {
+  text-color: #feba12;
+  font: "Product Sans 20";
+  padding: 5px;
+  scrollbar:    false;
+}
+
+inputbar,
+textbox-prompt-colon,
+entry {
+  background-color: #404040;
+  padding: 10px;
+}
+
+#element.selected {
+  background-color: #1F1F1F;
+  text-color: #feba12;
+}

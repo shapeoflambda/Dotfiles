@@ -1,6 +1,5 @@
 configuration {
-    modi: "drun,run";
-    lines: 5;
+    modi: "drun";
     columns: 1;
     font: "Product Sans 14";
     bw: 0;
@@ -27,7 +26,7 @@ configuration {
     display-windowcd: "";
     display-run: "摒";
     display-ssh: "";
-    display-drun: "";
+    display-drun: "";
     display-combi: "";
     kb-remove-word-back: "Control+BackSpace,Alt+d,Alt+BackSpace";
     kb-accept-entry: "Control+m,Return,KP_Enter,Alt+m";
@@ -82,7 +81,7 @@ configuration {
     selected-active-background:  rgba ( 224, 224, 224, 100 % );
 }
 window {
-    background-color: rgba(11, 12, 13, 0.80);
+    background-color: #1d1d26FF;
     border: 0;
     border-color: @x14;
     border-radius: 12px;
@@ -101,12 +100,12 @@ message {
     padding: 1px;
 }
 textbox {
-    text-color: #FFFFFF;
+    text-color: #C8C8D0;
 }
 listview {
     fixed-height: 0;
     border:       0px;
-    spacing:      15px;
+    spacing:      20px;
     scrollbar:    false;
     padding:      2px 0px 0px;
 }
@@ -123,12 +122,13 @@ element normal.urgent {
     text-color:       @x9;
 }
 element normal.active {
-    background-color: rgba (0,0,0,0%);
+    background-color: #1d1d26;
     text-color:       #FDFDFD;
 }
 element selected.normal {
-    background-color: rgba (0,0,0,0%);
-    text-color:       #FDFDFD;
+    background-color: #214283;
+    text-color:       #C8C8D0;
+    font: "Product Sans 15";
 }
 element selected.urgent {
     background-color: rgba (0,0,0,0%);
@@ -180,7 +180,7 @@ button selected {
 }
 inputbar {
     spacing:    0px ;
-    text-color: @xfg;
+    text-color: #C8C8D0;
     padding:    1px ;
     children:   [ prompt,textbox-prompt-colon,entry,case-indicator ];
 }

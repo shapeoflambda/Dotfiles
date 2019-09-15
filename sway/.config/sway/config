@@ -47,11 +47,11 @@ exec_always --no-startup-id ~/.bin/scripts/wallpaper
 # Example configuration:
 # bindsym $mod+Alt+l exec "$lock -f; sleep 1; pkill -USR1 swayidle"
 exec swayidle -w \
-        timeout 300 'swaylock -e -f -i "~/.config/sway/LOCKSCREEN.jpg" -c "#$(date | md5sum | cut -c 1-6)88"' \
+        timeout 300 'swaylock -i "~/.wallpapers/wallpaper_01.jpg" --clock --indicator --indicator-radius 100 --effect-blur 7x5 --key-hl-color FEBA12 \
         timeout 360 'swaymsg "output * dpms off"' \
         resume 'swaymsg "output * dpms on"' \
-        before-sleep 'swaylock -e -f -i "~/.config/sway/LOCKSCREEN.jpg" -c "#$(date | md5sum | cut -c 1-6)88"'
-bindsym $mod+Alt+l exec 'swaylock'
+        before-sleep 'swaylock -i "~/.wallpapers/wallpaper_01.jpg" --clock --indicator --indicator-radius 100 --effect-blur 7x5 --key-hl-color FEBA12"'
+bindsym $mod+Alt+l exec 'swaylock -i "~/.wallpapers/wallpaper_01.jpg" --clock --indicator --indicator-radius 100 --effect-blur 7x5 --key-hl-color FEBA12 --ring-color 1f1f1f --line-color 1f1f1f'
 
 ### Input configuration
 #
@@ -79,9 +79,8 @@ bindsym $mod+Alt+l exec 'swaylock'
 
     # start your launcher
     # bindsym $mod+d exec $menu
-    bindsym $mod+d exec rofi -show drun -config ~/.config/rofi/config.rasi
-    bindsym $mod+Space exec rofi -show drun -config ~/.config/rofi/config.rasi
-    for_window [app_id="^launcher$"] floating enable, border none, opacity 0.8
+    bindsym $mod+d exec rofi -show drun -config ~/.config/rofi/wifi.rasi
+    bindsym $mod+Space exec rofi -show drun -config ~/.config/rofi/wifi.rasi
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -95,6 +94,9 @@ bindsym $mod+Alt+l exec 'swaylock'
 
     # exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec --no-startup-id ~/.bin/scripts/power
+
+    # select a wifi network
+    bindsym $mod+Shift+n exec --no-startup-id ~/.bin/scripts/wifi_menu
 
 # Moving around:
 #
@@ -264,10 +266,9 @@ exec --no-startup-id libinput-gestures-setup start
 exec mako
 
 # Assign specific workspaces for specific applications
-assign [class="Firefox"] workspace 2
+assign [title="Firefox"] workspace 2
 assign [title="Firefox Nightly"] workspace 2
 assign [title="Google Chrome"] workspace 3
-assign [title="Alacritty"] workspace 5
 assign [class="Code"] workspace 4
 assign [class="qBittorrent"] workspace 6
 assign [class="vlc"] workspace 10
@@ -279,5 +280,6 @@ for_window [title="Google Chrome"] inhibit_idle fullscreen
 for_window [class="vlc"] inhibit_idle open
 
 for_window [title="Alacritty"] floating enable;
+for_window [title="Alacritty"] opacity 0.9;
 
 include /etc/sway/config.d/*

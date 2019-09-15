@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+FONT='Product Sans 14'
+
+
+nmcli device wifi rescan > /dev/null
+SSID=$(nmcli --fields 'SSID' device wifi list | tail -n +2 | grep -v '^  *\B--\B' | rofi -p "蠟" -config '~/.config/rofi/wifi.rasi' -dmenu -i | sed 's/^ *\*//' | awk '{print $1}')
+
+if [ "x$SSID" != "x" ]; then
+  # check if the SSID has already a connection setup
+  CONN=$(nmcli con | grep "$SSID" | awk '{print $1}' | uniq)
+  if [ "x$CONN" = "x$SSID" ]; then
+    echo "Please wait while switching to known network $SSID…"
+    # if yes, bring up that connection
+    nmcli con up id "$CONN"
+  else
+    echo "Please wait while connecting to new network $SSID…"
+    # if not connect to it and ask for the password
+    WIFIPASS=$(echo -en "" | rofi -dmenu -password -config '~/.config/rofi/wifi.rasi' -p "蠟" -mesg "Enter the password for '$SSID'" \
+            -lines 0 -font "$FONT")
+    nmcli device wifi connect "$SSID" password "$WIFIPASS"
+  fi
+fi
