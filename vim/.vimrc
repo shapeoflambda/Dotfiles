@@ -47,8 +47,6 @@ Plug 'lifepillar/vim-solarized8'
 Plug 'shapeoflambda/dark-purple.vim'
 Plug 'itchyny/lightline.vim'
 
-" Work {{{2
-Plug 'ssh://git.amazon.com:2222/pkg/VimIon.git'
 
 " Autocompletion & Language Plugins {{{2
 " Golang {{{3
