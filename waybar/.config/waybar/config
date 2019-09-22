@@ -2,12 +2,12 @@
   "layer": "top",
   "modules-left": [
     "sway/workspaces",
-    "sway/mode"
+    "sway/mode",
+    "custom/spotify"
   ],
   "modules-center": [
   ],
   "modules-right": [
-    "custom/spotify",
     "tray",
     "idle_inhibitor",
     "pulseaudio",
@@ -24,8 +24,8 @@
       "warning": 20,
       "critical": 15
     },
-    "format": "{capacity}%{icon}",
-    "format-charging": "{capacity}%",
+    "format": "{icon}{capacity}%",
+    "format-charging": "{capacity}%",
     "format-icons": [
       "",
       "",
@@ -41,22 +41,22 @@
     "on-click": "~/.bin/scripts/power"
   },
   "clock": {
-    "format": "{:%a %d %b  %I:%M %p} ",
+    "format": "{:%a %d %b %I:%M %p}",
     "tooltip": false
   },
   "network": {
     "interface": "wlp2s0",
     "format": "{ifname}",
-    "format-wifi": "{essid} 蠟",
+    "format-wifi": "蠟 {essid}",
     "format-ethernet": "{ifname} ",
     "format-disconnected": "",
     "max-length": 50,
     "tooltip": true,
-    "tooltip-format": "{essid} ({signalStrength}%) ",
+    "tooltip-format": "{essid} ({signalStrength}%)",
     "on-click": "~/.bin/scripts/wifi_menu"
   },
   "pulseaudio": {
-    "format": "{volume}% {icon}",
+    "format": "{icon}{volume}%",
     "format-bluetooth": "{volume}% {icon}",
     "format-muted": "",
     "format-icons": {
@@ -88,10 +88,10 @@
     "on-click": "~/.bin/scripts/power"
   },
   "custom/spotify": {
-    "format": "{}",
+    "format": " {}",
+    "return-type": "json",
     "max-length": 40,
-    "interval": 10,
-    "exec": "$HOME/.config/waybar/mediaplayer 2> /dev/null",
+    "exec": "$HOME/.config/waybar/mediaplayer --player spotify 2> /dev/null",
     "exec-if": "pgrep spotify"
   },
   "idle_inhibitor": {

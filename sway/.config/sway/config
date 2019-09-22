@@ -22,7 +22,7 @@ hide_edge_borders smart
 default_border none
 focus_follows_mouse no
 
-set $term st
+set $term alacritty
 
 # Your preferred application launcher
 # Note: it's recommended that you pass the final command to sway
@@ -270,6 +270,7 @@ assign [title="Firefox"] workspace 2
 assign [title="Firefox Nightly"] workspace 2
 assign [title="Google Chrome"] workspace 3
 assign [class="Code"] workspace 4
+assign [title="Spotify"] workspace 5
 assign [class="qBittorrent"] workspace 6
 assign [class="vlc"] workspace 10
 
@@ -280,6 +281,6 @@ for_window [title="Google Chrome"] inhibit_idle fullscreen
 for_window [class="vlc"] inhibit_idle open
 
 for_window [title="Alacritty"] floating enable;
-for_window [title="Alacritty"] opacity 0.9;
+for_window [title="Alacritty"] opacity 0.95;
 
 include /etc/sway/config.d/*
