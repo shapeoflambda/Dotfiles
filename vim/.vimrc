@@ -60,7 +60,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-emmet', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
 
 call plug#end()
 
@@ -191,12 +190,24 @@ xnoremap > >gv
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
 
+" "in line" (entire line sans white-space; cursor at beginning--ie, ^)
+xnoremap <silent> il :<c-u>normal! g_v^<cr>
+onoremap <silent> il :<c-u>normal! g_v^<cr>
+
+" "in document" (from first line to last; cursor at top--ie, gg)
+  xnoremap <silent> id :<c-u>normal! G$Vgg0<cr>
+  onoremap <silent> id :<c-u>normal! GVgg<cr>
+
 " Easy align mappings {{{2
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
+" Quickfix and Location list mappings {{{2
+nnoremap <silent> <leader>qc :ccl<cr>
+nnoremap <silent> <leader>lc :lcl<cr>
 
 " Autocommands {{{1
 " Reload vimrc as soon as it's saved
@@ -256,4 +267,4 @@ nmap <silent> <leader>ln <Plug>(coc-diagnostic-next)
 xmap <silent> <leader>lf  <Plug>(coc-format-selected)
 
 " Fix autofix problem of current line
-nmap <silent> <leader>qf  <Plug>(coc-fix-current)
+nmap <silent> <leader>lf  <Plug>(coc-fix-current)

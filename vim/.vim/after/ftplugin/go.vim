@@ -31,5 +31,5 @@ endif
 setlocal completeopt-=preview
 
 " (l)anguae mappings
-nnoremap <leader>lr :GoRun
+nnoremap <leader>lr :GoRun<cr>
 nnoremap <leader>ll :GoLint<cr>
