@@ -1,6 +1,6 @@
 configuration {
   columns: 1;
-  font: "Helvetica 15";
+  font: "Product Sans 16";
   bw: 0;
   location: 0;
   padding: 0;
@@ -12,8 +12,6 @@ configuration {
   scroll-method: 1;
   click-to-exit: true;
   show-match: false;
-  show-icons: true;
-  display-drun: "";
 }
 
 * {
@@ -23,20 +21,19 @@ configuration {
 
 #window {
   padding: 20px;
-  width: 750px;
+  width: 700px;
 }
 
 listview {
   fixed-height: 0;
   border:       0px;
-  spacing:      20px;
   scrollbar:    false;
   padding:      2px 0px 0px;
 }
 
 element {
   border: 0;
-  padding: 5px;
+  padding: 15px;
 }
 
 prompt {

@@ -79,8 +79,8 @@ bindsym $mod+Alt+l exec 'swaylock -i "~/.wallpapers/wallpaper_01.jpg" --clock --
 
     # start your launcher
     # bindsym $mod+d exec $menu
-    bindsym $mod+d exec rofi -show drun -config ~/.config/rofi/wifi.rasi
-    bindsym $mod+Space exec rofi -show drun -config ~/.config/rofi/wifi.rasi
+    bindsym $mod+d exec rofi -show drun -config ~/.config/rofi/config.rasi
+    bindsym $mod+Space exec rofi -show drun -config ~/.config/rofi/config.rasi
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.

@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 
-FONT='Product Sans 14'
-
-
 nmcli device wifi rescan > /dev/null
-SSID=$(nmcli --fields 'SSID' device wifi list | tail -n +2 | grep -v '^  *\B--\B' | rofi -p "蠟" -config '~/.config/rofi/wifi.rasi' -dmenu -i | sed 's/^ *\*//' | awk '{print $1}')
+
+SSID=$(nmcli --fields 'SIGNAL,SSID' -t device wifi list | awk -F ':' '{if($1>75){$1="蠟"}else if($1>50){$1="襤"} else if($1>25) {$1="嵐"} else {$1="爛"} print $1" "$2}' | rofi -p "蠟" -config '~/.config/rofi/wifi.rasi' -dmenu -i | awk -F ' ' '{print $2}')
 
 if [ "x$SSID" != "x" ]; then
   # check if the SSID has already a connection setup
