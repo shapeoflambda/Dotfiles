@@ -195,8 +195,8 @@ xnoremap <silent> il :<c-u>normal! g_v^<cr>
 onoremap <silent> il :<c-u>normal! g_v^<cr>
 
 " "in document" (from first line to last; cursor at top--ie, gg)
-  xnoremap <silent> id :<c-u>normal! G$Vgg0<cr>
-  onoremap <silent> id :<c-u>normal! GVgg<cr>
+xnoremap <silent> id :<c-u>normal! G$Vgg0<cr>
+onoremap <silent> id :<c-u>normal! GVgg<cr>
 
 " Easy align mappings {{{2
 " Start interactive EasyAlign in visual mode (e.g. vipga)
