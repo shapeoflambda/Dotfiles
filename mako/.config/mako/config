@@ -7,5 +7,3 @@ border-radius=10
 background-color=#1F1F1FDD
 text-color=#FEFEFE
 format=<b>%s</b>\n%b
-ignore_time-timeout=1
-default_time-timeout=4000

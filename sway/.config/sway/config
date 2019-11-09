@@ -47,7 +47,7 @@ exec_always --no-startup-id ~/.bin/scripts/wallpaper
 # Example configuration:
 # bindsym $mod+Alt+l exec "$lock -f; sleep 1; pkill -USR1 swayidle"
 exec swayidle -w \
-        timeout 300 'swaylock -i "~/.wallpapers/wallpaper_01.jpg" --clock --indicator --indicator-radius 100 --effect-blur 7x5 --key-hl-color FEBA12 \
+        timeout 300 'swaylock -i "~/.wallpapers/wallpaper_01.jpg" --clock --indicator --indicator-radius 100 --effect-blur 7x5 --key-hl-color FEBA12 --ring-color 1f1f1f --line-color 1f1f1f' \
         timeout 360 'swaymsg "output * dpms off"' \
         resume 'swaymsg "output * dpms on"' \
         before-sleep 'swaylock -i "~/.wallpapers/wallpaper_01.jpg" --clock --indicator --indicator-radius 100 --effect-blur 7x5 --key-hl-color FEBA12"'
