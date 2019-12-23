@@ -51,6 +51,8 @@ Plug 'itchyny/lightline.vim'
 " Autocompletion & Language Plugins {{{2
 " Golang {{{3
 Plug 'fatih/vim-go', { 'for': 'go' }
+" Rust {{{3
+Plug 'neomake/neomake'
 
 
 " Coc with and extensions {{{2
@@ -163,8 +165,8 @@ nnoremap <leader>gbr :Gbrowse<cr>
 xnoremap <leader>gbr :Gbrowse<cr>
 nnoremap <leader>ga :execute "normal \<Plug>(GitGutterStageHunk)"<cr>
 nnoremap <leader>gu :execute "normal \<Plug>(GitGutterUndoHunk)"<cr>
-nnoremap <leader>gp :execute "normal \<Plug>(GitGutterPrevHunk)"<cr>
-nnoremap <leader>gn :execute "normal \<Plug>(GitGutterNextHunk)"<cr>
+nnoremap <leader>[g :execute "normal \<Plug>(GitGutterPrevHunk)"<cr>
+nnoremap <leader>]g :execute "normal \<Plug>(GitGutterNextHunk)"<cr>
 
 " Misc {{{2
 " Open explorer

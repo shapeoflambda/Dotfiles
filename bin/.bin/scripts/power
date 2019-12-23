@@ -18,7 +18,7 @@ chosen=$(echo -e " Cancel\n Lock\n Logout\n更 Shutdown\n連 Reboot\n�
 if [[ $chosen = " Lock" ]]; then
 	swaylock -i "~/.wallpapers/wallpaper_01.jpg" --clock --indicator --indicator-radius 100 --effect-blur 7x5 --key-hl-color 880033
 elif [[ $chosen = " Logout" ]]; then
-	jwm -exit
+	sway exit
 elif [[ $chosen = "更 Shutdown" ]]; then
 	systemctl poweroff
 elif [[ $chosen = "連 Reboot" ]]; then

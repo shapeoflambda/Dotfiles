@@ -33,3 +33,6 @@ setlocal completeopt-=preview
 " (l)anguae mappings
 nnoremap <leader>lr :GoRun<cr>
 nnoremap <leader>ll :GoLint<cr>
+
+nnoremap <silent> <leader>r :w<CR>:vsplit <bar> terminal go run %<CR>
+nnoremap <silent> f<CR> ggVGgq
