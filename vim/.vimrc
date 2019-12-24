@@ -165,8 +165,8 @@ nnoremap <leader>gbr :Gbrowse<cr>
 xnoremap <leader>gbr :Gbrowse<cr>
 nnoremap <leader>ga :execute "normal \<Plug>(GitGutterStageHunk)"<cr>
 nnoremap <leader>gu :execute "normal \<Plug>(GitGutterUndoHunk)"<cr>
-nnoremap <leader>[g :execute "normal \<Plug>(GitGutterPrevHunk)"<cr>
-nnoremap <leader>]g :execute "normal \<Plug>(GitGutterNextHunk)"<cr>
+nnoremap [g :execute "normal \<Plug>(GitGutterPrevHunk)"<cr>
+nnoremap ]g :execute "normal \<Plug>(GitGutterNextHunk)"<cr>
 
 " Misc {{{2
 " Open explorer
