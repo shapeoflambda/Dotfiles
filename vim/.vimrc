@@ -27,6 +27,9 @@ Plug 'tpope/vim-apathy'
 Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/vim-easy-align'
 Plug 'AndrewRadev/switch.vim'
+Plug 'tmsvg/pear-tree'
+Plug 'justinmk/vim-sneak'
+Plug 'justinmk/vim-dirvish'
 
 " Fuzzy find, everything! {{{2
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -45,15 +48,22 @@ Plug 'honza/vim-snippets'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'lifepillar/vim-solarized8'
 Plug 'shapeoflambda/dark-purple.vim'
+Plug 'lifepillar/vim-gruvbox8'
+Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
 Plug 'itchyny/lightline.vim'
-
+Plug 'psliwka/vim-smoothie'
 
 " Autocompletion & Language Plugins {{{2
+" Make using Neomake
+Plug 'neomake/neomake'
+
 " Golang {{{3
 Plug 'fatih/vim-go', { 'for': 'go' }
 " Rust {{{3
 Plug 'neomake/neomake'
 
+" Rust {{{3
+Plug 'rust-lang/rust.vim'
 
 " Coc with and extensions {{{2
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -168,9 +178,12 @@ nnoremap <leader>gbr :Gbrowse<cr>
 xnoremap <leader>gbr :Gbrowse<cr>
 nnoremap <leader>ga :execute "normal \<Plug>(GitGutterStageHunk)"<cr>
 nnoremap <leader>gu :execute "normal \<Plug>(GitGutterUndoHunk)"<cr>
-nnoremap [g :execute "normal \<Plug>(GitGutterPrevHunk)"<cr>
-nnoremap ]g :execute "normal \<Plug>(GitGutterNextHunk)"<cr>
+nnoremap <silent> [g :execute "normal \<Plug>(GitGutterPrevHunk)"<cr>
+nnoremap <silent> ]g :execute "normal \<Plug>(GitGutterNextHunk)"<cr>
 
+" Neomake {{{2
+nnoremap <silent> ]n :NeomakeNextLoclist<cr>
+nnoremap <silent> [n :NeomakePrevLoclist<cr>
 " Misc {{{2
 " Open explorer
 nnoremap <leader>e :Ex<cr>
@@ -192,7 +205,7 @@ nnoremap <silent> <leader>as :call StripTrailingWhitespace()<cr>
 xnoremap < <gv
 xnoremap > >gv
 
-" Allow saving of files as sudo when I forgot to start vim using sudo.
+" Allow saving files with sudo permissions when not opened using sudo
 cmap w!! w !sudo tee > /dev/null %
 
 " "in line" (entire line sans white-space; cursor at beginning--ie, ^)
@@ -203,12 +216,21 @@ onoremap <silent> il :<c-u>normal! g_v^<cr>
 xnoremap <silent> id :<c-u>normal! G$Vgg0<cr>
 onoremap <silent> id :<c-u>normal! GVgg<cr>
 
+" Formatting the current file
+nnoremap <silent> f<CR> :<c-u>normal! G$Vgg0<CR>gq
+
+" Make the current file
+nnoremap <silent> m<CR> :make<CR>
+
 " Easy align mappings {{{2
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
+" Align tables
+vmap <Leader><Bslash> :EasyAlign*<Bar><Enter>
 
 " Quickfix and Location list mappings {{{2
 nnoremap <silent> <leader>qc :ccl<cr>
@@ -273,3 +295,11 @@ xmap <silent> <leader>lf  <Plug>(coc-format-selected)
 
 " Fix autofix problem of current line
 nmap <silent> <leader>lf  <Plug>(coc-fix-current)
+
+" vim-sneak settings {{{2
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
+
+let g:sneak#label = 1

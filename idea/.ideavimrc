@@ -34,6 +34,6 @@ nnoremap ]] :action MethodDown<CR>
 nnoremap [[ :action MethodUp<CR>
 
 " Mimic my vim's gitgutter mappings
-nnoremap <leader>gp :action VcsShowPrevChangeMarker<CR>
-nnoremap <leader>gn :action VcsShowNextChangeMarker<CR>
+nnoremap [g :action VcsShowPrevChangeMarker<CR>
+nnoremap ]g :action VcsShowNextChangeMarker<CR>
 nnoremap <leader>gu :action Vcs.RollbackChangedLines<CR>
