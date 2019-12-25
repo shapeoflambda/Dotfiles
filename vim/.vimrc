@@ -129,6 +129,9 @@ nnoremap <leader>f :Files<cr>
 " Find files tracked by git aka (g)it (f)iles
 nnoremap <leader>gf :GitFiles<cr>
 
+" Find files in the ~/.vim directory
+nnoremap <leader>v :call fzf#run({'options': '--prompt ">"', 'down': 20, 'dir': '~/.vim/', 'sink': 'e' })<cr>
+
 " Open (r)ecent (f)iles
 nnoremap <leader>rf :History<cr>
 
