@@ -53,6 +53,9 @@ Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
 Plug 'itchyny/lightline.vim'
 Plug 'psliwka/vim-smoothie'
 
+" Tags {{{2
+Plug 'ludovicchabant/vim-gutentags'
+
 " Autocompletion & Language Plugins {{{2
 " Make using Neomake
 Plug 'neomake/neomake'
@@ -301,5 +304,3 @@ map f <Plug>Sneak_f
 map F <Plug>Sneak_F
 map t <Plug>Sneak_t
 map T <Plug>Sneak_T
-
-let g:sneak#label = 1
