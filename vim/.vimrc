@@ -30,10 +30,13 @@ Plug 'AndrewRadev/switch.vim'
 Plug 'tmsvg/pear-tree'
 Plug 'justinmk/vim-sneak'
 Plug 'justinmk/vim-dirvish'
+Plug 'machakann/vim-highlightedyank'
+Plug 'romainl/vim-cool'
 
 " Fuzzy find, everything! {{{2
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'liuchengxu/vim-clap', { 'do': function('clap#helper#build_all') }
 
 " Git {{{2
 Plug 'tpope/vim-fugitive'
@@ -47,6 +50,7 @@ Plug 'honza/vim-snippets'
 " Look & feel {{{2
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'lifepillar/vim-solarized8'
+Plug 'lifepillar/vim-colortemplate'
 Plug 'shapeoflambda/dark-purple.vim'
 Plug 'lifepillar/vim-gruvbox8'
 Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
@@ -304,3 +308,5 @@ map f <Plug>Sneak_f
 map F <Plug>Sneak_F
 map t <Plug>Sneak_t
 map T <Plug>Sneak_T
+
+let g:highlightedyank_highlight_duration = 700
