@@ -1,4 +1,4 @@
-source ~/.zplugin/bin/zplugin.zsh
+source ~/.zinit/bin/zinit.zsh
 
 export PATH=$PATH:$(go env GOPATH)/bin
 
