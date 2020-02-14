@@ -1,6 +1,6 @@
 configuration {
   columns: 1;
-  font: "Product Sans 16";
+  font: "SF Pro Display 16";
   bw: 0;
   location: 0;
   padding: 0;
