@@ -24,3 +24,5 @@ done
 
 ### Source the FZF zsh file
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+QT_QPA_PLATFORMTHEME=qt5ct

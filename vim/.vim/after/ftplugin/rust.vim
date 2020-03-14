@@ -9,7 +9,10 @@ if executable("rustfmt")
 endif
 
 " Disable opening of the scratch buffer during completion
-setlocal completeopt-=preview
+" setlocal completeopt-=preview
+
+" Auto format using rustfmt
+let g:rustfmt_autosave = 1
 
 " (l)anguae mappings
 nnoremap <leader>lr :Redir !cargo run<cr>
