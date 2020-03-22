@@ -44,12 +44,6 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_VERIFY
 setopt HIST_EXPIRE_DUPS_FIRST
 
-# to to the beggining/end of line with fn+left/right or home/end
-bindkey "${terminfo[khome]}" beginning-of-line
-bindkey '^[[H' beginning-of-line
-bindkey "${terminfo[kend]}" end-of-line
-bindkey '^[[F' end-of-line
-
 # delete char with backspaces and delete
 bindkey '^[[3~' delete-char
 bindkey '^?' backward-delete-char
@@ -58,13 +52,17 @@ bindkey '^?' backward-delete-char
 bindkey '^[[3;5~' backward-delete-word
 # bindkey '^[[3~' backward-delete-word
 
-# Search up/down using the text entered so far
-bindkey '^[[A' up-line-or-search
-bindkey '^[[B' down-line-or-search
-
 # vi mode
 bindkey -v
 export KEYTIMEOUT=1
+
+# to to the beggining/end of line with fn+left/right or home/end
+bindkey "${terminfo[khome]}" vi-beginning-of-line
+bindkey '^[[H' vi-beginning-of-line
+bindkey '^A' vi-beginning-of-line
+bindkey "${terminfo[kend]}" vi-end-of-line
+bindkey '^[[F' vi-end-of-line
+bindkey '^E' vi-end-of-line
 
 # Change cursor shape for different vi modes.
 function zle-keymap-select {
@@ -87,9 +85,14 @@ zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
-# Edit line in vim with ctrl-e:
+# Edit line in nevion/vim/vi with ct-x ctrl-e:
+if [[ $(command -v nvim) ]]; then
+  export EDITOR=nvim
+elif [[ $(command -v vim) ]]; then
+  export EDITOR=vim
+fi
 autoload edit-command-line; zle -N edit-command-line
-bindkey '^e' edit-command-line
+bindkey '^x^e' edit-command-line
 
 # # search history with fzf if installed, default otherwise
 # For Arch
@@ -120,3 +123,17 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 
 # Disable spaceship go symbol that causes crash
 SPACESHIP_VI_MODE_SHOW=false
 SPACESHIP_CHAR_SYMBOL='λ '
+
+# start typing + [Up-Arrow] - fuzzy find history forward
+if [[ "${terminfo[kcuu1]}" != "" ]]; then
+  autoload -U up-line-or-beginning-search
+  zle -N up-line-or-beginning-search
+  bindkey "${terminfo[kcuu1]}" up-line-or-beginning-search
+  bindkey '^[[A' up-line-or-beginning-search
+fi
+# start typing + [Down-Arrow] - fuzzy find history backward
+if [[ "${terminfo[kcud1]}" != "" ]]; then
+  autoload -U down-line-or-beginning-search
+  zle -N down-line-or-beginning-search
+  bindkey '^[[B' down-line-or-beginning-search
+fi

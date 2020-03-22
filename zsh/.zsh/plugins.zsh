@@ -1,4 +1,4 @@
-zplugin light rupa/z
+zplugin light skywind3000/z.lua
 
 zplugin ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"
 zplugin light tj/git-extras
