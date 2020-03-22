@@ -1,57 +1,56 @@
 * {
-    border: none;
-    border-radius: 0;
-    font-family: 'SF Pro Display';
-    font-size: 16px;
-    padding: 1px 3px 1px 0px;
-    min-height: 0;
+  border: none;
+  border-radius: 0;
+  /* background: transparent; */
+  font-family: "SF Pro Display";
+  font-size: 16px;
+  min-height: 0;
 }
 
 window#waybar {
-    background: #1F1F1F;
-    /* border-bottom: 3px solid rgba(100, 114, 125, 0.5); */
-    color: #FEFEFE;
+  background-image: linear-gradient(to right, #232526 0%, #414345 51%, #232526 100%);
+  color: #fefefe;
 }
 
 #workspaces {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 #workspaces button {
-    box-shadow: none;
-    text-shadow: none;
-    padding: 0px 5px 0px 5px;
-    color: #FEFEFE;
+  box-shadow: none;
+  text-shadow: none;
+  padding: 3px 5px 3px 5px;
+  color: #fefefe;
 }
-
 
 #workspaces button.focused {
-    background-color: #FEBA12;
-    color: #1F1F1F;
-    margin-bottom: -3px;
-    margin-top: -3px;
-    /* border-bottom: 3px solid #404040; */
-    /* margin: 2px 0px 2px 0px; */
-}
-
-#workspaces button:hover {
-    background: #404040;
-    color: #FEFEFE;
-    border-bottom: 3px solid #1F1F1F;
-    /* margin: 2px 0px 2px 0px; */
+  background-color: #0592e9;
+  color: #fefefe;
+  font-weight:bold;
+  /* margin-bottom: -3px; */
+  /* margin-top: -3px; */
+  /* border-bottom: 3px solid #0592e9; */
+  /* margin: 2px 0px 2px 0px; */
 }
 
 #mode {
-    border-bottom: 3px solid white;
+  border-bottom: 3px solid white;
 }
 
-#clock, #battery, #cpu, #memory, #network, #pulseaudio, #custom-spotify, #tray, #mode {
-    padding: 0 10px;
-    margin: 0 0px;
+#clock,
+#battery,
+#cpu,
+#memory,
+#network,
+#pulseaudio,
+#custom-spotify,
+#tray,
+#mode {
+  padding: 0 10px;
 }
 
 #custom-power {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 
 #idle_inhibitor {
@@ -59,75 +58,64 @@ window#waybar {
 }
 
 #clock {
-
 }
 
 #battery {
-    color: white;
+  color: white;
 }
 
 #battery.charging {
-    color: white;
-
+  color: white;
 }
 
 @keyframes blink {
-    to {
-        color: white;
-    }
+  to {
+    color: white;
+  }
 }
 
 #battery.warning:not(.charging) {
-    color: white;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction : alternate;
+  color: white;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 
 #battery.critical:not(.charging) {
-    color: rgba(245, 60, 60, 0.6);
-    /* color: #ffffff; */
-    animation-name: blink;
-    animation-duration: 1.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+  color: rgba(245, 60, 60, 0.6);
+  /* color: #ffffff; */
+  animation-name: blink;
+  animation-duration: 1.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 
 #cpu {
-    color: white;
+  color: white;
 }
 
-
 #network.disconnected {
-    background: #dd7c7e;
+  background: #dd7c7e;
 }
 
 #pulseaudio {
-    color: white;
+  color: white;
 }
 
 #pulseaudio.muted {
-    color: white;
+  color: white;
 }
 
 #custom-spotify {
-    color: white;
+  color: white;
 }
 
-#custom-weather{
-    color: white;
+#custom-weather {
+  color: white;
 }
 
 #tray {
 }
-
-#custom-spotify {
-    background: #404040;
-    color: #FEFEFE;
-    margin-bottom: -3px;
-    margin-top: -3px;
-}
-
