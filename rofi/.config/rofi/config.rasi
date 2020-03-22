@@ -16,6 +16,7 @@ configuration {
   display-drun: "";
   display-window: "";
   drun-display-format: "{name}{icon}";
+  display-window: "";
 }
 
 element {
@@ -25,16 +26,12 @@ element {
 }
 
 element-icon {
-  size: 30px;
-  padding: 10px 10px 10px 0px;
+  size: 40px;
+  padding: 10px 10px 10px 10px;
   border:       0px 1px 0px 0px;
   border-color: #404040;
 }
 
-element-text {
-  border-left: 1px solid;
-  padding: 10px 10px 10px 0px;
-}
 
 * {
   background-color: #1f1f1f;
@@ -43,7 +40,7 @@ element-text {
 
 #window {
   padding: 20px;
-  width: 850px;
+  width: 800px;
 }
 
 listview {
@@ -55,7 +52,7 @@ listview {
 
 
 prompt {
-  text-color: #feba12;
+  text-color: #0592e9;
   font: "Product Sans 20";
   padding: 5px;
   scrollbar:    false;
@@ -64,12 +61,21 @@ prompt {
 inputbar,
 textbox-prompt-colon,
 entry {
-  background-color: #404040;
+  border-color: #404040;
   padding: 10px;
 }
 
 #element.selected {
-  text-style: bold;
-  background-color: #1F1F1F;
-  text-color: #feba12;
+  background-color: #0592e9;
+  text-style: italic;
+  text-color: #fefefe;
+}
+
+inputbar {
+  border:       3px 3px 3px 3px;
+  border-color: #404040;
+}
+
+element-text {
+vertical-align: 0.5;
 }
