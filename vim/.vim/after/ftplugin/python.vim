@@ -18,5 +18,5 @@ endif
 
 " Mappings {{{1
 " Execute python file from within vim
-cabbrev <buffer> py3 w ! python3
+cabbrev <buffer> py3 Redir !python3 %
 cabbrev <buffer> py2 w ! python

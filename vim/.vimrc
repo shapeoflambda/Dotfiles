@@ -36,7 +36,6 @@ Plug 'romainl/vim-cool'
 " Fuzzy find, everything! {{{2
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'liuchengxu/vim-clap', { 'do': function('clap#helper#build_all') }
 
 " Git {{{2
 Plug 'tpope/vim-fugitive'
@@ -66,13 +65,11 @@ Plug 'neomake/neomake'
 
 " Golang {{{3
 Plug 'fatih/vim-go', { 'for': 'go' }
-" Rust {{{3
-Plug 'neomake/neomake'
 
 " Rust {{{3
 Plug 'rust-lang/rust.vim'
 
-" Coc with and extensions {{{2
+" Coc with and extensions {{{3
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Extensions
@@ -89,8 +86,6 @@ set incsearch
 set hlsearch
 
 set noswapfile
-set autoread
-
 set shiftwidth=2 tabstop=2
 set expandtab
 set backspace=indent,eol,start
