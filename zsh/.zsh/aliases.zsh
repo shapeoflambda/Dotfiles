@@ -34,4 +34,6 @@ alias -s {html,htm}=xdg-open
 # Ref: https://askubuntu.com/questions/694848/how-to-download-a-youtube-playlist-with-numbered-prefix-via-youtube-dl
 alias youtube-dl-playlist=youtube-dl -o "%(playlist_index)s-%(title)s.%(ext)s"
 
-eval $(thefuck --alias f)
+if command -v thefuck >/dev/null 2>&2; then
+  eval $(thefuck --alias f)
+fi
