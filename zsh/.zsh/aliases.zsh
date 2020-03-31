@@ -3,6 +3,11 @@ if command -v nvim >/dev/null 2>&2; then
 	alias vim='nvim'
 fi
 
+# use open as alias for xdg-open
+if command -v xdg-open >/dev/null 2>&2; then
+	alias open='xdg-open'
+fi
+
 # Add bit of color
 alias ls='ls --color=auto'
 alias grep='grep  --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
