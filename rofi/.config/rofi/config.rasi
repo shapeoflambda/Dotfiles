@@ -66,7 +66,8 @@ entry {
 }
 
 #element.selected {
-  background-color: #0592e9;
+  border:       0px 0px 1px 7px;
+  border-color: #404040;
   text-style: italic;
   text-color: #fefefe;
 }

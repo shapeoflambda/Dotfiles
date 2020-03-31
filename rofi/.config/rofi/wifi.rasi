@@ -53,7 +53,7 @@ entry {
 
 #element.selected {
   text-color: #fefefe;
-  background-color: #0592e9;
+  background-color: #50A0EB;
 }
 
 inputbar {
