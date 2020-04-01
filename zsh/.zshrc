@@ -11,7 +11,9 @@ autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
 ### Add go to path
-export PATH=$PATH:$(go env GOPATH)/bin
+if command -v go >/dev/null 2>&2; then
+  export PATH=$PATH:$(go env GOPATH)/bin
+fi
 
 ### Source individual zsh files
 declare -a zshFiles=("plugins" "aliases" "functions" "configurations" "work")
