@@ -69,6 +69,11 @@ Plug 'fatih/vim-go', { 'for': 'go' }
 " Rust {{{3
 Plug 'rust-lang/rust.vim'
 
+" Rails {{{3
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-dispatch'
+Plug 'janko/vim-test'
+
 " Coc with and extensions {{{3
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
