@@ -28,3 +28,9 @@ done
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 QT_QPA_PLATFORMTHEME=qt5ct
+
+# use the starship.rs as the prompt
+if ! command -v starship >/dev/null 2>&2; then
+  curl -fsSL https://starship.rs/install.sh | zsh
+fi
+eval "$(starship init zsh)"

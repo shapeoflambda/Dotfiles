@@ -120,10 +120,6 @@ BAT_THEME="DarkNeon"
 # autoload -U compinit && compinit
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 
-# Disable spaceship go symbol that causes crash
-SPACESHIP_VI_MODE_SHOW=false
-SPACESHIP_CHAR_SYMBOL='λ '
-
 # start typing + [Up-Arrow] - fuzzy find history forward
 if [[ "${terminfo[kcuu1]}" != "" ]]; then
   autoload -U up-line-or-beginning-search
