@@ -1,3 +1,8 @@
+if exists("g:loaded_grepping")
+  finish
+endif
+let g:loaded_grepping = 1
+
 """""""""""""""""""
 "  Sane Grepping  "
 """""""""""""""""""

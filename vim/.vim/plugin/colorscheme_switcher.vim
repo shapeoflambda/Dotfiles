@@ -1,3 +1,8 @@
+if exists("g:loaded_colorscheme_switcher")
+  finish
+endif
+let g:loaded_colorscheme_switcher = 1
+
 " Global terminal variable used to toggle colorscheme
 let g:isLightTheme=0
 

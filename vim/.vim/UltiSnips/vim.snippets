@@ -1,0 +1,6 @@
+snippet loaded "add block to check if plugin is already loaded"
+if exists("g:loaded_`!p snip.rv = snip.basename `")
+  finish
+endif
+let g:loaded_`!p snip.rv = snip.basename` = 1
+endsnippet

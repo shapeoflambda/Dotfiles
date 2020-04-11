@@ -1,9 +1,13 @@
 " Custom Switch definitions to be used by the AndrewRadev/switch.vim plugin
 " :help switch-customization
 " vim: foldmethod=marker
+if exists("g:loaded_switches")
+  finish
+endif
+let g:loaded_switches = 1
 
 " Mapping {{{1
-nnoremap <silent> <leader><Space> :Switch<CR>
+nnoremap <silent> <Space><Space> :Switch<CR>
 
 " FileTypes {{{1
 " Java {{{2

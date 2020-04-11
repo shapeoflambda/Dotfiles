@@ -1,3 +1,8 @@
+if exists("g:loaded_auto_reply")
+  finish
+endif
+let g:loaded_auto_reply = 1
+
 function! AutoReply()
   let previous_cmdline  = histget('cmd', -1)
   let previous_cmd      = split(previous_cmdline)[0]

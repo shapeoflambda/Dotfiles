@@ -1,3 +1,8 @@
+if exists("g:loaded_select_indent")
+  finish
+endif
+let g:loaded_select_indent = 1
+
 function! s:inIndentation()
 	" select all text in current indentation level excluding any empty lines
 	" that precede or follow the current indentationt level;
