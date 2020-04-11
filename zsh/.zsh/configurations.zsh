@@ -107,15 +107,18 @@ else
 fi
 
 # # FZF Options
-export FZF_DEFAULT_COMMAND='rg --files --hidden -g "!.git" 2>/dev/null || fd --hidden --no-ignore --type f 2>/dev/null'
+if command -v fd >/dev/null 2>&2; then
+  FZF_DEFAULT_COMMAND='fd --hidden --exclude .git/ --type f 2>/dev/null'
+else
+  export FZF_DEFAULT_COMMAND='rg --files --hidden -g "!.git" 2>/dev/null'
+fi
 export FZF_DEFAULT_OPTS='--extended --preview=" [[ $(file --mime {}) =~ binary ]] &&
 	echo {} is a binary file ||
 	(bat --color always {} || head -500 {}) 2> /dev/null | head -$LINES"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_CTRL_R_OPTS='--no-preview'
 
 # # Bat Theme
-BAT_THEME="DarkNeon"
+BAT_THEME="dracula"
 
 # autoload -U compinit && compinit
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'

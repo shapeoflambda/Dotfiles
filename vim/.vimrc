@@ -185,7 +185,11 @@ nnoremap <leader>m :Maps<cr>
 
 " Use Rg for grepping
 if executable('rg')
-  nnoremap <leader>rg :Rg<cr>
+  command! -bang -nargs=* Rg
+    \ call fzf#vim#grep(
+    \   'rg --column --line-number --hidden --color=always --smart-case '.shellescape(<q-args>), 0,
+    \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%'), <bang>0)
+  nnoremap Rg :Rg<cr>'
 endif
 
 " }}}
