@@ -11,18 +11,18 @@
 # - Give it exec priviledge, or chmod +x /path/to/power.sh
 # - Run it
 
-chosen=$(echo -e " Cancel\n Lock\n Logout\n更 Shutdown\n連 Reboot\n賈 Suspend" | rofi -p "" -config '~/.config/rofi/wifi.rasi' -dmenu -i)
+chosen=$(echo -e " Cancel\n Lock\n Logout\n更 Shutdown\n連 Reboot\n賈 Suspend" | rofi -mesg "Choose wisely, Harish!" -p "" -config '~/.config/rofi/wifi.rasi' -dmenu -i)
 # Info about some states are available here:
 # https://www.freedesktop.org/software/systemd/man/systemd-sleep.conf.html#Description
 
 if [[ $chosen = " Lock" ]]; then
-	swaylock -i "~/.wallpapers/wallpaper_01.jpg" --clock --indicator --indicator-radius 100 --effect-blur 7x5 --key-hl-color 880033
+  swaylock -i "~/.wallpapers/wallpaper_01.jpg" --clock --indicator --indicator-radius 100 --effect-blur 7x5 --key-hl-color 880033
 elif [[ $chosen = " Logout" ]]; then
-	sway exit
+  sway exit
 elif [[ $chosen = "更 Shutdown" ]]; then
-	systemctl poweroff
+  systemctl poweroff
 elif [[ $chosen = "連 Reboot" ]]; then
-	systemctl reboot
+  systemctl reboot
 elif [[ $chosen = "賈 Suspend" ]]; then
-	systemctl suspend
+  systemctl suspend
 fi

@@ -34,3 +34,6 @@ if ! command -v starship >/dev/null 2>&2; then
   curl -fsSL https://starship.rs/install.sh | zsh
 fi
 eval "$(starship init zsh)"
+if [[ -d /home/harish/.gem/ruby/2.7.0/bin ]]; then
+  export PATH="$PATH:/home/harish/.gem/ruby/2.7.0/bin"
+fi
