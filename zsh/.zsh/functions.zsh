@@ -1,4 +1,4 @@
 # Create and changes working directory in one command
-md () {
+mkcd () {
   mkdir -p "$@" && cd "$1";
 }
