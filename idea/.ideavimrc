@@ -5,9 +5,10 @@ set ignorecase
 set smartcase
 
 "-------------------------------------------------------------------------------
-" IdeaVim Plugin Emulations
+" IdeaVim Plugin Extensions
 "-------------------------------------------------------------------------------
 set surround
+set commentary
 
 "-------------------------------------------------------------------------------
 " Mappings
@@ -37,3 +38,17 @@ nnoremap [[ :action MethodUp<CR>
 nnoremap [g :action VcsShowPrevChangeMarker<CR>
 nnoremap ]g :action VcsShowNextChangeMarker<CR>
 nnoremap <leader>gu :action Vcs.RollbackChangedLines<CR>
+
+" Errors
+nnoremap [q :action GotoPreviousError<CR>
+nnoremap ]q :action GotoNextError<CR>
+
+" Toggle distraction free mode and hide activewindow
+nnoremap + :action ToggleDistractionFreeMode<CR>
+nnoremap - :action HideActiveWindow<CR>
+
+" Tests
+nnoremap <leader>tt :action RunClass<CR>
+
+" Reformat Code
+nnoremap gq :action ReformatCode<CR>
