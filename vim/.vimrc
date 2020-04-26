@@ -81,11 +81,6 @@ Plug 'janko/vim-test'
 " Coc with and extensions {{{3
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" Extensions
-Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-emmet', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
-
 call plug#end()
 
 " Basics {{{1
