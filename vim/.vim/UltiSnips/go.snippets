@@ -3,3 +3,18 @@ for _, ${1:`!p snip.rv = match.group(1)[:-1] if match.group(1).endswith('s') els
 	${0}
 }
 endsnippet
+
+snippet ddt "create a data drive test"
+var ${1:myFunc}Tests = []struct {
+	input    ${2:type}
+	expected ${3:type}
+}{
+	{$4},
+}
+
+func Test${5:Name}(t *testing.T) {
+	for _, $1Test := range $1Tests {
+		$0
+	}
+}
+endsnippet
