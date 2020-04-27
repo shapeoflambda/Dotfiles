@@ -18,8 +18,8 @@ endif
 call plug#begin('~/.vim/plugged')
 source ~/.vim/plugin/plugins.vim
 
-if filereadable(glob("~/.local/work.vim"))
-  source ~/.local/work.vim
+if filereadable(glob("~/.local/vim/plugins.vim"))
+  source ~/.local/vim/plugins.vim
 endif
 
 call plug#end()
@@ -260,26 +260,6 @@ map F <Plug>Sneak_F
 map t <Plug>Sneak_t
 map T <Plug>Sneak_T
 let g:highlightedyank_highlight_duration = 700
-
-" This blackmagic let's you copy to system's clipboard in a SSH session. To
-" have this working, check the 'Applications in terminal may access clipboard'
-" option in iTerm's Settings: General -> Selection
-function! Osc52Yank()
-  "Pay attention to the register name. Use '@0' if you want all yanks to be
-  "copied to clipboard. I prefer using '+', so that it'seamless when switching
-  "between local and remote vim sessions.
-  let buffer=system('base64 -w0', @+)
-
-  let buffer=substitute(buffer, "\n$", "", "")
-  let buffer='\e]52;c;'.buffer.'\x07'
-  silent exe "!echo -ne ".shellescape(buffer)." > ".shellescape("/dev/pts/0")
-endfunction
-command! Osc52CopyYank call Osc52Yank()
-
-augroup Osc
-  autocmd!
-  autocmd TextYankPost * if (v:event.regname == '+') | call Osc52Yank() | endif
-augroup END
 " ALE Settings {{{2
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
@@ -288,3 +268,8 @@ let g:ale_list_window_size = 5
 nnoremap <leader>af :ALEFix<cr>
 nnoremap <leader>ae :ALEEnable<cr>
 nnoremap <leader>ad :ALEDisable<cr>
+
+" Source a local config if present
+if filereadable(glob("~/.local/vim/config.vim"))
+  source ~/.local/vim/config.vim
+endif
