@@ -9,19 +9,19 @@ let g:isLightTheme=0
 " Set light theme
 function! LightTheme()
   colorscheme gray
-let g:lightline = {
-      \ 'colorscheme': 'solarized',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             ['readonly', 'filename', 'modified' ] ],
-      \   'right': [ [ 'lineinfo' ],
-      \              [ 'filetype' ],
-      \              [ 'gitbranch'] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
-      \ },
-      \ }
+  let g:lightline = {
+        \ 'colorscheme': 'solarized',
+        \ 'active': {
+        \   'left': [ [ 'mode', 'paste' ],
+        \             ['readonly', 'filename', 'modified' ] ],
+        \   'right': [ [ 'lineinfo' ],
+        \              [ 'filetype' ],
+        \              [ 'gitbranch'] ]
+        \ },
+        \ 'component_function': {
+        \   'gitbranch': 'fugitive#head'
+        \ },
+        \ }
   call LightlineReload()
 
   let g:isLightTheme=1
@@ -33,10 +33,10 @@ function! DarkTheme()
     let g:lightline = ''
   endif
 
-  colorscheme dark_purple
+  colorscheme ayu
 
   let g:lightline = {
-        \ 'colorscheme': 'dark_purple',
+        \ 'colorscheme': 'one',
         \ 'active': {
         \   'left': [ [ 'mode', 'paste' ],
         \             ['readonly', 'filename', 'modified' ] ],
@@ -77,4 +77,5 @@ endfunction
 " Mappings to (t)oggle (c)olor schemes
 nnoremap <silent> <leader>tc :ToggleColorScheme<cr>
 
+let ayucolor="mirage"
 call DarkTheme()

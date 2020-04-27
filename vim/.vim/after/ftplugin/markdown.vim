@@ -39,10 +39,10 @@ nnoremap <leader>aa mmggVGgw`mzz
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 if has("unix")
   let s:uname = system("uname -s")
-  if s:uname == "Darwin\n"
-    nnoremap <silent> <leader>o :!open % -b com.google.Chrome<cr>
+  if s:uname =~ "Darwin"
+    nnoremap <silent> <leader>o :silent !open % -b com.google.Chrome<cr>
   else
-    nnoremap <silent> <leader>o :!google-chrome-stable %<cr><cr>
+    nnoremap <silent> <leader>o :silent !google-chrome-stable %<cr><cr>
   endif
 endif
 

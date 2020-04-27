@@ -16,68 +16,11 @@ elseif has('win32')
 endif
 
 call plug#begin('~/.vim/plugged')
+source ~/.vim/plugin/plugins.vim
 
-" Editing {{{2
-Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-apathy'
-Plug 'tpope/vim-unimpaired'
-Plug 'junegunn/vim-easy-align'
-Plug 'AndrewRadev/switch.vim'
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'justinmk/vim-sneak'
-Plug 'justinmk/vim-dirvish'
-Plug 'machakann/vim-highlightedyank'
-  let g:highlightedyank_highlight_duration = 700
-
-Plug 'romainl/vim-cool'
-
-" Fuzzy find, everything! {{{2
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-
-" Git {{{2
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
-Plug 'mhinz/vim-signify'
-
-" Snippets {{{2
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-
-" Look & feel {{{2
-Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'lifepillar/vim-solarized8'
-Plug 'lifepillar/vim-colortemplate'
-Plug 'shapeoflambda/dark-purple.vim'
-Plug 'ayu-theme/ayu-vim'
-Plug 'lifepillar/vim-gruvbox8'
-Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
-Plug 'itchyny/lightline.vim'
-Plug 'psliwka/vim-smoothie'
-
-" Tags {{{2
-Plug 'ludovicchabant/vim-gutentags'
-
-" Autocompletion & Language Plugins {{{2
-" Linting {{{3
-Plug 'dense-analysis/ale'
-
-" Golang {{{3
-Plug 'fatih/vim-go', { 'for': 'go' }
-
-" Rust {{{3
-Plug 'rust-lang/rust.vim'
-
-" Rails {{{3
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-dispatch'
-Plug 'janko/vim-test'
-
-" Coc with and extensions {{{3
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+if filereadable(glob("~/.local/work.vim"))
+  source ~/.local/work.vim
+endif
 
 call plug#end()
 
@@ -130,9 +73,9 @@ set diffopt+=vertical,filler,algorithm:patience
 " (happens when dropping a file on gvim) and for a commit message (it's
 " likely a different one than last time).
 autocmd BufReadPost *
-  \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-  \ |   exe "normal! g`\""
-  \ | end
+      \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+      \ |   exe "normal! g`\""
+      \ | end
 
 " Look & Feel {{{1
 syntax enable
@@ -183,9 +126,9 @@ nnoremap <leader>m :Maps<cr>
 " Use Rg for grepping
 if executable('rg')
   command! -bang -nargs=* Rg
-    \ call fzf#vim#grep(
-    \   'rg --column --line-number --hidden --color=always --smart-case '.shellescape(<q-args>), 0,
-    \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%'), <bang>0)
+        \ call fzf#vim#grep(
+        \   'rg --column --line-number --hidden --color=always --smart-case '.shellescape(<q-args>), 0,
+        \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%'), <bang>0)
   nnoremap Rg :Rg<cr>'
 endif
 
@@ -264,9 +207,9 @@ augroup END
 " Open quickfix list as soon as messages are posted
 " Useful when performing grep, make, etc.
 augroup qfList
-    autocmd!
-    autocmd QuickFixCmdPost [^l]* cwindow
-    autocmd QuickFixCmdPost l*    lwindow
+  autocmd!
+  autocmd QuickFixCmdPost [^l]* cwindow
+  autocmd QuickFixCmdPost l*    lwindow
 augroup END
 
 " Plugin Settings {{{1

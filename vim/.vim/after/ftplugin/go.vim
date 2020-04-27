@@ -42,3 +42,6 @@ nnoremap <leader>rn :GoRename<cr>
 
 nnoremap <silent> <leader>r :w<CR>:vsplit <bar> terminal go run %<CR>
 nnoremap <silent> f<CR> ggVGgq
+
+" show documentation in the pop-up menu instead of opening a scratch buffer
+let go_doc_popup_window=1
