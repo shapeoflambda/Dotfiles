@@ -30,9 +30,15 @@ endif
 " Disable opening of the scratch buffer during completion
 setlocal completeopt-=preview
 
-" (l)anguae mappings
-nnoremap <leader>lr :GoRun<cr>
-nnoremap <leader>ll :GoLint<cr>
+" (G)o mappings
+nnoremap <leader>gr :GoRun<cr>
+nnoremap <leader>gl :GoLint<cr>
+nnoremap <leader>gb :GoBuild<cr>
+nnoremap <leader>gt :GoTest<cr>
+nnoremap <leader>gr :GoRun<cr>
+nnoremap <leader>ga :GoAlternate<cr>
+nnoremap <leader>gc :GoCoverageToggle<cr>
+nnoremap <leader>rn :GoRename<cr>
 
 nnoremap <silent> <leader>r :w<CR>:vsplit <bar> terminal go run %<CR>
 nnoremap <silent> f<CR> ggVGgq

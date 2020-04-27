@@ -20,7 +20,6 @@ call plug#begin('~/.vim/plugged')
 " Editing {{{2
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-apathy'
@@ -28,10 +27,11 @@ Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/vim-easy-align'
 Plug 'AndrewRadev/switch.vim'
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'tmsvg/pear-tree'
 Plug 'justinmk/vim-sneak'
 Plug 'justinmk/vim-dirvish'
 Plug 'machakann/vim-highlightedyank'
+  let g:highlightedyank_highlight_duration = 700
+
 Plug 'romainl/vim-cool'
 
 " Fuzzy find, everything! {{{2
@@ -52,6 +52,7 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'lifepillar/vim-solarized8'
 Plug 'lifepillar/vim-colortemplate'
 Plug 'shapeoflambda/dark-purple.vim'
+Plug 'ayu-theme/ayu-vim'
 Plug 'lifepillar/vim-gruvbox8'
 Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
 Plug 'itchyny/lightline.vim'
@@ -61,8 +62,8 @@ Plug 'psliwka/vim-smoothie'
 Plug 'ludovicchabant/vim-gutentags'
 
 " Autocompletion & Language Plugins {{{2
-" Make using Neomake
-Plug 'neomake/neomake'
+" Linting {{{3
+Plug 'dense-analysis/ale'
 
 " Golang {{{3
 Plug 'fatih/vim-go', { 'for': 'go' }
@@ -77,11 +78,6 @@ Plug 'janko/vim-test'
 
 " Coc with and extensions {{{3
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-" Extensions
-Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-emmet', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
 
 call plug#end()
 
@@ -205,9 +201,6 @@ nnoremap <leader>gu :SignifyHunkUndo<cr>
 nnoremap <silent> [g :execute "normal \<Plug>(signify-prev-hunk)"<cr>
 nnoremap <silent> ]g :execute "normal \<Plug>(signify-next-hunk)"<cr>
 
-" Neomake {{{2
-nnoremap <silent> ]n :NeomakeNextLoclist<cr>
-nnoremap <silent> [n :NeomakePrevLoclist<cr>
 " Misc {{{2
 " Open explorer
 nnoremap <leader>e :Ex<cr>
@@ -277,11 +270,6 @@ augroup qfList
 augroup END
 
 " Plugin Settings {{{1
-" Ultisnip Settings {{{2
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
 " Signify settings {{{2
 set updatetime=100
 let g:signify_sign_show_text = 0
@@ -328,7 +316,6 @@ map f <Plug>Sneak_f
 map F <Plug>Sneak_F
 map t <Plug>Sneak_t
 map T <Plug>Sneak_T
-
 let g:highlightedyank_highlight_duration = 700
 
 " This blackmagic let's you copy to system's clipboard in a SSH session. To
@@ -350,3 +337,11 @@ augroup Osc
   autocmd!
   autocmd TextYankPost * if (v:event.regname == '+') | call Osc52Yank() | endif
 augroup END
+" ALE Settings {{{2
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+let g:ale_list_window_size = 5
+
+nnoremap <leader>af :ALEFix<cr>
+nnoremap <leader>ae :ALEEnable<cr>
+nnoremap <leader>ad :ALEDisable<cr>
