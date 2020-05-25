@@ -1,7 +1,21 @@
-if exists("g:loaded_select_indent")
+" Defines some useful textobjects
+" Mostly from https://vimways.org/2018/transactions-pending/
+if exists("g:loaded_custom_text_objects")
   finish
 endif
-let g:loaded_select_indent = 1
+let g:loaded_custom_text_objects = 1
+
+" "in line" (entire line sans white-space; cursor at beginning--ie, ^)
+xnoremap <silent> il :<c-u>normal! g_v^<cr>
+onoremap <silent> il :<c-u>normal! g_v^<cr>
+
+" "around line" (entire line sans trailing newline; cursor at beginning--ie, 0)
+xnoremap <silent> al :<c-u>normal! $v0<cr>
+onoremap <silent> al :<c-u>normal! $v0<cr>
+
+" "in document" (from first line to last; cursor at top--ie, gg)
+xnoremap <silent> id :<c-u>normal! G$Vgg0<cr>
+onoremap <silent> id :<c-u>normal! GVgg<cr>
 
 function! s:inIndentation()
 	" select all text in current indentation level excluding any empty lines
@@ -58,6 +72,6 @@ function! s:inIndentation()
 	let &magic = l:magic
 endfunction
 
-" in indentation" (indentation level sans any surrounding empty lines)
+" "in indentation" (indentation level sans any surrounding empty lines)
 xnoremap <silent> ii :<c-u>call <sid>inIndentation()<cr>
 onoremap <silent> ii :<c-u>call <sid>inIndentation()<cr>

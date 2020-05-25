@@ -9,10 +9,9 @@ endsnippet
 
 # Add print statement to list methods on the variable
 snippet "(\S.*)\.m" "puts statement for the current variable" r
-puts "${1:`!p snip.rv = match.group(1).strip()`} -> #{`!p snip.rv = match.group(1).strip()`.${2:methods}}"$0
+puts "${1:`!p snip.rv = match.group(1).strip()`} -> #{`!p snip.rv = match.group(1).strip()`.${2:methods.sort}}"$0
 endsnippet
 
 snippet p "print something"
 puts "${1:message}"$0
 endsnippet
-

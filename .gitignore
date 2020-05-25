@@ -1,5 +1,7 @@
 vim/.vim/undodir
+vim/.vim/cache
 vim/.vim/plugged
+vim/.vim/pack
 vim/.vim/autoload/plug.vim
 vim/.vim/spell/
 zsh/.zsh/work.zsh
