@@ -11,14 +11,14 @@ fun! s:shorten_file_paths(raw_file_paths)
 endf
 
 " Open recent files
-fun s:recent_files(argument_lead, L, P)
+function! s:recent_files(argument_lead, L, P)
   let l:raw_recent_files = <SID>shorten_file_paths(copy(v:oldfiles))
 
   " filter out files that don't exist anymore!
   let l:raw_recent_files = filter(l:raw_recent_files, { idx, val -> file_util#file_exists(val)})
 
   return join(l:raw_recent_files, "\n")
-endfun
+endfunction
 
 command -nargs=1 -complete=custom,<SID>recent_files Recent edit <args>
 
