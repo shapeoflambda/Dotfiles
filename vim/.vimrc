@@ -112,6 +112,13 @@ nnoremap ,rf :Recent *
 nnoremap ,v :VimFiles *
 nnoremap ,t :tag *
 
+" use the asynchronous version if possible
+if ! (has('channel') || has('nvim'))
+  nnoremap ,m :make<cr>
+else
+  nnoremap ,m :Make<cr>
+endif
+
 " Stay in visual mode after (in|out)denting
 xnoremap < <gv
 xnoremap > >gv
