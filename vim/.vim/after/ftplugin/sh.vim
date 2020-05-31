@@ -37,7 +37,7 @@ let b:undo_ftplugin .= '|autocmd! shell_format_on_save'
 if ! exists('g:disable_auto_make')
   augroup shell_make_on_save
     autocmd!
-    autocmd BufWritePost <buffer> execute 'silent make'
+    autocmd BufWritePost <buffer> execute 'silent Make'
   augroup END
 endif
 let b:undo_ftplugin .= '|autocmd! shell_make_on_save'
