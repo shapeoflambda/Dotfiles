@@ -8,28 +8,9 @@ if exists('g:loaded_faster_find')
 endif
 let g:loaded_faster_find = 1
 
-function! s:Set_path() abort
-	" Set a basic &path
-	set path=.,,
 
-	" Retrieve list of tracked directories
-	let l:tree_command = "git ls-tree -d --name-only HEAD" 
-	let l:git_directories = systemlist(l:tree_command . ' 2>/dev/null')
-	if empty(l:git_directories)
-    set path+=** "enable recursive search of there are no directories to ignore
-		return
-	endif
-
-	" Remove dot directories
-	let l:directories = filter(l:git_directories, { idx, val -> val !~ '^\.' })
-
-	" Add recursive wildcard to each directory
-	let l:final_directories = map(l:directories, { idx, val -> val . '/**' })
-
-	" Add all directories to &path
-	let &path .= join(l:final_directories, ',')
-endfunction
-call s:Set_path()
+" Set a sane path using information from git
+call path#SetSanePath()
 
 " Helper function for local scope
 function! s:Wildignore() abort
