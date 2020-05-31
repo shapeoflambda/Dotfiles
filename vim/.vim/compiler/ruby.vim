@@ -1,7 +1,7 @@
 if exists('g:current_compiler')
   finish
 endif
-let g:current_compiler = 'bash'
+let g:current_compiler = 'ruby'
 
 if exists(':CompilerSet') != 2
   command -nargs=* CompilerSet setlocal <args>
@@ -10,8 +10,10 @@ endif
 " 7.4.191 is the earliest version with the :S file name modifier, which we
 " really should use if we can
 if v:version >= 704 || v:version == 704 && has('patch191')
-  CompilerSet makeprg=bash\ -n\ --\ %:S\ 1>\ /dev/null
+  CompilerSet makeprg=ruby\ -c\ %:S
 else
-  CompilerSet makeprg=bash\ -n\ --\ %\ 1>\ /dev/null
+  CompilerSet makeprg=ruby\ -c\ %
 endif
-CompilerSet errorformat=%f:\ line\ %l:\ %m
+"test.rb:1: unterminated string meets end of file
+CompilerSet errorformat=%f:%l:\ %m
+
