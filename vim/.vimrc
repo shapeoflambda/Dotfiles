@@ -21,7 +21,7 @@ filetype plugin indent on "Enable filetype plugins
 " Add completion options
 if exists('+completeopt')
   set completeopt+=longest  " Insert longest common substring
-  set completeopt+=menuone  " Show the menu even if only one match
+  set completeopt-=menuone  " Don't show the menu even if only one match
 endif
 
 " Don't show a statusline if there's only one window
@@ -90,9 +90,6 @@ endif
 if !exists('g:colors_name')
   set background=dark
 endif
-
-"If there's only option, complete the same
-set completeopt-=menuone
 
 "Ultisnip settings
 let g:UltiSnipsSnippetDirectories  = ["UltiSnips", "customsnippets"]
