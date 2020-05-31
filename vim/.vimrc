@@ -91,6 +91,8 @@ if !exists('g:colors_name')
   set background=dark
 endif
 
+"If there's only option, complete the same
+set completeopt-=menuone
 
 "Ultisnip settings
 let g:UltiSnipsSnippetDirectories  = ["UltiSnips", "customsnippets"]
