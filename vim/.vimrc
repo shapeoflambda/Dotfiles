@@ -144,6 +144,6 @@ nnoremap <c-j> <c-w>j
 if has('nvim')
   augroup highlight_yank
     autocmd!
-    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 400)
+    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 300)
   augroup END
 endif
