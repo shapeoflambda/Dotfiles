@@ -4,30 +4,40 @@ setlocal tabstop=2
 setlocal expandtab
 let b:undo_ftplugin .= '|setlocal shiftwidth< tabstop< expandtab<'
 
+" Run the formatprg before saving
+function! s:FormatBeforeSave()
+  if ! exists('g:disable_auto_format')
+    augroup python_autoformat_before_save
+      autocmd!
+      autocmd BufWritePre <buffer> call formatting#format_whole_buffer()
+      let b:undo_ftplugin .= '|autocmd! python_autoformat_before_save'
+    augroup END
+  endif
+endfunction
+
+" Run the linter on save
+function! s:RunMakeOnSave()
+  if ! exists('g:disable_auto_make')
+    augroup python_make_on_save
+      autocmd!
+      autocmd BufWritePost <buffer> execute 'silent Make'
+    augroup END
+    let b:undo_ftplugin .= '|autocmd! python_make_on_save'
+  endif
+endfunction
+
 " Formatting
 if executable('yapf')
   let &l:formatprg='yapf'
   let b:undo_ftplugin .= '|setlocal formatprg<'
-endif
-
-" Run the formatprg beofre saving
-if ! exists('g:disable_auto_format')
-  augroup python_autoformat_before_save
-    autocmd!
-    autocmd BufWritePre <buffer> call formatting#format_whole_buffer()
-    let b:undo_ftplugin .= '|autocmd! python_autoformat_before_save'
-  augroup END
+  call <SID>FormatBeforeSave()
 endif
 
 " Linting
-if executable('flake8')
+if executable('pylint')
+  compiler pylint
+  call <SID>RunMakeOnSave()
+elseif executable('flake8')
   compiler flake8
-
-  if ! exists('g:disable_auto_make')
-    augroup go_make_on_save
-      autocmd!
-      autocmd BufWritePost <buffer> execute 'silent Make'
-    augroup END
-    let b:undo_ftplugin .= '|autocmd! go_make_on_save'
-  endif
+  call <SID>RunMakeOnSave()
 endif
