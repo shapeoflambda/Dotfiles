@@ -100,12 +100,19 @@ if !exists('g:colors_name')
   set background=dark
 endif
 
+" Set timeout
+set timeout
+set timeoutlen=3000
+set ttimeoutlen=50
+
 "Ultisnip settings
 let g:UltiSnipsSnippetDirectories  = ["UltiSnips", "customsnippets"]
 let g:UltiSnipsExpandTrigger       = "<tab>"
-let g:UltiSnipsListSnippets        = "<C-s>"
 let g:UltiSnipsJumpForwardTrigger  = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsListSnippets        = "<C-s>"
 let g:UltiSnipsEnableSnipMate      = 1
+let g:UltiSnipsEditSplit           = "vertical"
 
 "The default value for g:UltiSnipsJumpBackwardTrigger interferes with the
 "built-in complete function: |i_CTRL-X_CTRL-K
@@ -127,6 +134,9 @@ else
   nnoremap ,m :Make<cr>
 endif
 
+" Search for the highlighted text
+xnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+
 " Stay in visual mode after (in|out)denting
 xnoremap < <gv
 xnoremap > >gv
@@ -138,6 +148,9 @@ xnoremap gy "+y
 " gp/gP are built-in mappings, but I don't use them
 nnoremap gp "+p
 nnoremap gP "+P
+
+" Fix typos staying in insert mode
+inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 " Splits
 set splitright
