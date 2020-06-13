@@ -1,22 +1,23 @@
 [user]
-	email = shapeoflambda@gmail.com
-	name = shapeoflambda
+  email = shapeoflambda@gmail.com
+  name = shapeoflambda
 [color]
-	ui = auto
+  ui = auto
 [core]
-	pager = less -FMRiX
-	excludesfile = ~/.gitignore_global
-	editor = nvim
+  pager = less -FMRiX
+  excludesfile = ~/.gitignore_global
+  editor = nvim
 [push]
-	default = simple
+  default = simple
 [alias]
-	a  = add
-	b  = branch
-	co  = checkout
-	d  = diff
-	l1  = log -1
-	l2  = log -2
-	l3  = log -3
-	s   = status
+  a  =  add
+  b  =  branch
+  c  =  commit
+  ca =  commit --amend
+  co =  checkout
+  d  =  diff
+  dc =  diff --cached
+  s  =  status
+  l  =  "!. ~/.git_helpers/git_pretty_print_log.sh && git_pretty_print_log"
 [commit]
-	template = ~/.gitmessage
+  template = ~/.gitmessage
