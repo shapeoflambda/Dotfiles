@@ -91,8 +91,8 @@ if has('gui_running') || &t_Co >= 256
     autocmd ColorScheme * highlight Normal guibg=NONE
   augroup END
 
-  silent! colorscheme ayu
   let ayucolor="mirage"
+  silent! colorscheme ayu
 endif
 
 " If colors not set, then default with dark background
