@@ -82,8 +82,14 @@ endif
 " Use my colorscheme if using the GUI or if we have 256 colors
 if has('gui_running') || &t_Co >= 256
   set termguicolors
-  let ayucolor="mirage"
+
+  augroup UseTermBackground
+    autocmd!
+    autocmd ColorScheme * highlight Normal guibg=NONE
+  augroup END
+
   silent! colorscheme ayu
+  let ayucolor="mirage"
 endif
 
 " If colors not set, then default with dark background
