@@ -114,11 +114,6 @@ let g:UltiSnipsListSnippets        = "<C-s>"
 let g:UltiSnipsEnableSnipMate      = 1
 let g:UltiSnipsEditSplit           = "vertical"
 
-"The default value for g:UltiSnipsJumpBackwardTrigger interferes with the
-"built-in complete function: |i_CTRL-X_CTRL-K
-let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
-inoremap <c-x><c-k> <c-x><c-k>
-
 " Mappings
 " Files, directories, recent and tags
 nnoremap ,e :Explore<cr>
