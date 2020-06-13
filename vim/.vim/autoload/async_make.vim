@@ -1,7 +1,10 @@
 " Call make asynchronously. Reuses ths makeprg and errorformat already set.
 " Works for both vim and neovim
-function! async_make#make()
+function! async_make#make(args)
   let cmd = split(&makeprg, ' ')
+
+  " Include arguments to "Make" in the cmd
+  let cmd += a:args
 
   " Some compilers use '%' instead of the recommended '%:S', so handling both
   call map(cmd, {_, val -> substitute(val, '%:S', expand('%'), '')})
@@ -82,3 +85,4 @@ function! async_make#handle_job_exit(exit_code)
     endif
   endif
 endfunction
+
