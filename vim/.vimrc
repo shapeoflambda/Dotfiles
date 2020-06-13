@@ -15,6 +15,9 @@ set ignorecase
 set smartcase
 set hlsearch
 set incsearch
+set nowrapscan
+set shortmess-=S "Display the number of matches
+set shortmess-=s "Show the search hit bottom message
 
 filetype plugin indent on "Enable filetype plugins
 
