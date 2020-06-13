@@ -148,6 +148,8 @@ xnoremap gy "+y
 " gp/gP are built-in mappings, but I don't use them
 nnoremap gp "+p
 nnoremap gP "+P
+xnoremap gp "+p
+xnoremap gP "+P
 
 " Fix typos staying in insert mode
 inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
