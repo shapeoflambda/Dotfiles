@@ -3,14 +3,14 @@
 function! async_make#make()
   let cmd = split(&makeprg, ' ')
 
-  " TODO: maybe this is not required. Check.
+  " Some compilers use '%' instead of the recommended '%:S', so handling both
   call map(cmd, {_, val -> substitute(val, '%:S', expand('%'), '')})
   call map(cmd, {_, val -> substitute(val, '%', expand('%'), '')})
 
   " Clear the current quickfix list
   call setqflist([])
 
-  " Vim and neovim has different jobstart methods, handling both use-case
+  " Vim and neovim has different jobstart APIs, supporting both
   if has('nvim')
     let opt = {
           \ 'on_stderr': function('async_make#process_erros_nvim'),
@@ -47,9 +47,11 @@ function! async_make#process_errors(msg)
   let l:old_local_errorformat = &l:errorformat
 
   " cgetexpr explicitly uses the global errorformat and not the buffer local
-  " errorformat set in the ftplugin
+  " errorformat set in the ftplugin. Note: this also overwrites the buffer
+  " local errorformat
   let &g:errorformat = &l:errorformat
 
+  " Using add instead of get as errors get posted asynchronously
   caddexpr a:msg
 
   let &g:errorformat = l:old_global_errorformat
@@ -61,7 +63,6 @@ endfunction
 function! async_make#handle_job_exit_nvim(job_id, exit_code, event)
   call async_make#handle_job_exit(a:exit_code)
 endfunction
-
 
 function! async_make#handle_job_exit_vim(job, exit_code)
   call async_make#handle_job_exit(a:exit_code)
