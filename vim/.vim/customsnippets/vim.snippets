@@ -4,3 +4,21 @@ if exists("g:loaded_`!p snip.rv = snip.basename `")
 endif
 let g:loaded_`!p snip.rv = snip.basename` = 1
 endsnippet
+
+snippet '(\S.*)\.iter' "iterate over a list" r
+for ${1:`!p snip.rv = match.group(1)[:-1] if match.group(1).endswith('s') else 'item'`} in `!p snip.rv = match.group(1)`
+	${0}
+endfor
+endsnippet
+
+snippet '(\S.*)\.keys' "iterate over a keys in a dict" r
+for ${1:key} in keys(`!p snip.rv = match.group(1)`)
+	${0}
+endfor
+endsnippet
+
+snippet '(\S.*)\.values' "iterate over a values in a dict" r
+for ${1:v} in values(`!p snip.rv = match.group(1)`)
+	${0}
+endfor
+endsnippet
