@@ -30,3 +30,7 @@ let b:undo_ftplugin .= '|nunmap <buffer> ]]'
 let g:markdown_fenced_languages = ['java', 'go', 'html', 'vim', 'ruby',
       \ 'python', 'sh', 'bash=sh']
 
+if system('uname') =~ 'darwin'
+  nnoremap <buffer> <silent> ,o :silent !open -a "Google Chrome" %<cr>:redraw!<cr>
+  let b:undo_ftplugin .= '|nunmap <buffer> ,o'
+endif
