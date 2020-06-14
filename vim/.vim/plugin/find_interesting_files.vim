@@ -15,27 +15,35 @@ function! s:recent_files(argument_lead, L, P)
   let l:raw_recent_files = <SID>shorten_file_paths(copy(v:oldfiles))
 
   " filter out files that don't exist anymore!
-  let l:raw_recent_files = filter(l:raw_recent_files, { idx, val -> file_util#file_exists(val)})
+  call filter(l:raw_recent_files, { idx, val -> file_util#file_exists(val)})
 
-  return join(l:raw_recent_files, "\n")
-endfunction
-
-command -nargs=1 -complete=custom,<SID>recent_files Recent edit <args>
-
-" Open files in the ~/.vim folder, excluding ~/.vim/pack and ~/.vim/cache
-" direcories
-fun! s:find_vim_files(A, L, P)
-  if executable('fd')
-    let l:vimfiles = systemlist('fd "" ~/.vim --exclude "/pack" --exclude "/cache" --type f --color "never"')
-  elseif executable('rg')
-    let l:vimfiles = systemlist('rg ~/.vim --files -g "\!**/.vim/pack/**" -g "\!**/.vim/cache/**"')
-  else
-    let l:vimfiles = systemlist('find ~/.vim/ -type f -not -path "*.vim//pack*" -not -path "*.vim//cache*"')
+  " filter out the file currently open in the buffer
+  if !empty(expand('%'))
+    call filter(l:raw_recent_files, 'v:val !~ "' .. fnamemodify(expand('%'), ":~:.") .. '"')
   endif
 
-  let l:vimfiles += ['~/.vimrc']
+  return filter(l:raw_recent_files, 'v:val =~ "' .. escape(a:argument_lead, '.') .. '"')
+endfunction
 
-  return join(<SID>shorten_file_paths(l:vimfiles), "\n")
+command -nargs=1 -complete=customlist,<SID>recent_files Recent edit <args>
+
+" Open files in the ~/.vim folder, excluding directories like ~/.vim/pack and
+" ~/.vim/cache direcories
+fun! s:find_vim_files(A, L, P)
+  let l:vim_directories = []
+
+  let l:vim_directories += ["~/.vim/after/**"]
+  let l:vim_directories += ["~/.vim/autoload/**"]
+  let l:vim_directories += ["~/.vim/colors/**"]
+  let l:vim_directories += ["~/.vim/compiler/**"]
+  let l:vim_directories += ["~/.vim/customsnippets/**"]
+  let l:vim_directories += ["~/.vim/doc/**"]
+  let l:vim_directories += ["~/.vim/ftdetect/**"]
+  let l:vim_directories += ["~/.vim/plugin/**"]
+  let l:vim_directories += ["~/.vim/syntax/**"]
+
+  let match_pattern = '*' .. a:A .. '*' "Match any part of the file name
+  return globpath(join(l:vim_directories, ','), l:match_pattern, 0, 1)
 endf
 
-command -nargs=1 -complete=custom,<SID>find_vim_files VimFiles edit <args>
+command -nargs=1 -complete=customlist,<SID>find_vim_files VimFiles edit <args>

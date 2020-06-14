@@ -118,8 +118,8 @@ let g:UltiSnipsEditSplit           = "vertical"
 " Files, directories, recent and tags
 nnoremap ,e :Explore<cr>
 nnoremap ,f :find 
-nnoremap ,rf :Recent *
-nnoremap ,v :VimFiles *
+nnoremap ,rf :Recent 
+nnoremap ,v :VimFiles 
 nnoremap ,t :tag *
 
 " use the asynchronous version if possible
