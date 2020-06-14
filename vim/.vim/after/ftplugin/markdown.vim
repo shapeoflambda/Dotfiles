@@ -34,3 +34,10 @@ if system('uname') =~ 'darwin'
   nnoremap <buffer> <silent> ,o :silent !open -a "Google Chrome" %<cr>:redraw!<cr>
   let b:undo_ftplugin .= '|nunmap <buffer> ,o'
 endif
+
+" Insert bullets automatically
+setlocal comments=b:*\ [\ ],b:*\ [x],b:*\ [X],b:-\ [\ ],b:-\ [x],b:-\ [X],b:*,b:-
+setlocal formatoptions=tcroqln
+let b:undo_ftplugin .= '|setlocal comments< formatoptions<'
+
+setlocal conceallevel=1
