@@ -11,8 +11,8 @@ function! formatting#format_whole_buffer() abort
           \. ' exited with status ' 
           \. v:shell_error 
           \. '.'
-    call winrestview(l:saved_view)
   endif
 
+  call winrestview(l:saved_view)
   unlet l:saved_view
 endfunction
