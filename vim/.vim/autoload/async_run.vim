@@ -37,7 +37,7 @@ function! async_run#run_cmd(cmd) abort
           \ 'mode': 'nl', 
           \ 'err_io': 'out',
           \ 'out_io': 'buffer', 
-          \ 'out_buf': l:scratch_properties['buffer_number'], 
+          \ 'out_buf': s:scratch_properties['buffer_number'],
           \ }
     let job_run = job_start(a:cmd, opt)
   endif
