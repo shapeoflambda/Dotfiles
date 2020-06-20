@@ -14,4 +14,4 @@ if v:version >= 704 || v:version == 704 && has('patch191')
 else
   CompilerSet makeprg=staticcheck
 endif
-CompilerSet errorformat=%f:%l:%c:\ %m
+CompilerSet errorformat=%f:%l:%c:\ %m,%-G%.%#
