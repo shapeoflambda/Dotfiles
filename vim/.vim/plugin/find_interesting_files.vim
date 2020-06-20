@@ -19,7 +19,7 @@ function! s:recent_files(argument_lead, L, P)
 
   " filter out the file currently open in the buffer
   if !empty(expand('%'))
-    call filter(l:raw_recent_files, 'v:val !~ "' .. fnamemodify(expand('%'), ":~:.") .. '"')
+    call filter(l:raw_recent_files, 'v:val != "' .. fnamemodify(expand('%'), ":~:.") .. '"')
   endif
 
   return filter(l:raw_recent_files, 'v:val =~ "' .. escape(a:argument_lead, '.') .. '"')

@@ -41,3 +41,6 @@ elseif executable('flake8')
   compiler flake8
   call <SID>RunMakeOnSave()
 endif
+
+nnoremap <buffer> <C-c><C-r> :Run !python3 -u %<cr>
+let b:undo_ftplugin .= '|nunmap <buffer> <C-c><C-r>'
