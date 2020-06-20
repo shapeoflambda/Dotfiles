@@ -1,11 +1,5 @@
 function scratch#create_scratch_window(window_height)
-  if ! &splitbelow
-    setlocal splitbelow
-    execute a:window_height .. 'new'
-    setlocal nosplitbelow
-  else
-    execute a:window_height .. 'new'
-  endif
+  execute 'botright ' .. a:window_height .. 'new'
   setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile
   let w:scratch = 1
 
