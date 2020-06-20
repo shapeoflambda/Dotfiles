@@ -8,17 +8,22 @@ function! async_run#run_cmd(cmd) abort
   else
     let l:runner_window_height = 12
   endif
-  let l:scratch_properties = scratch#create_scratch_window(l:runner_window_height)
+  let s:scratch_properties = scratch#create_scratch_window(l:runner_window_height)
 
   "Take the cursor back to where it was
   call win_gotoid(s:current_window_id)
 
-  call appendbufline(l:scratch_properties['buffer_number'], 0, "### [async_runner] running '" .. join(a:cmd, ' ') .. "'")
+  call appendbufline(
+        \ s:scratch_properties['buffer_number'],
+        \ 0,
+        \ "### [async_runner] running '" .. join(a:cmd, ' ') .. "'"
+        \ )
 
   function! s:PrintToScratchBuffer(job_id, msg, event) closure
     call filter(a:msg, {idx, val ->  val != ''})
-    let last_line = getbufinfo(l:scratch_properties['buffer_number'])[0]["linecount"]
-    call appendbufline(l:scratch_properties['buffer_number'], last_line, a:msg)
+
+    let last_line = len(getbufline(s:scratch_properties['buffer_number'], 1, '$'))
+    call appendbufline(s:scratch_properties['buffer_number'], last_line, a:msg)
   endfunction
 
   if has('nvim')
