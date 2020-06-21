@@ -38,3 +38,6 @@ if ! exists('g:disable_auto_make')
   augroup END
   let b:undo_ftplugin .= '|autocmd! go_make_on_save'
 endif
+
+nnoremap <buffer><silent> gd :call go#gopls#go_to_definition()<cr>
+let b:undo_ftplugin .= '|nunmap <buffer> gd'

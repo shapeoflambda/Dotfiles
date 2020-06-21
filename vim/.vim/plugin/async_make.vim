@@ -1,4 +1,4 @@
-if exists("g:loaded_async_make")
+if exists('g:loaded_async_make')
   finish
 endif
 
@@ -10,7 +10,7 @@ let g:loaded_async_make = 1
 
 function! s:Make(...)
   if empty(&l:errorformat)
-    echom '[async_make] Error format is not set for this filetype: ' .. &filetype
+    echom '[async_make] Error format is not set for this filetype: ' . &filetype
     return
   endif
 

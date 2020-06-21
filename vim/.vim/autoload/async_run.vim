@@ -16,10 +16,10 @@ function! async_run#run_cmd(cmd) abort
   call appendbufline(
         \ s:scratch_properties['buffer_number'],
         \ 0,
-        \ "### [async_runner] running '" .. join(a:cmd, ' ') .. "'"
+        \ "### [async_runner] running '" . join(a:cmd, ' ') . "'"
         \ )
 
-  function! s:PrintToScratchBuffer(job_id, msg, event) closure
+  function! s:PrintToScratchBuffer(job_id, msg, event) closure abort
     call filter(a:msg, {idx, val ->  val != ''})
 
     let last_line = len(getbufline(s:scratch_properties['buffer_number'], 1, '$'))
@@ -29,9 +29,10 @@ function! async_run#run_cmd(cmd) abort
   if has('nvim')
     let opt = {
           \ 'on_stdout': function('<SID>PrintToScratchBuffer'),
+          \ 'on_stderr': function('<SID>PrintToScratchBuffer'),
           \ }
     let run_job_id = jobstart(a:cmd, opt)
-    echom '[async_runner] job started. Job ID: ' .. run_job_id
+    echom '[async_runner] job started. Job ID: ' . run_job_id
   else
     let opt = {
           \ 'mode': 'nl', 

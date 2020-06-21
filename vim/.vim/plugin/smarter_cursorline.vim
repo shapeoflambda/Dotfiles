@@ -5,7 +5,7 @@
 " Author: Tom Ryder <tom@sanctum.geek.nz>
 " License: Same as Vim itself
 "
-if exists("g:loaded_smarter_cursorline")
+if exists('g:loaded_smarter_cursorline')
   finish
 endif
 if !has('autocmd') || !has('windows') || v:version < 700

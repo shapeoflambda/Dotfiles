@@ -1,6 +1,6 @@
 " Call make asynchronously. Reuses ths makeprg and errorformat already set.
 " Works for both vim and neovim
-function! async_make#make(args)
+function! async_make#make(args) abort
   let cmd = split(&makeprg, ' ')
 
   " Include arguments to "Make" in the cmd
@@ -32,7 +32,7 @@ function! async_make#make(args)
   endif
 endfunction
 
-function! async_make#process_erros_nvim(job_id, msg, event)
+function! async_make#process_erros_nvim(job_id, msg, event) abort
   " Looks like a neovim specific issue, for some linters, it receives an empty line
   if empty(a:msg) || empty(a:msg[0])
     return
@@ -41,11 +41,11 @@ function! async_make#process_erros_nvim(job_id, msg, event)
   call async_make#process_errors(a:msg)
 endfunction
 
-function! async_make#process_errors_vim(channel, msg)
+function! async_make#process_errors_vim(channel, msg) abort
   call async_make#process_errors(a:msg)
 endfunction
 
-function! async_make#process_errors(msg)
+function! async_make#process_errors(msg) abort
   let l:old_global_errorformat = &g:errorformat
   let l:old_local_errorformat = &l:errorformat
 
@@ -63,26 +63,25 @@ endfunction
 
 " Vim and neovim has different method signatures for on_exit callbacks
 " Handle on exit for neovim
-function! async_make#handle_job_exit_nvim(job_id, exit_code, event)
+function! async_make#handle_job_exit_nvim(job_id, exit_code, event) abort
   call async_make#handle_job_exit(a:exit_code)
 endfunction
 
-function! async_make#handle_job_exit_vim(job, exit_code)
+function! async_make#handle_job_exit_vim(job, exit_code) abort
   call async_make#handle_job_exit(a:exit_code)
 endfunction
 
-function! async_make#handle_job_exit(exit_code)
+function! async_make#handle_job_exit(exit_code) abort
   if a:exit_code == 0
     cclose
     echom '[async_make] DONE. - No errors to report'
   elseif a:exit_code > 125
-    echom "Job failed with the exit status: " .. a:exit_code
+    echom 'Job failed with the exit status: ' . a:exit_code
   else
     if ! empty(getqflist())
       call setqflist([], 'a', {'title': 'async_make'})
       let l:qf_size = getqflist({'id' : 0, 'size' : 0}).size
-      execute 'copen ' .. min([10, l:qf_size + 3])
+      execute 'copen ' . min([10, l:qf_size + 3])
     endif
   endif
 endfunction
-

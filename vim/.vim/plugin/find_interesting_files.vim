@@ -1,6 +1,6 @@
 " Find interesting files like oldfiles and files in the ~/.vim directory using
 " the ":Recent" and the ":VimFiles" commands respectively.
-if exists("g:find_interesting_files")
+if exists('g:find_interesting_files')
   finish
 endif
 let g:find_interesting_files = 1
@@ -19,10 +19,10 @@ function! s:recent_files(argument_lead, L, P)
 
   " filter out the file currently open in the buffer
   if !empty(expand('%'))
-    call filter(l:raw_recent_files, 'v:val != "' .. fnamemodify(expand('%'), ":~:.") .. '"')
+    call filter(l:raw_recent_files, 'v:val != "' . fnamemodify(expand('%'), ':~:.') . '"')
   endif
 
-  return filter(l:raw_recent_files, 'v:val =~ "' .. escape(a:argument_lead, '.') .. '"')
+  return filter(l:raw_recent_files, 'v:val =~ "' . escape(a:argument_lead, '.') . '"')
 endfunction
 
 command -nargs=1 -complete=customlist,<SID>recent_files Recent edit <args>
@@ -32,17 +32,17 @@ command -nargs=1 -complete=customlist,<SID>recent_files Recent edit <args>
 fun! s:find_vim_files(A, L, P)
   let l:vim_directories = []
 
-  let l:vim_directories += ["~/.vim/after/**"]
-  let l:vim_directories += ["~/.vim/autoload/**"]
-  let l:vim_directories += ["~/.vim/colors/**"]
-  let l:vim_directories += ["~/.vim/compiler/**"]
-  let l:vim_directories += ["~/.vim/customsnippets/**"]
-  let l:vim_directories += ["~/.vim/doc/**"]
-  let l:vim_directories += ["~/.vim/ftdetect/**"]
-  let l:vim_directories += ["~/.vim/plugin/**"]
-  let l:vim_directories += ["~/.vim/syntax/**"]
+  let l:vim_directories += ['~/.vim/after/**']
+  let l:vim_directories += ['~/.vim/autoload/**']
+  let l:vim_directories += ['~/.vim/colors/**']
+  let l:vim_directories += ['~/.vim/compiler/**']
+  let l:vim_directories += ['~/.vim/customsnippets/**']
+  let l:vim_directories += ['~/.vim/doc/**']
+  let l:vim_directories += ['~/.vim/ftdetect/**']
+  let l:vim_directories += ['~/.vim/plugin/**']
+  let l:vim_directories += ['~/.vim/syntax/**']
 
-  let match_pattern = '*' .. a:A .. '*' "Match any part of the file name
+  let match_pattern = '*' . a:A . '*' "Match any part of the file name
   return globpath(join(l:vim_directories, ','), l:match_pattern, 0, 1)
 endf
 

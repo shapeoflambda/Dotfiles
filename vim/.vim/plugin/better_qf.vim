@@ -1,6 +1,6 @@
 " Auto open/close qf window based if there are results.
 " Also use the max number of lines as 10 in the qf window.
-if exists("g:loaded_better_qf")
+if exists('g:loaded_better_qf')
   finish
 endif
 let g:loaded_better_qf = 1
@@ -17,7 +17,7 @@ augroup better_qf
 augroup end
 
 function! OpenList(list_type)
-  if a:list_type == 'quickfix'
+  if a:list_type ==# 'quickfix'
     let l:items_length  = len(getqflist())
     if l:items_length == 0
       execute 'cclose'

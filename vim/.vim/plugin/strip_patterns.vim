@@ -1,5 +1,5 @@
 " Strip anooying carriage return characters and trailing whitespaces
-if exists("g:loaded_strip_patterns")
+if exists('g:loaded_strip_patterns')
   finish
 endif
 let g:loaded_strip_patterns = 1

@@ -4,7 +4,7 @@
 " (useful when viewing) Config files.
 " Maintainer: Harish Chandran <chndha@amazon.com>
 
-if exists("g:loaded_codebrowser") || v:version < 700 || &cp
+if exists('g:loaded_codebrowser') || v:version < 700 || &compatible
   finish
 endif
 let g:loaded_codebrowser = 1
@@ -81,12 +81,12 @@ function! CodeBrowser(bang, option_value)
     return
   endif
 
-  if (a:option_value == 'package')
+  if (a:option_value ==# 'package')
     call s:CodeViewPackage(a:bang)
     return
   endif
 
-  let line_number = line(".")
+  let line_number = line('.')
   let log_msg = ChompedSystem('git blame -L '. line_number . ',+1 -- '. expand('%:p'). ' 2>/dev/null')
 
   if empty(log_msg)
@@ -96,9 +96,9 @@ function! CodeBrowser(bang, option_value)
 
   let commit_hash = matchstr(log_msg, '^\(\^\zs\)\=\w\+\ze.*')
 
-  if (a:option_value == 'review')
+  if (a:option_value ==# 'review')
     call s:ViewCodeReviewForCommit(a:bang, commit_hash)
-  elseif (a:option_value == 'commit')
+  elseif (a:option_value ==# 'commit')
     call s:ViewCommitInCodeBrowser(a:bang, commit_hash)
     return
   else
@@ -136,7 +136,7 @@ function s:ViewCommitInCodeBrowser(bang, commit_hash)
   let expanded_hash = ChompedSystem('git rev-parse '. a:commit_hash)
 
   " Check if the commit is in remote
-  if (ChompedSystem('git branch -r --contains '. a:commit_hash) !~ 'origin')
+  if (ChompedSystem('git branch -r --contains '. a:commit_hash) !~? 'origin')
     call s:Warn('Current line is part of a commit that is not in remote, yet')
     return
   endif
@@ -186,13 +186,13 @@ endfunction
 "  Tab completion options for the Cbrowse command  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""
 fun CbrowseOptions(A,L,P)
-  let options = 'commit'. "\n". 'review'. "\n". "package"
+  let options = 'commit'. "\n". 'review'. "\n". 'package'
   return options
 endfun
 
 function! s:CodeViewPackage(bang)
-  let package_name = expand("<cword>")
-  let package_url = "https://code.amazon.com/packages/". package_name
+  let package_name = expand('<cword>')
+  let package_url = 'https://code.amazon.com/packages/'. package_name
 
   call s:EchoOrOpenUrl(a:bang, package_url)
 endfunction

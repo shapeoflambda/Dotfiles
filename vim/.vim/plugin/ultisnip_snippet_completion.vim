@@ -1,5 +1,5 @@
 " Show snippets available in the current context using pop-up menu
-if exists("g:loaded_ultisnip_snippet_completion")
+if exists('g:loaded_ultisnip_snippet_completion')
   finish
 endif
 let g:loaded_ultisnip_snippet_completion = 1

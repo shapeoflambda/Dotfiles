@@ -91,7 +91,7 @@ if has('gui_running') || &t_Co >= 256
     autocmd ColorScheme * highlight Normal guibg=NONE
   augroup END
 
-  let ayucolor="mirage"
+  let ayucolor='mirage'
   silent! colorscheme ayu
 endif
 
@@ -106,13 +106,13 @@ set timeoutlen=3000
 set ttimeoutlen=50
 
 "Ultisnip settings
-let g:UltiSnipsSnippetDirectories  = ["UltiSnips", "customsnippets"]
-let g:UltiSnipsExpandTrigger       = "<tab>"
-let g:UltiSnipsJumpForwardTrigger  = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-let g:UltiSnipsListSnippets        = "<C-s>"
+let g:UltiSnipsSnippetDirectories  = ['UltiSnips', 'customsnippets']
+let g:UltiSnipsExpandTrigger       = '<tab>'
+let g:UltiSnipsJumpForwardTrigger  = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+let g:UltiSnipsListSnippets        = '<C-s>'
 let g:UltiSnipsEnableSnipMate      = 1
-let g:UltiSnipsEditSplit           = "vertical"
+let g:UltiSnipsEditSplit           = 'vertical'
 
 " Mappings
 " Files, directories, recent and tags
@@ -152,19 +152,19 @@ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 " Splits
 set splitright
 nnoremap <c-p> :vnew<cr>
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
-nnoremap <c-k> <c-w>k
-nnoremap <c-j> <c-w>j
+  nnoremap <c-h> <c-w>h
+  nnoremap <c-l> <c-w>l
+  nnoremap <c-k> <c-w>k
+  nnoremap <c-j> <c-w>j
 
-if has('nvim')
-  augroup highlight_yank
-    autocmd!
-    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 300)
-  augroup END
-endif
+  if has('nvim')
+    augroup highlight_yank
+      autocmd!
+      autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 300)
+    augroup END
+  endif
 
-if &term == 'st-256color' && ! has('nvim')
+  if &term ==? 'st-256color' && ! has('nvim')
   " set Vim-specific sequences for RGB colors
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"

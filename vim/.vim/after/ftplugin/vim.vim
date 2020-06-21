@@ -27,3 +27,20 @@ endfunction
 
 inoremap <buffer> <Tab> <C-R>=<SID>CleverTab()<CR>
 let b:undo_ftplugin .= '|iunmap <buffer> <Tab>'
+
+" Run the linter on save
+function! s:RunMakeOnSave()
+  if ! exists('g:disable_auto_make')
+    augroup vim_make_on_save
+      autocmd!
+      autocmd BufWritePost <buffer> execute 'silent Make'
+    augroup END
+    let b:undo_ftplugin .= '|autocmd! vim_make_on_save'
+  endif
+endfunction
+
+" Linting
+if executable('vint')
+  compiler vint
+  call <SID>RunMakeOnSave()
+endif

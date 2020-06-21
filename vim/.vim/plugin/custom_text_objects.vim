@@ -1,6 +1,6 @@
 " Defines some useful textobjects
 " Mostly from https://vimways.org/2018/transactions-pending/
-if exists("g:loaded_custom_text_objects")
+if exists('g:loaded_custom_text_objects')
   finish
 endif
 let g:loaded_custom_text_objects = 1

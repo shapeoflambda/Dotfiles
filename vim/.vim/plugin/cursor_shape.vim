@@ -1,5 +1,5 @@
 " Mimic the neovim cursor behavior in vim
-if exists("g:loaded_cursor_shape")
+if exists('g:loaded_cursor_shape')
   finish
 endif
 if has('nvim') || !has('autocmd')

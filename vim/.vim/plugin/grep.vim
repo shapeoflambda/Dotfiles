@@ -1,10 +1,10 @@
-if exists("g:loaded_grep")
+if exists('g:loaded_grep')
   finish
 endif
 let g:loaded_grep = 1
 
 " Set a faster grepprg if available
-if executable("rg")
+if executable('rg')
   " Rg supports smart case, we'll use it is smartcase is turned on in vim
   if &smartcase
     set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
@@ -28,19 +28,19 @@ function! GrepOperator(type, ...)
   " So, saving the previous selection and default register
   " content, so that we can reset it after the operation is complete.
   let sel_save = &selection
-  let &selection = "inclusive"
+  let &selection = 'inclusive'
   let reg_save = @@
 
   if a:0  " Invoked from Visual mode, use gv command.
-    silent exe "normal! gvy"
-  elseif a:type == 'line'
+    silent exe 'normal! gvy'
+  elseif a:type ==# 'line'
     silent exe "normal! '[V']y"
   else
-    silent exe "normal! `[v`]y"
+    silent exe 'normal! `[v`]y'
   endif
 
   " Grep and open if there are results
-  execute "Grep ". shellescape(@@)
+  execute 'Grep '. shellescape(@@)
 
   " Restore the default register content and previous selection
   let &selection = sel_save
