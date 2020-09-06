@@ -135,9 +135,9 @@ bindings to improve ergonomics on commonly used functions.
    #+begin_src emacs-lisp
    (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
    #+end_src
-   
+
    Disk space is cheap. Save lots.
-   
+
    #+begin_src emacs-lisp
     (setq delete-old-versions -1)
     (setq version-control t)
@@ -331,6 +331,44 @@ expanding often used templates like =<s=.
     (setq ad-return-value rlt)))
    #+end_src
 
+
+** Directory of files to be included in the agenda
+   #+begin_src emacs-lisp
+   (setq org-agenda-files (directory-files-recursively "~/org/tasks/" "\\.org$"))
+   #+end_src
+** Additional states for TODO items
+   #+begin_src emacs-lisp
+   (setq org-todo-keywords
+  '((sequence "TODO" "IN-PROGRESS" "BLOCKED" "REVIEW" "DONE")))
+   #+end_src
+
+** Colors for TODO states
+   #+begin_src emacs-lisp
+   (setq org-todo-keyword-faces
+    '(("TODO" . org-warning)
+    ("IN-PROGRESS" . "yellow")
+    ("BLOCKED" . "red")
+    ("REVIEW" . "orange")
+    ("DONE" . "green")))
+   #+end_src
+
+** Change =TODO= entry to automatically change to DONE when all children are done
+   #+begin_src emacs-lisp
+(defun org-summary-todo (n-done n-not-done)
+  "Switch entry to DONE when all subentries are done, to TODO otherwise."
+  (let (org-log-done org-log-states)   ; turn off logging
+    (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
+
+(add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
+   #+end_src
+** Evil mappings
+   #+begin_src emacs-lisp
+    (define-key evil-normal-state-map ",oa" 'org-agenda)
+    (define-key evil-normal-state-map ",os" 'org-schedule)
+    (define-key evil-normal-state-map ",od" 'org-deadline)
+    (define-key evil-normal-state-map ",ot" 'org-todo)
+    (define-key evil-normal-state-map "  " 'org-todo)
+   #+end_src
 * Helm
 
 Incremental competion and narrowing of selections. It helps to rapidly
@@ -344,10 +382,10 @@ some intuitive normal mode mappings makes life a lot easier.
     (require 'helm-config)
     (setq helm-split-window-in-side-p t
           helm-move-to-line-cycle-in-source t)
-  :config 
+  :config
     (helm-mode 1)
     (helm-autoresize-mode 1)
-    
+
     ;; Enable fuzzy matching for the most used commands
     (setq helm-recentf-fuzzy-match t)
     (setq helm-buffers-fuzzy-matching t)
