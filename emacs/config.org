@@ -310,6 +310,27 @@ expanding often used templates like =<s=.
 (require 'org-tempo)
 #+end_src
 
+** Enable spell check by default
+   #+begin_src emacs-lisp
+   (add-hook 'org-mode-hook 'turn-on-flyspell)
+   #+end_src
+
+   Don't check in source code and other blocks
+   #+begin_src emacs-lisp
+   (defadvice org-mode-flyspell-verify (after org-mode-flyspell-verify-hack activate)
+  (let* ((rlt ad-return-value)
+         (begin-regexp "^[ \t]*#\\+begin_\\(src\\|html\\|latex\\|example\\|quote\\)")
+         (end-regexp "^[ \t]*#\\+end_\\(src\\|html\\|latex\\|example\\|quote\\)")
+         (case-fold-search t)
+         b e)
+    (when ad-return-value
+      (save-excursion
+        (setq b (re-search-backward begin-regexp nil t))
+        (if b (setq e (re-search-forward end-regexp nil t))))
+      (if (and b e (< (point) e)) (setq rlt nil)))
+    (setq ad-return-value rlt)))
+   #+end_src
+
 * Helm
 
 Incremental competion and narrowing of selections. It helps to rapidly
@@ -347,7 +368,7 @@ some intuitive normal mode mappings makes life a lot easier.
 #+end_src
 
 * Snippets
-=yasnippet= is the preferred snippet engine in Emacs
+=yasnippet= is the preferred snippet engine in Emacs.
 
 #+begin_src emacs-lisp
 (use-package yasnippet
