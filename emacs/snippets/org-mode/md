@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: md
+# key: md
+# --
+#+TITLE: ${1: Doc Title}
+#+AUTHOR: ${2: `user-full-name`}
+#+SETUPFILE: ${2: /path/to/setupfile}
+$0

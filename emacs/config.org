@@ -1,0 +1,362 @@
+#+TITLE: My Emacs Config
+#+AUTHOR: Harish Chandran
+
+* Setup
+** Personal Information
+
+   #+begin_src emacs-lisp
+   (setq user-full-name "Harish Chandran")
+   #+end_src
+
+** Configure package sources
+
+Add repositories from which we'll load packages. I prefer to live on
+the bleeding edge so have only enabled melpa. Setting
+=package-enable-at-startup= to =nil= prevents a second package load
+and slightly improves startup time.
+
+#+BEGIN_SRC emacs-lisp
+  (setq package-enable-at-startup nil)
+  (setq package-archives '(("gnu" . "http://mirrors.163.com/elpa/gnu/")
+                           ("melpa" . "https://melpa.org/packages/")
+                           ("org" . "http://orgmode.org/elpa/")))
+#+END_SRC
+
+** Bootstrap use-package
+
+If =use-package= is not installed, install it.
+
+#+BEGIN_SRC emacs-lisp
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package)
+    (eval-when-compile (require 'use-package)))
+#+END_SRC
+
+By default all packages should be installed from package manager as
+that's the usual path. This is equivalent to setting =:ensure t= on
+each call to =use-package=. To disable set =:ensure nil= (this is done
+automatically for any packages using =:load-path= so shouldn't
+generally be needed).
+
+#+BEGIN_SRC emacs-lisp
+  (setq use-package-always-ensure t)
+#+END_SRC
+
+** Benchmark startup
+
+=benchmark-init= records startup time by package so we can debug. It
+only records things after it's initialised, so put as early in config
+as possible.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package benchmark-init
+    :config
+    ;; To disable collection of benchmark data after init is done.
+    (add-hook 'after-init-hook 'benchmark-init/deactivate))
+
+  (add-hook 'after-init-hook
+            (lambda () (message "loaded in %s" (emacs-init-time))))
+#+END_SRC
+
+** Increase garbage collector threshold
+
+The default garbage collection threshold is 800kB, increasing this to
+10MB for startup increases speed (from 11.0s -> 9.7s when I tested).
+
+#+BEGIN_SRC emacs-lisp
+  (setq gc-cons-threshold 10000000)
+
+  ;; Restore after startup
+  (add-hook 'after-init-hook
+            (lambda ()
+              (setq gc-cons-threshold 1000000)
+              (message "gc-cons-threshold restored to %S"
+                       gc-cons-threshold)))
+#+END_SRC
+
+** Make it easy to edit this file
+
+#+BEGIN_SRC emacs-lisp
+  (defun find-config ()
+    "Edit config.org"
+    (interactive)
+    (find-file "~/Dotfiles/emacs/config.org"))
+
+  (global-set-key (kbd "C-c I") 'find-config)
+#+END_SRC
+
+** Set custom settings to load in own file
+
+This stops emacs adding customised settings to =init.el=. I try to
+avoid using customize anyway, preferring programmatic control of
+variables. Creating it as a temporary file effectively disables it
+(i.e. any changes are session local).
+
+#+BEGIN_SRC emacs-lisp
+  (setq custom-file (make-temp-file "emacs-custom"))
+#+END_SRC
+
+** Add custom packages to load path
+
+By default Emacs only includes files directly under
+=user-emacs-directory= (usually =~/.emacs.d/=), so we need to add any
+folders containing custom packages.
+
+I put my scripts under =~/dotfiles/lisp/= and symlink it with =ln -s
+~/dotfiles/lisp ~/.emacs.d/lisp=.
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/lisp/")
+#+END_SRC
+
+** Record key frequency
+
+This is useful to find out what I use a lot. I plan to then change
+bindings to improve ergonomics on commonly used functions.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package keyfreq
+    :config
+    (keyfreq-mode 1)
+    (keyfreq-autosave-mode 1))
+#+END_SRC
+
+* Preferences
+
+** Backups
+   This is one of the things people usually want to change right
+   away. By default, Emacs saves backup files in the current
+   directory. These are the files ending in ~ that are cluttering up
+   your directory lists. The following code stashes them all in
+   =~/.emacs.d/backups=, where I can find them with =C-x C-f=
+   (find-file) if I really need to.
+
+   #+begin_src emacs-lisp
+   (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+   #+end_src
+   
+   Disk space is cheap. Save lots.
+   
+   #+begin_src emacs-lisp
+    (setq delete-old-versions -1)
+    (setq version-control t)
+    (setq vc-make-backup-files t)
+    (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
+   #+end_src
+
+** Disable startup screen
+
+#+BEGIN_SRC emacs-lisp
+  (setq inhibit-startup-screen t)
+#+END_SRC
+
+** Make the =yes or no= prompts shorter.
+
+#+BEGIN_SRC emacs-lisp
+  (defalias 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+
+** Hide Scroll bar, menu bar, tool bar
+#+BEGIN_SRC emacs-lisp
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+#+END_SRC
+
+** keep a list of recently opened files
+#+begin_src emacs-lisp
+(recentf-mode 1)
+(setq-default recent-save-file "~/.emacs.d/recentf")
+#+end_src
+** Highlight the current line
+#+begin_src emacs-lisp
+(global-hl-line-mode t) ;; This highlights the current line in the buffer
+#+end_src
+
+** Use Esc instead of C-g
+   #+begin_src emacs-lisp
+   (define-key key-translation-map (kbd "ESC") (kbd "C-g"))
+   #+end_src
+** Display column number
+   #+begin_src emacs-lisp
+   (setq column-number-indicator-zero-based nil)
+   (column-number-mode 1)
+   #+end_src
+
+* Appearance
+
+** Theme
+=doom-themes= has most of the popular themes. I am now using the
+=doom-vibrant= theme.
+
+#+BEGIN_SRC emacs-lisp
+(use-package doom-themes
+  :config
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  (load-theme 'doom-vibrant t)
+
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
+#+END_SRC
+
+** Font
+Set a nice font.
+
+#+BEGIN_SRC emacs-lisp
+  (set-frame-font "SF Mono 14" nil t)
+#+END_SRC
+
+** Modeline
+#+begin_src emacs-lisp
+(use-package doom-modeline
+    :init (doom-modeline-mode 1))
+#+end_src
+
+Install the fonts required for the modeline
+
+#+begin_src emacs-lisp
+(use-package all-the-icons)
+#+end_src
+
+** Org bullets
+Prettify the lists in the org mode using =org-superstar=
+#+BEGIN_SRC emacs-lisp
+(use-package org-superstar
+  :hook (org-mode . org-superstar-mode))
+#+END_SRC
+
+* Editing
+
+** Evil Mode
+Evil-mode emulates Vim in Emacs.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package evil
+    :config
+    (evil-mode 1))
+#+END_SRC
+
+** Mappings
+*** Blank lines above/below
+#+begin_src emacs-lisp
+(defun insert-line-below ()
+  "Insert an empty line below the current line."
+  (interactive)
+  (save-excursion
+    (end-of-line)
+    (open-line 1)))
+
+(defun insert-line-above ()
+  "Insert an empty line above the current line."
+  (interactive)
+  (save-excursion
+    (end-of-line 0)
+    (open-line 1)))
+
+(define-key evil-normal-state-map "[ " 'insert-line-above)
+(define-key evil-normal-state-map "] " 'insert-line-below)
+#+end_src
+
+*** Line and entire buffer text objects
+Line text object
+#+begin_src emacs-lisp
+(defmacro define-and-bind-text-object (key start-regex end-regex)
+  (let ((inner-name (make-symbol "inner-name"))
+        (outer-name (make-symbol "outer-name")))
+    `(progn
+       (evil-define-text-object ,inner-name (count &optional beg end type)
+         (evil-select-paren ,start-regex ,end-regex beg end type count nil))
+       (evil-define-text-object ,outer-name (count &optional beg end type)
+         (evil-select-paren ,start-regex ,end-regex beg end type count t))
+       (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
+       (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
+
+(define-and-bind-text-object "l" "^\\s-*" "\\s-*$")
+#+end_src
+
+Entire buffer/document text object
+#+begin_src emacs-lisp
+(defgroup evil-textobj-entire nil
+  "Text object entire buffer for Evil"
+  :prefix "evil-textobj-entire-"
+  :group 'evil)
+
+(defcustom evil-textobj-entire-key "d"
+  "Key for evil-inner-entire"
+  :type 'string
+  :group 'evil-textobj-entire)
+
+(evil-define-text-object evil-entire-entire-buffer (count &optional beg end type)
+  "Select entire buffer"
+  (evil-range (point-min) (point-max)))
+
+(define-key evil-outer-text-objects-map evil-textobj-entire-key 'evil-entire-entire-buffer)
+(define-key evil-inner-text-objects-map evil-textobj-entire-key 'evil-entire-entire-buffer)
+
+(provide 'evil-textobj-entire)
+#+end_src
+
+* Org
+
+** Get Easy templates back
+
+=easy-templates= stopped working in org-9.2. This is required for
+expanding often used templates like =<s=.
+
+#+begin_src emacs-lisp
+(require 'org-tempo)
+#+end_src
+
+* Helm
+
+Incremental competion and narrowing of selections. It helps to rapidly
+complete file names, buffer names, or any other Emacs interactions
+requiring selecting an item from a list of possible choices. Helm with
+some intuitive normal mode mappings makes life a lot easier.
+
+  #+begin_src emacs-lisp
+  (use-package helm
+  :init
+    (require 'helm-config)
+    (setq helm-split-window-in-side-p t
+          helm-move-to-line-cycle-in-source t)
+  :config 
+    (helm-mode 1)
+    (helm-autoresize-mode 1)
+    
+    ;; Enable fuzzy matching for the most used commands
+    (setq helm-recentf-fuzzy-match t)
+    (setq helm-buffers-fuzzy-matching t)
+    (setq helm-M-x-fuzzy-match t)
+    (setq helm-yas-display-key-on-candidate t)
+
+    ;; Replicate my Vim-Fzf mappings
+    (define-key evil-normal-state-map ",b" 'helm-buffers-list)
+    (define-key evil-normal-state-map ",f" 'helm-find-files)
+    (define-key evil-normal-state-map ",rf" 'helm-recentf)
+    (define-key evil-normal-state-map ",a" 'helm-M-x)
+    (define-key evil-normal-state-map "K" 'helm-apropos)
+
+    (global-set-key (kbd "C-x r b") 'helm-bookmarks)
+    (global-set-key (kbd "M-c") 'helm-calcul-expression)
+    (global-set-key (kbd "C-s") 'helm-occur)
+    (global-set-key (kbd "M-x") 'helm-M-x))
+#+end_src
+
+* Snippets
+=yasnippet= is the preferred snippet engine in Emacs
+
+#+begin_src emacs-lisp
+(use-package yasnippet
+:config
+    (setq yas-snippet-dirs '("~/Dotfiles/emacs/snippets"))
+    (yas-global-mode 1))
+#+end_src
+
+=yasnippet= is just the engine, let's get some actual snippets
+#+begin_src emacs-lisp
+(use-package yasnippet-snippets)
+#+end_src
