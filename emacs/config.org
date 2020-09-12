@@ -1,4 +1,4 @@
-#+TITLE: My Emacs Config
+#+TITLE: My Emacs Configuration
 #+AUTHOR: Harish Chandran
 
 * Setup
@@ -174,10 +174,6 @@ bindings to improve ergonomics on commonly used functions.
 (global-hl-line-mode t) ;; This highlights the current line in the buffer
 #+end_src
 
-** Use Esc instead of C-g
-   #+begin_src emacs-lisp
-   (define-key key-translation-map (kbd "ESC") (kbd "C-g"))
-   #+end_src
 ** Display column number
    #+begin_src emacs-lisp
    (setq column-number-indicator-zero-based nil)
@@ -206,7 +202,7 @@ bindings to improve ergonomics on commonly used functions.
 Set a nice font.
 
 #+BEGIN_SRC emacs-lisp
-  (set-frame-font "SF Mono 14" nil t)
+  (set-frame-font "SF Mono 15" nil t)
 #+END_SRC
 
 ** Modeline
@@ -239,8 +235,15 @@ Evil-mode emulates Vim in Emacs.
     (evil-mode 1))
 #+END_SRC
 
+** Surround
+   #+begin_src emacs-lisp
+   (use-package evil-surround
+      :config
+      (global-evil-surround-mode 1))
+   #+end_src
+
 ** Mappings
-*** Blank lines above/below
+*** Unimpaired mappings
 #+begin_src emacs-lisp
 (defun insert-line-below ()
   "Insert an empty line below the current line."
@@ -256,6 +259,8 @@ Evil-mode emulates Vim in Emacs.
     (end-of-line 0)
     (open-line 1)))
 
+(define-key evil-normal-state-map (kbd "[ b") 'previous-buffer)
+(define-key evil-normal-state-map (kbd "] b") 'next-buffer)
 (define-key evil-normal-state-map "[ " 'insert-line-above)
 (define-key evil-normal-state-map "] " 'insert-line-below)
 #+end_src
@@ -361,6 +366,11 @@ expanding often used templates like =<s=.
 
 (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
    #+end_src
+** Log time when a TODO item is marked as done
+   #+begin_src emacs-lisp
+   (setq org-log-done 'time)
+   #+end_src
+
 ** Evil mappings
    #+begin_src emacs-lisp
     (define-key evil-normal-state-map ",oa" 'org-agenda)
@@ -368,6 +378,17 @@ expanding often used templates like =<s=.
     (define-key evil-normal-state-map ",od" 'org-deadline)
     (define-key evil-normal-state-map ",ot" 'org-todo)
     (define-key evil-normal-state-map "  " 'org-todo)
+    (define-key evil-normal-state-map ",rr" 'org-babel-remove-result)
+   #+end_src
+
+** Babel settings
+   Supported languages
+   #+begin_src emacs-lisp
+   (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((shell . t)
+   (ruby . t)
+   (python . t)))
    #+end_src
 * Helm
 
@@ -411,7 +432,8 @@ some intuitive normal mode mappings makes life a lot easier.
 #+begin_src emacs-lisp
 (use-package yasnippet
 :config
-    (setq yas-snippet-dirs '("~/Dotfiles/emacs/snippets"))
+    (setq yas-snippet-dirs (append yas-snippet-dirs 
+	'("~/Dotfiles/emacs/snippets")))
     (yas-global-mode 1))
 #+end_src
 
