@@ -1,4 +1,4 @@
-#+TITLE: My Doom Config
+#+TITLE: My Doom Configuration
 
 * Personal Information
 #+BEGIN_SRC emacs-lisp
@@ -8,7 +8,7 @@
 * Appearance
 ** Theme
 #+BEGIN_SRC emacs-lisp
-(setq doom-theme 'doom-dracula)
+(setq doom-theme 'doom-tomorrow-night)
 #+END_SRC
 
 ** Display Font
@@ -27,6 +27,37 @@ This determines the style of line numbers in effect. If set to `nil', line
 numbers are disabled. For relative line numbers, set this to `relative'.
 #+BEGIN_SRC emacs-lisp
 (setq display-line-numbers-type nil)
+#+END_SRC
+
+** =recentf= Settings
+
+#+BEGIN_SRC emacs-lisp
+(setq recentf-max-saved-items 100
+      recentf-exclude '("/tmp/"
+                        "/ssh:"
+                        "/sudo:"
+                        "recentf$"
+                        "company-statistics-cache\\.el$"
+                        ;; ctags
+                        "/TAGS$"
+                        ;; global
+                        "/GTAGS$"
+                        "/GRAGS$"
+                        "/GPATH$"
+                        ;; binary
+                        "\\.mkv$"
+                        "\\.mp[34]$"
+                        "\\.avi$"
+                        "\\.pdf$"
+                        "\\.docx?$"
+                        "\\.xlsx?$"
+                        ;; sub-titles
+                        "\\.sub$"
+                        "\\.srt$"
+                        "\\.ass$"
+                        ;; autosave files
+                        "workspaces/autosave$"
+                        ))
 #+END_SRC
 
 * Org-mode
@@ -83,6 +114,14 @@ Define the TODO states that I use
 (define-key evil-normal-state-map ",dv" 'describe-variable)
 #+END_SRC
 
+** Git
+#+BEGIN_SRC emacs-lisp
+(define-key evil-normal-state-map "]g" 'git-gutter:next-hunk)
+(define-key evil-normal-state-map "[g" 'git-gutter:previous-hunk)
+(define-key evil-normal-state-map ",gs" 'git-gutter:stage-hunk)
+(define-key evil-normal-state-map ",gg" 'magit-status)
+#+END_SRC
+
 ** Org-mode
 #+BEGIN_SRC emacs-lisp
 (define-key evil-normal-state-map ",oa" 'org-agenda)
@@ -94,9 +133,11 @@ Define the TODO states that I use
 #+END_SRC
 
 * Snippets
+
 #+BEGIN_SRC emacs-lisp
 (yas-global-mode 1)
 #+END_SRC
+
 * Ivy
 Enable fuzzy matching
 
@@ -106,18 +147,12 @@ Enable fuzzy matching
  (swiper-isearch . ivy--regex-plus)
  (t . ivy--regex-fuzzy)))
 #+END_SRC
+
 * Evil
 ** Get back default VIM behavior
 #+BEGIN_SRC emacs-lisp
 (evil-put-command-property 'evil-yank-line :motion 'evil-line)
 (setq evil-want-change-word-to-end nil)
-#+END_SRC
-
-** Split settings
-Open splits to the right or in the bottom
-#+BEGIN_SRC emacs-lisp
-(setq evil-split-window-bottom t)
-(setq evil-vsplit-window-right t)
 #+END_SRC
 
 ** Custom Text Objects
@@ -166,4 +201,11 @@ document. Credits:[[github:https://github.com/syohex/evil-textobj-entire/blob/ma
 (define-key evil-inner-text-objects-map evil-custom-textobj-entire-key 'evil-custom-entire-buffer)
 (define-key evil-outer-text-objects-map evil-custom-textobj-in-line-key 'evil-custom-around-line)
 (define-key evil-inner-text-objects-map evil-custom-textobj-around-line-key 'evil-custom-inner-line)
+#+END_SRC
+
+** Split settings
+Open splits to the right or in the bottom
+#+BEGIN_SRC emacs-lisp
+(setq evil-split-window-bottom t)
+(setq evil-vsplit-window-right t)
 #+END_SRC
