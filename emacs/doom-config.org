@@ -118,6 +118,7 @@ Define the TODO states that I use
 #+BEGIN_SRC emacs-lisp
 (define-key evil-normal-state-map "]g" 'git-gutter:next-hunk)
 (define-key evil-normal-state-map "[g" 'git-gutter:previous-hunk)
+(define-key evil-normal-state-map ",gu" 'git-gutter:revert-hunk)
 (define-key evil-normal-state-map ",gs" 'git-gutter:stage-hunk)
 (define-key evil-normal-state-map ",gg" 'magit-status)
 #+END_SRC
@@ -208,4 +209,9 @@ Open splits to the right or in the bottom
 #+BEGIN_SRC emacs-lisp
 (setq evil-split-window-bottom t)
 (setq evil-vsplit-window-right t)
+#+END_SRC
+* Git gutter
+#+BEGIN_SRC emacs-lisp
+(custom-set-variables
+ '(git-gutter:update-interval 2))
 #+END_SRC
