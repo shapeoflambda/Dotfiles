@@ -1,66 +1,129 @@
+#+TITLE: My Doom Config
+
+* Personal Information
+#+BEGIN_SRC emacs-lisp
 (setq user-full-name "Harish Chandran")
+#+END_SRC
 
+* Appearance
+** Theme
+#+BEGIN_SRC emacs-lisp
 (setq doom-theme 'doom-dracula)
+#+END_SRC
 
+** Display Font
+#+BEGIN_SRC emacs-lisp
 (setq doom-font (font-spec :family "Fira Code" :size 18))
+#+END_SRC
 
+* Preferences
+** Inhibit startup screen
+#+BEGIN_SRC emacs-lisp
 (setq inhibit-startup-screen t)
+#+END_SRC
 
+** Disable line numbers
+This determines the style of line numbers in effect. If set to `nil', line
+numbers are disabled. For relative line numbers, set this to `relative'.
+#+BEGIN_SRC emacs-lisp
 (setq display-line-numbers-type nil)
+#+END_SRC
 
+* Org-mode
+** Agenda files
+#+BEGIN_SRC emacs-lisp
 (setq org-agenda-files (list
     "~/org/tasks/tasks.org"))
+#+END_SRC
 
+** Custom TODO states
+Define the TODO states that I use
+#+BEGIN_SRC emacs-lisp
 (setq org-todo-keywords '((sequence "TODO(t)" "IN-PROGRESS(i)" "BLOCKED(b)" "|" "DONE(d)" "KILL(k)")
  (sequence "[ ](T)" "[-](S)" "[?](W)" "|" "[X](D)")))
+#+END_SRC
 
+** Change =TODO= entry to automatically change to DONE when all children are done
+#+BEGIN_SRC emacs-lisp
 (defun org-summary-todo (n-done n-not-done)
   "Switch entry to DONE when all subentries are done, to TODO otherwise."
   (let (org-log-done org-log-states)   ; turn off logging
     (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
 (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
+#+END_SRC
 
+** Log the time when a TODO item is marked as =DONE=
+#+BEGIN_SRC emacs-lisp
 (setq org-log-done 'time)
+#+END_SRC
 
+** Don't evaluate src blocks during export
+#+BEGIN_SRC emacs-lisp
 (setq org-export-babel-evaluate nil)
+#+END_SRC
 
+** Fold outlines when opening an =org= file
+#+BEGIN_SRC emacs-lisp
 (setq org-startup-folded t)
+#+END_SRC
 
+* Mappings
+** General
+*** File finding
+#+BEGIN_SRC emacs-lisp
 (define-key evil-normal-state-map ",f" 'counsel-fzf)
 (define-key evil-normal-state-map ",rf" 'counsel-recentf)
+#+END_SRC
 
+*** Describe things
+#+BEGIN_SRC emacs-lisp
 (define-key evil-normal-state-map ",df" 'describe-functions)
 (define-key evil-normal-state-map ",dk" 'describe-key)
 (define-key evil-normal-state-map ",dv" 'describe-variable)
+#+END_SRC
 
+** Org-mode
+#+BEGIN_SRC emacs-lisp
 (define-key evil-normal-state-map ",oa" 'org-agenda)
 (define-key evil-normal-state-map ",os" 'org-schedule)
 (define-key evil-normal-state-map ",od" 'org-deadline)
 (define-key evil-normal-state-map ",ot" 'org-todo)
 (define-key evil-normal-state-map "  " 'org-todo)
 (define-key evil-normal-state-map ",rr" 'org-babel-remove-result)
+#+END_SRC
 
+* Snippets
+#+BEGIN_SRC emacs-lisp
 (yas-global-mode 1)
+#+END_SRC
+* Ivy
+Enable fuzzy matching
 
+#+BEGIN_SRC emacs-lisp
 (setq ivy-re-builders-alist '((counsel-rg . ivy--regex-plus)
  (swiper . ivy--regex-plus)
  (swiper-isearch . ivy--regex-plus)
  (t . ivy--regex-fuzzy)))
-
-(package! evil-snipe :disable t)
-
+#+END_SRC
+* Evil
+** Get back default VIM behavior
+#+BEGIN_SRC emacs-lisp
 (evil-put-command-property 'evil-yank-line :motion 'evil-line)
 (setq evil-want-change-word-to-end nil)
+#+END_SRC
 
+** Split settings
+Open splits to the right or in the bottom
+#+BEGIN_SRC emacs-lisp
 (setq evil-split-window-bottom t)
 (setq evil-vsplit-window-right t)
+#+END_SRC
 
-;; (defgroup evil-custom-textobj nil
-;;   "Text object entire buffer for Evil"
-;;   :prefix "evil-custom-textobj-"
-;;   :group 'evil)
-
+** Custom Text Objects
+Select the entire document using 'd' and the current line 'l'. For example, =did= deletes the entire
+document. Credits:[[github:https://github.com/syohex/evil-textobj-entire/blob/master/evil-textobj-entire.el][evil-textobj-entire.el]] & [[github:https://github.com/emacsorphanage/evil-textobj-line/blob/master/evil-textobj-line.el][evil-textobj-line.el]]
+#+BEGIN_SRC emacs-lisp
 (defcustom evil-custom-textobj-entire-key "d"
   "Key for evil-inner-entire"
   :type 'string
@@ -103,3 +166,4 @@
 (define-key evil-inner-text-objects-map evil-custom-textobj-entire-key 'evil-custom-entire-buffer)
 (define-key evil-outer-text-objects-map evil-custom-textobj-in-line-key 'evil-custom-around-line)
 (define-key evil-inner-text-objects-map evil-custom-textobj-around-line-key 'evil-custom-inner-line)
+#+END_SRC
