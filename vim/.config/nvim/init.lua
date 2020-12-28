@@ -10,7 +10,7 @@ local function opt(scope, key, value)
 end
 
 local function map(mode, lhs, rhs, opts)
-  local options = {noremap = true}
+  local options = {silent = true, noremap = true}
   if opts then options = vim.tbl_extend('force', options, opts) end
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
@@ -66,7 +66,7 @@ opt('o', 'laststatus', 1)
 opt('o', 'completeopt', 'menuone,noinsert,noselect')
 
 opt('o', 'termguicolors', true)
-vim.api.nvim_command('let ayucolor="mirage"')
+vim.api.nvim_command('let ayucolor="dark"')
 vim.api.nvim_command('colorscheme ayu')
 cmd 'au ColorScheme * lua vim.api.nvim_command("highlight Normal guibg=NONE")'
 
@@ -167,6 +167,14 @@ map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
 map('n', 'gR', '<cmd>lua vim.lsp.buf.rename()<CR>')
 map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
 map('n', ',ls', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+
+-- Cusotom Text objects
+map('x', 'il', ':<c-u>normal! g_v^<cr>')
+map('o', 'il', ':<c-u>normal! g_v^<cr>')
+map('x', 'al', ':<c-u>normal! $v0<cr>')
+map('o', 'al', ':<c-u>normal! $v0<cr>')
+map('x', 'id', ':<c-u>normal! G$Vgg0<cr>')
+map('o', 'id', ':<c-u>normal! G$Vgg0<cr>')
 
 -------------------- COMMANDS --------------------
 cmd 'au TextYankPost * lua vim.highlight.on_yank {timeout = 300, on_visual = false}'
