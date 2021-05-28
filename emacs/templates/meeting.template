@@ -1,0 +1,18 @@
+* Minutes of Meeting
+** Present at meeting
+  - [X] Harish
+  - [X] %^{Attendee}
+** Agenda
+  - %^{Agenda}
+** Notes
+*** %?
+
+** Actions
+#+BEGIN: columnview :id global :match "/TODO|DONE" :format "\%ITEM(What) \%TAGS(Who) \%DEADLINE(When) \%TODO(State)"
+#+END:
+
+** Decisions
+#+BEGIN: columnview :id global :match "Decision" :format "\%ITEM(Decisions)"
+#+END:
+
+# -*- mode: org -*-

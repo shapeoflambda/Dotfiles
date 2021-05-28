@@ -1,0 +1,17 @@
+* %^{Candidate Name} - %^{Interview Round}
+** Competencies
+  - %^{Competencies}
+** Notes
+*** %?
+
+** Raises (++)
+#+BEGIN: columnview :id global :match "raises" :format "\%ITEM(Raises)"
+#+END:
+
+** Meets (+)
+#+BEGIN: columnview :id global :match "meets" :format "\%ITEM(Meets)"
+#+END:
+
+** Lowers (-)
+#+BEGIN: columnview :id global :match "lowers" :format "\%ITEM(Lowers)"
+#+END:

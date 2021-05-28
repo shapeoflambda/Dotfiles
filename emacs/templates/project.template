@@ -1,0 +1,10 @@
+* todo %^{description} [/]
+:PROPERTIES:
+:CATEGORY: %^{Category}
+:END:
+
+%^{Link}
+
+** NEXT %^{Sub Task}
+
+%?
