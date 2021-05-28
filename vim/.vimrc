@@ -1,3 +1,122 @@
+" Use vim-plug to install and manage plugins
+if has('unix')
+  if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+          \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall | source $MYVIMRC
+  endif
+endif
+
+" Plugins
+call plug#begin('~/.vim/plugged')
+" Editing
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-commentary'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'romainl/vim-cool'
+
+" Fzf
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+Plug 'machakann/vim-highlightedyank'
+
+Plug 'tpope/vim-fugitive'
+
+" Color Schemes
+Plug 'ayu-theme/ayu-vim'
+
+"On Demand Plugins
+Plug 'junegunn/vim-easy-align', { 'for': 'markdown' }
+
+"Language plugins
+Plug 'udalov/kotlin-vim'
+
+" LSP & Autocompletion for neovim
+if has('nvim')
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'nvim-lua/completion-nvim'
+  Plug 'nvim-lua/lsp-status.nvim'
+endif
+
+call plug#end()
+
+if has('nvim')
+  " Recommended autocompletion settings
+  " Use <Tab> and <S-Tab> to navigate through popup menu
+  inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+  " Set completeopt to have a better completion experience
+  set completeopt=menuone,noinsert,noselect
+
+  " Avoid showing message extra message when using completion
+  set shortmess+=c
+
+  " Enable Snippet completion
+  let g:completion_enable_snippet = 'UltiSnips'
+
+  " Complete parentheses for functions
+  let g:completion_enable_auto_paren = 1
+
+
+lua <<EOF
+local lsp_status = require('lsp-status')
+local completion = require('completion')
+local lspconfig = require('lspconfig')
+
+local on_attach = function(client, bufnr)
+  lsp_status.on_attach(client, bufnr)
+  completion.on_attach(client, bufnr)
+
+  -- Keybindings for LSPs
+  -- Note these are in on_attach so that they don't override bindings in a non-LSP setting
+  vim.fn.nvim_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", {noremap = true, silent = true})
+  vim.fn.nvim_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", {noremap = true, silent = true})
+  vim.fn.nvim_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.implementation()<CR>", {noremap = true, silent = true})
+  vim.fn.nvim_set_keymap("n", "<c-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", {noremap = true, silent = true})
+  vim.fn.nvim_set_keymap("n", "1gD", "<cmd>lua vim.lsp.buf.type_definition()<CR>", {noremap = true, silent = true})
+  vim.fn.nvim_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", {noremap = true, silent = true})
+  vim.fn.nvim_set_keymap("n", "g0", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", {noremap = true, silent = true})
+  vim.fn.nvim_set_keymap("n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", {noremap = true, silent = true})
+end
+
+lsp_status.register_progress()
+lsp_status.config({
+  status_symbol = '',
+  indicator_errors = 'e',
+  indicator_warnings = 'w',
+  indicator_info = 'i',
+  indicator_hint = 'h',
+  indicator_ok = 'ok',
+})
+
+lspconfig.pyls.setup{
+  on_attach = on_attach,
+  capabilities = lsp_status.capabilities
+}
+lspconfig.gopls.setup{
+  on_attach = on_attach,
+}
+lspconfig.vimls.setup{
+  on_attach = on_attach,
+  capabilities = lsp_status.capabilities
+}
+lspconfig.jsonls.setup{
+  on_attach = on_attach,
+  capabilities = lsp_status.capabilities
+}
+lspconfig.html.setup{
+  on_attach = on_attach,
+  capabilities = lsp_status.capabilities
+}
+EOF
+endif
+
 set hidden "edit more than one unsaved buffers at a time
 set ruler  "show the current line number
 
@@ -24,7 +143,6 @@ filetype plugin indent on "Enable filetype plugins
 " Add completion options
 if exists('+completeopt')
   set completeopt+=longest  " Insert longest common substring
-  set completeopt-=menuone  " Don't show the menu even if only one match
 endif
 
 " Don't show a statusline if there's only one window
@@ -91,6 +209,10 @@ if has('gui_running') || &t_Co >= 256
     autocmd ColorScheme * highlight Normal guibg=NONE
   augroup END
 
+  " let g:tokyonight_style = 'night' " available: night, storm
+  " let g:tokyonight_enable_italic = 1
+
+  " colorscheme tokyonight
   let ayucolor='mirage'
   silent! colorscheme ayu
 endif
@@ -118,7 +240,7 @@ let g:UltiSnipsEditSplit           = 'vertical'
 " Files, directories, recent and tags
 nnoremap ,e :Explore<cr>
 nnoremap ,f :find 
-nnoremap ,rf :Recent 
+nnoremap ,rf :History<cr>
 nnoremap ,v :VimFiles 
 nnoremap ,t :tag *
 
@@ -152,19 +274,24 @@ inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 " Splits
 set splitright
 nnoremap <c-p> :vnew<cr>
-  nnoremap <c-h> <c-w>h
-  nnoremap <c-l> <c-w>l
-  nnoremap <c-k> <c-w>k
-  nnoremap <c-j> <c-w>j
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+nnoremap <c-k> <c-w>k
+nnoremap <c-j> <c-w>j
 
-  if has('nvim')
-    augroup highlight_yank
-      autocmd!
-      autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 300)
-    augroup END
-  endif
+" FZF Mappings
+nnoremap ,F :GFiles<cr>
+nnoremap ,b :Buffers<cr>
+nnoremap ,l :Lines<cr>
 
-  if &term ==? 'st-256color' && ! has('nvim')
+if has('nvim')
+  augroup highlight_yank
+    autocmd!
+    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 300)
+  augroup END
+endif
+
+if &term ==? 'st-256color' && ! has('nvim')
   " set Vim-specific sequences for RGB colors
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"

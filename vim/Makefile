@@ -13,10 +13,12 @@ START_EDIT_PLUGINS = \
 										 tpope/vim-commentary  \
 										 SirVer/ultisnips      \
 										 honza/vim-snippets    \
+										 udalov/kotlin-vim    \
 
 START_USABILITY_PLUGINS = \
 													romainl/vim-cool                \
 													machakann/vim-highlightedyank   \
+													junegunn/fzf.vim                \
 
 START_GIT_PLUGINS    =  tpope/vim-fugitive
 START_COLOR_SCHEMES  =  ayu-theme/ayu-vim lifepillar/vim-colortemplate

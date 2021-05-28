@@ -36,8 +36,11 @@ if system('uname') =~ 'darwin'
 endif
 
 " Insert bullets automatically
-setlocal comments=b:*\ [\ ],b:*\ [x],b:*\ [X],b:-\ [\ ],b:-\ [x],b:-\ [X],b:*,b:-
+" setlocal comments=b:*\ [\ ],b:*\ [x],b:*\ [X],b:-\ [\ ],b:-\ [x],b:-\ [X],b:*,b:-
 setlocal formatoptions=tcroqln
 let b:undo_ftplugin .= '|setlocal comments< formatoptions<'
 
 setlocal conceallevel=1
+
+" Mappings
+xmap ga <Plug>(EasyAlign)

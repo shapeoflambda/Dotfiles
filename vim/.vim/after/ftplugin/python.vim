@@ -1,6 +1,6 @@
 "Basics
-setlocal shiftwidth=2
-setlocal tabstop=2
+setlocal shiftwidth=4
+setlocal tabstop=4
 setlocal expandtab
 let b:undo_ftplugin .= '|setlocal shiftwidth< tabstop< expandtab<'
 
@@ -42,5 +42,5 @@ elseif executable('flake8')
   call <SID>RunMakeOnSave()
 endif
 
-nnoremap <buffer> <C-c><C-r> :Run !python3 -u %<cr>
-let b:undo_ftplugin .= '|nunmap <buffer> <C-c><C-r>'
+nnoremap <buffer> <C-c><C-c> :Run !python3 -u %<cr>
+let b:undo_ftplugin .= '|nunmap <buffer> <C-c><C-c>'

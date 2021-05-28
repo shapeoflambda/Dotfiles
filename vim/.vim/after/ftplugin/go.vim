@@ -21,7 +21,7 @@ elseif executable('gofmt')
 endif
 let b:undo_ftplugin .= '|setlocal formatprg<'
 
-" Run the formatprg beofre saving
+" Run the formatprg before saving
 if ! exists('g:disable_auto_format')
   augroup go_autoformat_before_save
     autocmd!
@@ -39,5 +39,16 @@ if ! exists('g:disable_auto_make')
   let b:undo_ftplugin .= '|autocmd! go_make_on_save'
 endif
 
-nnoremap <buffer><silent> gd :call go#gopls#go_to_definition()<cr>
-let b:undo_ftplugin .= '|nunmap <buffer> gd'
+" Mappings
+nnoremap <buffer> <C-c><C-c> :GoRun<cr>
+let b:undo_ftplugin .= '|nunmap <buffer> <C-c><C-c>'
+
+nnoremap <buffer> <C-c><C-t> :GoTest<cr>
+let b:undo_ftplugin .= '|nunmap <buffer> <C-c><C-t>'
+
+nnoremap <buffer> <C-p> :vsplit<cr>\|:GoAlternate<cr>
+let b:undo_ftplugin .= '|nunmap <buffer> <C-p>'
+
+" overrides to vim-go defaults
+let g:go_fmt_autosave = 0
+let g:go_test_show_name = 1

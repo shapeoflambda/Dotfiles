@@ -110,7 +110,7 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "  View the code review for the currentline in CodeBrowser or CR board      "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function s:ViewCodeReviewForCommit(bang, commit_hash)
+function! s:ViewCodeReviewForCommit(bang, commit_hash)
   let full_commit_msg = ChompedSystem('git rev-list --format=%B --max-count=1 '. a:commit_hash)
 
   " Check if old CR was used
@@ -132,7 +132,7 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 "  View the commit for the currentline in CodeBrowser  "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
-function s:ViewCommitInCodeBrowser(bang, commit_hash)
+function! s:ViewCommitInCodeBrowser(bang, commit_hash)
   let expanded_hash = ChompedSystem('git rev-parse '. a:commit_hash)
 
   " Check if the commit is in remote
@@ -153,7 +153,7 @@ function s:ViewCommitInCodeBrowser(bang, commit_hash)
   return
 endfunction
 
-function s:EchoOrOpenUrl(bang, url)
+function! s:EchoOrOpenUrl(bang, url)
   echo(a:url)
 
   " Copy the URL to system's clipboard
@@ -188,7 +188,7 @@ endfunction
 fun CbrowseOptions(A,L,P)
   let options = 'commit'. "\n". 'review'. "\n". 'package'
   return options
-endfun
+endfunction
 
 function! s:CodeViewPackage(bang)
   let package_name = expand('<cword>')
