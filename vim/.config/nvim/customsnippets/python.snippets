@@ -1,0 +1,15 @@
+snippet '(\b\w+\b)\.foreach' "iterate over a list" r
+for ${1:`!p snip.rv = match.group(1)[:-1] if match.group(1).endswith('s') else 'item'`} in `!p snip.rv = match.group(1)`:
+	${0}
+endsnippet
+
+snippet '(\b\w+\b)\.iter' "iterate over a list" r
+for ${1:`!p snip.rv = match.group(1)[:-1] if match.group(1).endswith('s') else 'item'`} in `!p snip.rv = match.group(1)`:
+	${0}
+endsnippet
+
+snippet '(\b\w+\b)\.fori' "enumerate over a list" r
+for ${1:index}, ${2:`!p snip.rv = match.group(1)[:-1] if match.group(1).endswith('s') else 'item'`} in enumerate(`!p snip.rv = match.group(1)`):
+	${0}
+endsnippet
+

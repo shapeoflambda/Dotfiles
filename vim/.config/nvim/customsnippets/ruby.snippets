@@ -1,0 +1,17 @@
+snippet d "description"
+puts "${1:variable_name} -> #{$1.${2:inspect}}"$0
+endsnippet
+
+# Add print statement to inpsect the variable
+snippet "(\S.*)\.i" "puts statement for the current variable" r
+puts "${1:`!p snip.rv = match.group(1).strip()`} -> #{`!p snip.rv = match.group(1).strip()`.${2:inspect}}"$0
+endsnippet
+
+# Add print statement to list methods on the variable
+snippet "(\S.*)\.m" "puts statement for the current variable" r
+puts "${1:`!p snip.rv = match.group(1).strip()`} -> #{`!p snip.rv = match.group(1).strip()`.${2:methods.sort}}"$0
+endsnippet
+
+snippet p "print something"
+puts "${1:message}"$0
+endsnippet

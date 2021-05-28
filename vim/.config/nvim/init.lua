@@ -15,33 +15,19 @@ local function map(mode, lhs, rhs, opts)
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
--------------------- PLUGINS-------------------- 
-cmd 'packadd paq-nvim'
-local paq = require('paq-nvim').paq
-paq {'savq/paq-nvim', opt = true}
+-- Install packer if not installed already
+local execute = vim.api.nvim_command
+local fn = vim.fn
 
--- Editing
-paq {'tpope/vim-surround'}
-paq {'tpope/vim-unimpaired'}
-paq {'tpope/vim-repeat'}
-paq {'tpope/vim-commentary'}
-paq {'SirVer/ultisnips'}
-paq {'honza/vim-snippets'}
+local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 
-paq {'romainl/vim-cool'}
+if fn.empty(fn.glob(install_path)) > 0 then
+  fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
+  execute 'packadd packer.nvim'
+end
 
--- LSP
-paq {'neovim/nvim-lspconfig'}
-paq {'nvim-lua/completion-nvim'}
-
--- tree sitter
-paq {'nvim-treesitter/nvim-treesitter'}
-paq {'nvim-treesitter/nvim-treesitter-textobjects'}
-
-paq {'junegunn/fzf', hook = fn['fzf#install']}
-paq {'junegunn/fzf.vim'}
-
-paq {'ayu-theme/ayu-vim'}
+-------------------- Plugins --------------------
+require('plugins')
 
 -------------------- OPTIONS --------------------
 opt('o', 'hidden', true)
@@ -56,24 +42,24 @@ opt('b', 'smartindent', true)
 
 opt('o', 'ignorecase', true)
 opt('o', 'smartcase', true)
+opt('o', 'wrapscan', false)
+opt('o', 'scrolloff', 3)
 
 opt('o', 'splitbelow', true)
 opt('o', 'splitright', true)
 opt('o', 'wildmode', 'longest:full,full')
 opt('o', 'wildoptions', '')
-opt('o', 'laststatus', 1)
+opt('o', 'laststatus', 2)
+opt('w', 'cursorline', true)
 
 opt('o', 'completeopt', 'menuone,noinsert,noselect')
-
-opt('o', 'termguicolors', true)
-vim.api.nvim_command('let ayucolor="dark"')
-vim.api.nvim_command('colorscheme ayu')
-cmd 'au ColorScheme * lua vim.api.nvim_command("highlight Normal guibg=NONE")'
+opt('o', 'fillchars', 'diff: ')
+opt('o', 'inccommand', "nosplit")
 
 -------------------- MAPPINGS --------------------
 map('n', '<C-p>', ':vnew<cr>')
 
-map('n', ',f', '<cmd>Files<CR>')
+map('n', ',f', ':find *')
 map('n', ',F', '<cmd>GFiles<CR>')
 map('n', ',rf', '<cmd>History<CR>')
 map('n', ',b', '<cmd>Buffers<CR>')
@@ -86,7 +72,15 @@ map('n', 'gP', '"+P')
 map('x', 'gp', '"+p')
 map('x', 'gP', '"+P')
 
--------------------- TREE-SITTER --------------------
+map('x', '<', '<gv')
+map('x', '>', '>gv')
+
+map('n', '<C-l>', '<Cmd>TroubleToggle<CR>')
+map('n', ',tt', '<Cmd>Trouble lsp_document_diagnostics<CR>')
+
+map('n', ',gd', '<Cmd>Gvdiffsplit<CR>')
+
+---------------------- TREE-SITTER --------------------
 local ts = require 'nvim-treesitter.configs'
 ts.setup {
   ensure_installed = 'maintained',
@@ -147,37 +141,20 @@ ts.setup {
   },
 }
 
--------------------- LSP --------------------
-local lsp = require 'lspconfig'
-
-lsp.pyls_ms.setup {on_attach=require'completion'.on_attach}
-lsp.bashls.setup {on_attach=require'completion'.on_attach}
-lsp.vimls.setup {on_attach=require'completion'.on_attach}
-lsp.gopls.setup {on_attach=require'completion'.on_attach}
-lsp.rust_analyzer.setup {on_attach=require'completion'.on_attach}
-
-vim.g.completion_enable_snippet = 'UltiSnips'
-
 map('n', '[e', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
 map('n', ']e', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
 map('n', ',la', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 map('n', '<c-]>', '<cmd>lua vim.lsp.buf.definition()<CR>')
+map('n', 'gD', '<cmd>lua vim.lsp.buf.definition()<CR>')
 map('n', ',lf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
 map('n', 'gR', '<cmd>lua vim.lsp.buf.rename()<CR>')
 map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
 map('n', ',ls', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
 
--- Cusotom Text objects
-map('x', 'il', ':<c-u>normal! g_v^<cr>')
-map('o', 'il', ':<c-u>normal! g_v^<cr>')
-map('x', 'al', ':<c-u>normal! $v0<cr>')
-map('o', 'al', ':<c-u>normal! $v0<cr>')
-map('x', 'id', ':<c-u>normal! G$Vgg0<cr>')
-map('o', 'id', ':<c-u>normal! G$Vgg0<cr>')
-
 -------------------- COMMANDS --------------------
 cmd 'au TextYankPost * lua vim.highlight.on_yank {timeout = 300, on_visual = false}'
+cmd 'au BufEnter * lua require("sane_path").set_path()'
 
 -- Ultisnip settings
 vim.g.UltiSnipsSnippetDirectories  = {'UltiSnips', 'customsnippets'}
@@ -187,3 +164,43 @@ vim.g.UltiSnipsJumpBackwardTrigger = '<s-tab>'
 vim.g.UltiSnipsListSnippets        = '<C-s>'
 vim.g.UltiSnipsEnableSnipMate      = 1
 vim.g.UltiSnipsEditSplit           = 'vertical'
+
+-------------------- COLORSCHEME --------------------
+opt('o', 'termguicolors', true)
+vim.api.nvim_command('let ayucolor="mirage"')
+vim.g.tokyonight_style = "night"
+vim.api.nvim_command('colorscheme tokyonight')
+cmd 'au ColorScheme * lua vim.api.nvim_command("highlight Normal guibg=NONE")'
+cmd 'au ColorScheme * lua vim.api.nvim_command("highlight Comment gui=italic")'
+
+-------------------- PERSISTENT UNDO --------------------
+if vim.fn.has('persistent_undo') == 1 then
+  opt('o', 'undofile', true)
+  vim.api.nvim_command('set undodir^=~/.config/nvim/cache/undo//')
+end
+
+-------------------- Autocompletion --------------------
+vim.o.completeopt = "menuone,noselect"
+require'compe'.setup {
+  enabled = true;
+  autocomplete = true;
+  debug = false;
+  min_length = 1;
+  preselect = 'enable';
+  throttle_time = 80;
+  source_timeout = 200;
+  incomplete_delay = 400;
+  max_abbr_width = 100;
+  max_kind_width = 100;
+  max_menu_width = 100;
+  documentation = true;
+
+  source = {
+    path = true;
+    buffer = true;
+    calc = true;
+    nvim_lsp = true;
+    nvim_lua = true;
+    vsnip = true;
+  };
+}
