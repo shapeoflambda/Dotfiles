@@ -184,7 +184,7 @@ bindings to improve ergonomics on commonly used functions.
 
 ** Theme
 =doom-themes= has most of the popular themes. I am now using the
-=doom-vibrant= theme.
+=doom-dracula= theme.
 
 #+BEGIN_SRC emacs-lisp
 (use-package doom-themes
@@ -192,7 +192,7 @@ bindings to improve ergonomics on commonly used functions.
   ;; Global settings (defaults)
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-vibrant t)
+  (load-theme 'doom-dracula t)
 
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
@@ -225,6 +225,10 @@ Prettify the lists in the org mode using =org-superstar=
 #+END_SRC
 
 * Editing
+** Clipboard Integration
+   #+begin_src emacs-lisp
+   (setq select-enable-clipboard t)
+   #+end_src
 
 ** Evil Mode
 Evil-mode emulates Vim in Emacs.
@@ -235,14 +239,24 @@ Evil-mode emulates Vim in Emacs.
     (evil-mode 1))
 #+END_SRC
 
-** Surround
+*** Surround
    #+begin_src emacs-lisp
    (use-package evil-surround
       :config
       (global-evil-surround-mode 1))
    #+end_src
 
-** Mappings
+*** =C-a= and =C-x= to increment and decrement numbers
+    #+begin_src emacs-lisp
+    (use-package evil-numbers)
+    #+end_src
+
+    Remap =C-a= to find/increment number in line
+    #+begin_src emacs-lisp
+    (global-set-key (kbd "C-a") 'evil-numbers/inc-at-pt)
+    #+end_src
+
+*** Mappings
 *** Unimpaired mappings
 #+begin_src emacs-lisp
 (defun insert-line-below ()
@@ -390,6 +404,17 @@ expanding often used templates like =<s=.
    (ruby . t)
    (python . t)))
    #+end_src
+
+** Export to a different directory
+  #+begin_src emacs-lisp
+  (defadvice org-export-output-file-name (before org-add-export-dir activate)
+  "Modifies org-export to place exported files in a different directory"
+  (when (not pub-dir)
+      (setq pub-dir "exported-org-files")
+      (when (not (file-directory-p pub-dir))
+       (make-directory pub-dir))))
+   #+end_src
+
 * Helm
 
 Incremental competion and narrowing of selections. It helps to rapidly
@@ -408,10 +433,10 @@ some intuitive normal mode mappings makes life a lot easier.
     (helm-autoresize-mode 1)
 
     ;; Enable fuzzy matching for the most used commands
+    (setq helm-completion-style 'helm-fuzzy)
     (setq helm-recentf-fuzzy-match t)
     (setq helm-buffers-fuzzy-matching t)
     (setq helm-M-x-fuzzy-match t)
-    (setq helm-yas-display-key-on-candidate t)
 
     ;; Replicate my Vim-Fzf mappings
     (define-key evil-normal-state-map ",b" 'helm-buffers-list)
@@ -441,3 +466,25 @@ some intuitive normal mode mappings makes life a lot easier.
 #+begin_src emacs-lisp
 (use-package yasnippet-snippets)
 #+end_src
+* Git
+** Git gutter
+   #+begin_src emacs-lisp
+   (use-package git-gutter
+   :config
+   (global-git-gutter-mode +1))
+   #+end_src
+*** Evil mappings
+    #+begin_src emacs-lisp
+    (define-key evil-normal-state-map (kbd "[ g") 'git-gutter:previous-hunk)
+    (define-key evil-normal-state-map (kbd "] g") 'git-gutter:next-hunk)
+    (define-key evil-normal-state-map (kbd ", g u") 'git-gutter:revert-hunk)
+    (define-key evil-normal-state-map (kbd ", g s") 'git-gutter:stage-hunk)
+    #+end_src
+
+    #+RESULTS:
+    : git-gutter:stage-hunk
+
+** Magit
+   #+begin_src emacs-lisp
+   (use-package magit)
+   #+end_src

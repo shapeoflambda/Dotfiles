@@ -8,18 +8,44 @@
 * Appearance
 ** Theme
 #+BEGIN_SRC emacs-lisp
-(setq doom-theme 'doom-tomorrow-night)
+(setq doom-theme 'doom-one-light)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+;; (setq fancy-splash-image "~/Dotfiles/emacs/banner_dna.png")
 #+END_SRC
 
 ** Display Font
 #+BEGIN_SRC emacs-lisp
-(setq doom-font (font-spec :family "Fira Code" :size 18))
+(setq doom-font (font-spec :family "MonoLisa" :size 15))
 #+END_SRC
 
 ** Pretty bullets for Org-mode
 #+BEGIN_SRC emacs-lisp
 (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
 #+END_SRC
+
+** Modeline height
+#+BEGIN_SRC emacs-lisp
+(setq doom-modeline-height 16)
+#+END_SRC
+
+#+RESULTS:
+: 18
+
+** Ellipsis
+#+BEGIN_SRC emacs-lisp
+(setq org-ellipsis "⤵")
+#+END_SRC
+
+** Hide emphasis markers
+#+BEGIN_SRC emacs-lisp
+(after! org (setq org-hide-emphasis-markers t))
+#+END_SRC
+
+#+RESULTS:
+: t
+
 * Preferences
 ** Inhibit startup screen
 #+BEGIN_SRC emacs-lisp
@@ -68,7 +94,7 @@ numbers are disabled. For relative line numbers, set this to `relative'.
 ** Agenda files
 #+BEGIN_SRC emacs-lisp
 (setq org-agenda-files (list
-    "~/org/tasks/tasks.org"))
+    "~/org/tasks/"))
 #+END_SRC
 
 ** Custom TODO states
@@ -134,13 +160,172 @@ Define the TODO states that I use
        (make-directory pub-dir))))
    #+end_src
 
+** Archive all done tasks using one command
+#+BEGIN_SRC emacs-lisp
+(defun org-archive-done-tasks ()
+  (interactive)
+  (org-map-entries
+   (lambda ()
+     (org-archive-subtree)
+     (setq org-map-continue-from (org-element-property :begin (org-element-at-point))))
+   "/DONE" 'tree))
+#+END_SRC
+
+** Tag position
+#+BEGIN_SRC emacs-lisp
+(setq org-tags-column -80)
+#+END_SRC
+
+#+RESULTS:
+: -80
+
+* Org-roam
+** Configuration
+To first start using Org-roam, one needs to pick a location to store the
+Org-roam files. The directory that will contain your notes, and database index
+is specified by the variable =org-roam-directory=.
+
+#+BEGIN_SRC emacs-lisp
+(unless (file-exists-p "~/org-roam") (make-directory "~/org-roam"))
+(setq org-roam-directory "~/org-roam")
+(setq org-roam-graphviz-executable (executable-find "neato"))
+(setq org-roam-graphviz-extra-options '(("overlap" . "false")))
+#+END_SRC
+
+#+RESULTS:
+: ((overlap . false))
+
+Enable the global minor mode org-roam-mode
+#+BEGIN_SRC emacs-lisp
+(add-hook 'after-init-hook 'org-roam-mode)
+#+END_SRC
+** Ox-Hugo export
+I use ox-hugo to export my org-roam notes to markdown and then to web pages. The
+my/org-export-all-roam loops through all the org files and exports them one by
+one.
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'ox-hugo
+  (defun my/org-export-all-roam ()
+    (interactive)
+    (mapc (lambda (fPath)
+            (ignore-errors (with-temp-buffer
+                             (find-file-read-only fPath)
+                             (org-hugo-export-to-md)
+                             (kill-buffer))))
+          (org-roam--list-files org-roam-directory)))
+  (citeproc-org-setup))
+;; Using Deft in org-mode
+(setq deft-directory "~/org-roam/")
+#+END_SRC
+
+#+RESULTS:
+: ~/org-roam/
+
+* Org-capture
+** Capture Templates
+#+BEGIN_SRC emacs-lisp
+(defun my/generate-org-note-name (&optional dir)
+  (setq org-note--name (read-string "Name: "))
+  (setq org-note--time (format-time-string "%Y%m%d"))
+  (setq dirname (format "~/org/%s" dir))
+  (message dirname)
+  (expand-file-name (format "%s-%s.org" org-note--time org-note--name) dirname))
+(defun my/create-meeting-note ()
+  (my/generate-org-note-name "meeting"))
+(defun my/create-interview-note ()
+  (my/generate-org-note-name "interview"))
+
+(setq org-capture-templates
+      '(
+        ("t" "Task"  entry
+         (file "~/org/tasks/tasks.org")
+         "* TODO %?\n%U")
+        ("p" "Personal Task"  entry
+         (file "~/org/tasks/personal.org")
+         "* TODO %?\n%U")
+        ("m" "Meeting Notes" entry
+         (file my/create-meeting-note)
+         (file "~/Dotfiles/emacs/templates/meeting.template"))
+        ("i" "Interview Notes" entry
+         (file my/create-interview-note)
+         (file "~/Dotfiles/emacs/templates/interview.template"))
+        )
+      )
+#+END_SRC
+
+#+RESULTS:
+| t | Task | entry | (file ~/org/tasks/tasks.org) | * TODO %? |
+
+** Some useful Keybindings
+#+BEGIN_SRC emacs-lisp
+(define-key global-map (kbd "C-c c") 'org-capture)
+(define-key global-map (kbd "C-c t")
+  (lambda () (interactive) (org-capture nil "t")))
+#+END_SRC
+
+#+RESULTS:
+| lambda | nil | (interactive) | (org-capture nil t) |
+* Org-Agenda
+** Agenda start date
+#+BEGIN_SRC emacs-lisp
+(setq org-agenda-start-day "0d")
+(setq org-agenda-span 5)
+(setq org-agenda-start-on-weekday nil)
+#+END_SRC
+
+#+RESULTS:
+
+** Org-super-agenda
+#+BEGIN_SRC emacs-lisp
+(setq org-agenda-custom-commands
+      '(("z" "My view"
+         ((agenda "" ((org-agenda-span 'day)
+                      (org-super-agenda-groups
+                       '((:name "Today"
+                                :time-grid t
+                                :date today
+                                :scheduled today
+                                :order 1)))))
+          (alltodo "" ((org-agenda-overriding-header "")
+                       (org-super-agenda-groups
+                        '(;; Each group has an implicit boolean OR operator between its selectors.
+                          (:name "Due Today"
+                                 :deadline today)
+                          (:name "Passed Deadline"
+                                 :and (:deadline past :todo ("TODO" "WAITING" "HOLD" "IN-PROGRESS"))
+                                 :face (:background "#ffe2de"))
+                          (:name "Work important"
+                                 :and (:priority>= "B" :category "Work" :todo ("TODO" "IN-PROGRESS")))
+                          (:name "Personal"
+                                 :and (:category "personal" :todo ("TODO" "IN-PROGRESS")))
+                          (:name "Bills"
+                                 :and (:category "finance" :todo ("TODO" "IN-PROGRESS")))
+                          (:name "Important"
+                                 :priority "A")
+                          (:name "Blocked"
+                                 :todo "BLOCKED"
+                                 :order 10)))))))))
+(add-hook 'org-agenda-mode-hook 'org-super-agenda-mode)
+#+END_SRC
+
+#+RESULTS:
+| org-super-agenda-mode | +org-habit-resize-graph-h | evil-org-agenda-mode |
+
 * Mappings
 ** General
 *** File finding
 #+BEGIN_SRC emacs-lisp
 (define-key evil-normal-state-map ",f" 'counsel-fzf)
+(define-key evil-normal-state-map ",F" 'org-roam-find-file)
+(define-key evil-normal-state-map ",c" 'org-capture)
+(define-key evil-normal-state-map ",C" 'org-roam-capture)
 (define-key evil-normal-state-map ",rf" 'counsel-recentf)
+(define-key evil-normal-state-map ",e" 'dired)
 #+END_SRC
+
+#+RESULTS:
+: dired
 
 *** Describe things
 #+BEGIN_SRC emacs-lisp
@@ -148,6 +333,17 @@ Define the TODO states that I use
 (define-key evil-normal-state-map ",dk" 'describe-key)
 (define-key evil-normal-state-map ",dv" 'describe-variable)
 #+END_SRC
+
+*** Increment/Decrement just like vim
+#+BEGIN_SRC emacs-lisp
+(define-key evil-normal-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
+(define-key evil-visual-state-map (kbd "C-a") 'evil-numbers/inc-at-pt)
+(define-key evil-normal-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
+(define-key evil-visual-state-map (kbd "C-x") 'evil-numbers/dec-at-pt)
+#+END_SRC
+
+#+RESULTS:
+: evil-numbers/dec-at-pt
 
 ** Git
 #+BEGIN_SRC emacs-lisp
@@ -166,6 +362,9 @@ Define the TODO states that I use
 (define-key evil-normal-state-map ",ot" 'org-todo)
 (define-key evil-normal-state-map "  " 'org-todo)
 (define-key evil-normal-state-map ",rr" 'org-babel-remove-result)
+(define-key evil-normal-state-map ",ri" 'org-roam-insert)
+(define-key evil-visual-state-map ",ri" 'org-roam-insert)
+(define-key evil-normal-state-map ",rt" 'org-roam)
 #+END_SRC
 
 * Snippets
