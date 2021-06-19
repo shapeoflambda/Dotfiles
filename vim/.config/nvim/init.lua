@@ -55,15 +55,19 @@ opt('w', 'cursorline', true)
 opt('o', 'completeopt', 'menuone,noinsert,noselect')
 opt('o', 'fillchars', 'diff: ')
 opt('o', 'inccommand', "nosplit")
+opt('o', 'wildignore', '*.pyc')
 
 -------------------- MAPPINGS --------------------
 map('n', '<C-p>', ':vnew<cr>')
 
 map('n', ',f', ':find *')
-map('n', ',F', '<cmd>GFiles<CR>')
-map('n', ',rf', '<cmd>History<CR>')
-map('n', ',b', '<cmd>Buffers<CR>')
+map('n', ',F', '<cmd>Telescope find_files<CR>')
+map('n', ',rf', '<cmd>Telescope oldfiles<CR>')
+map('n', ',b', '<cmd>Telescope buffers<CR>')
 map('n', ',e', '<cmd>Explore<CR>')
+map('n', ',E', '<cmd>Telescope file_browser<CR>')
+map('n', ',@', '<cmd>Telescope lsp_document_symbols<CR>')
+map('n', ',h', '<cmd>Telescope help_tags<CR>')
 
 map('n', 'gy', '"+y')
 map('x', 'gy', '"+y')
@@ -76,9 +80,10 @@ map('x', '<', '<gv')
 map('x', '>', '>gv')
 
 map('n', '<C-l>', '<Cmd>TroubleToggle<CR>')
-map('n', ',tt', '<Cmd>Trouble lsp_document_diagnostics<CR>')
+map('n', ',d', '<Cmd>Trouble lsp_document_diagnostics<CR>')
 
 map('n', ',gd', '<Cmd>Gvdiffsplit<CR>')
+map('n', '<Space>gg', '<Cmd>Git<CR>')
 
 ---------------------- TREE-SITTER --------------------
 local ts = require 'nvim-treesitter.configs'
@@ -141,17 +146,23 @@ ts.setup {
   },
 }
 
-map('n', '[e', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
-map('n', ']e', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
 map('n', ',la', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 map('n', '<c-]>', '<cmd>lua vim.lsp.buf.definition()<CR>')
-map('n', 'gD', '<cmd>lua vim.lsp.buf.definition()<CR>')
 map('n', ',lf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
-map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
-map('n', 'gR', '<cmd>lua vim.lsp.buf.rename()<CR>')
 map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
 map('n', ',ls', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
 
+map('n', 'K', '<cmd>Lspsaga hover_doc<CR>')
+map('n', 'gs', '<cmd>Lspsaga signature_help<CR>')
+map('n', 'gR', '<cmd>Lspsaga rename<CR>')
+map('n', 'gD', '<cmd>Lspsaga preview_definition<CR>')
+map('n', '[e', '<cmd>Lspsaga diagnostic_jump_prev<CR>')
+map('n', ']e', '<cmd>Lspsaga diagnostic_jump_next<CR>')
+map('n', '<C-f>', '<cmd>lua require("lspsaga.action").smart_scroll_with_saga(1)<CR>')
+map('n', '<C-b>', '<cmd>lua require("lspsaga.action").smart_scroll_with_saga(-1)<CR>')
+
+map('n', ',ca', '<cmd>Lspsaga code_action<CR>')
+map('v', ',ca', ':<C-U>Lspsaga range_code_action<CR>')
 -------------------- COMMANDS --------------------
 cmd 'au TextYankPost * lua vim.highlight.on_yank {timeout = 300, on_visual = false}'
 cmd 'au BufEnter * lua require("sane_path").set_path()'
@@ -169,9 +180,12 @@ vim.g.UltiSnipsEditSplit           = 'vertical'
 opt('o', 'termguicolors', true)
 vim.api.nvim_command('let ayucolor="mirage"')
 vim.g.tokyonight_style = "night"
-vim.api.nvim_command('colorscheme tokyonight')
+vim.api.nvim_command('colorscheme onedark')
+-- require('nord').set()
+
 cmd 'au ColorScheme * lua vim.api.nvim_command("highlight Normal guibg=NONE")'
-cmd 'au ColorScheme * lua vim.api.nvim_command("highlight Comment gui=italic")'
+-- cmd 'au ColorScheme * lua vim.api.nvim_command("highlight NormalFloat guibg=#393f54")'
+-- cmd 'au ColorScheme * lua vim.api.nvim_command("highlight Comment gui=italic")'
 
 -------------------- PERSISTENT UNDO --------------------
 if vim.fn.has('persistent_undo') == 1 then

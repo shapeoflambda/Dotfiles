@@ -5,7 +5,7 @@ let g:loaded_last_position_jump = 1
 
 let s:lastplace_ignore = "gitcommit,gitrebase,svn,hgcommit"
 let s:lastplace_open_folds = 1
-let s:lastplace_ignore_buftype = "quickfix,nofile,help"
+let s:lastplace_ignore_buftype = "terminal,quickfix,nofile,help"
 
 fu! s:lastplace()
 	if index(split(s:lastplace_ignore_buftype, ","), &buftype) != -1 

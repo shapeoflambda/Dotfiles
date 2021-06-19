@@ -17,12 +17,49 @@ return require('packer').startup(function()
         'neovim/nvim-lspconfig',
         config = function()
             local lsp = require 'lspconfig'
-            lsp.pyright.setup{}
+            lsp.pyright.setup{
+                handlers = {
+                    ["textDocument/publishDiagnostics"] = vim.lsp.with(
+                    vim.lsp.diagnostic.on_publish_diagnostics, {
+                        virtual_text = false
+                    }
+                    ),
+                }
+            }
             lsp.bashls.setup {}
             lsp.vimls.setup {}
             lsp.gopls.setup {}
             lsp.rust_analyzer.setup {}
             lsp.tsserver.setup {}
+            lsp.efm.setup {
+                init_options = {documentFormatting = true, codeAction = false},
+                filetypes = { 'python', 'go', 'json', 'rust', 'yaml'},
+                settings = {
+                    rootMarkers = {".git/"},
+                    languages = {
+                        python = {
+                            { formatCommand = "black --quiet -", formatStdin = true }
+                        },
+                        rust = {
+                            { formatCommand = "rustfmt", formatStdin = true }
+                        },
+                        go = {
+                            { formatCommand = "goimports", formatStdin = true }
+                        },
+                        json = {
+                            { formatCommand = "jq", formatStdin = true }
+                        }
+                    }
+                }
+            }
+        end
+    }
+
+    use {
+        'glepnir/lspsaga.nvim',
+        config = function()
+            local saga = require 'lspsaga'
+            saga.init_lsp_saga()
         end
     }
 
@@ -31,20 +68,20 @@ return require('packer').startup(function()
         config = function()
             require("trouble").setup {
                 action_keys = { -- key mappings for actions in the trouble list
-                close = "q", -- close the list
-                cancel = "<esc>", -- cancel the preview and get back to your last window / buffer / cursor
-                refresh = "r", -- manually refresh
-                jump = {"<cr>", "<tab>"}, -- jump to the diagnostic or open / close folds
-                jump_close = {"o"}, -- jump to the diagnostic and close the list
-                toggle_mode = "m", -- toggle between "workspace" and "document" diagnostics mode
-                toggle_preview = "P", -- toggle auto_preview
-                hover = "K", -- opens a small poup with the full multiline message
-                preview = "p", -- preview the diagnostic location
-                close_folds = {"zM", "zm"}, -- close all folds
-                open_folds = {"zR", "zr"}, -- open all folds
-                toggle_fold = {"zA", "za"}, -- toggle fold of current file
-                previous = "[q", -- preview item
-                next = "]q" -- next item
+                    close = "q", -- close the list
+                    cancel = "<esc>", -- cancel the preview and get back to your last window / buffer / cursor
+                    refresh = "r", -- manually refresh
+                    jump = {"<cr>", "<tab>"}, -- jump to the diagnostic or open / close folds
+                    jump_close = {"o"}, -- jump to the diagnostic and close the list
+                    toggle_mode = "m", -- toggle between "workspace" and "document" diagnostics mode
+                    toggle_preview = "P", -- toggle auto_preview
+                    hover = "K", -- opens a small poup with the full multiline message
+                    preview = "p", -- preview the diagnostic location
+                    close_folds = {"zM", "zm"}, -- close all folds
+                    open_folds = {"zR", "zr"}, -- open all folds
+                    toggle_fold = {"zA", "za"}, -- toggle fold of current file
+                    previous = "[q", -- preview item
+                    next = "]q" -- next item
             }
         }
     end
@@ -71,12 +108,21 @@ use {
     },
     config = function()
         require('gitsigns').setup{
+            signs = {
+                add = {text = "▎"},
+                change = {text = "▎"},
+                delete = {text = "▎"},
+                topdelete = {text = "▎"},
+                changedelete = {text = "▎"}
+            },
             keymaps = {
                 noremap = true,
                 buffer = true,
                 ['n ]g'] = '<cmd>Gitsigns next_hunk<CR>',
                 ['n [g'] = '<cmd>Gitsigns prev_hunk<CR>',
                 ['n ,gu'] = '<cmd>Gitsigns reset_hunk<CR>',
+                ['n ,gp'] = '<cmd>Gitsigns preview_hunk<CR>',
+                ['n ,ga'] = '<cmd>Gitsigns stage_hunk<CR>',
             }
         }
     end
@@ -89,9 +135,18 @@ use 'nvim-treesitter/nvim-treesitter-textobjects'
 use 'junegunn/fzf'
 use 'junegunn/fzf.vim'
 
+-- Telescope
+use {
+  'nvim-telescope/telescope.nvim',
+  requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
+}
+
+
 use 'folke/lsp-colors.nvim'
 use 'ayu-theme/ayu-vim'
-use 'shapeoflambda/dark-purple.vim'
+use 'Mofiqul/dracula.nvim'
+use 'ful1e5/onedark.nvim'
+use 'shaunsingh/nord.nvim'
 
 -------------------- Status Line --------------------
 use {
@@ -99,7 +154,7 @@ use {
     config = function()
         require('lualine').setup{
             options = {
-                theme = 'ayu_mirage',
+                theme = 'gruvbox',
                 section_separators = {'', ''},
                 component_separators = {'', ''},
                 icons_enabled = true,

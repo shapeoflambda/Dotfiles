@@ -18,30 +18,20 @@ let b:undo_ftplugin .= '|nunmap <buffer> <C-c><C-c>'
 nnoremap <buffer> <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
 let b:undo_ftplugin .= '|nunmap <buffer> gd'
 
-
-setlocal include=^\\s*\\(import\\\|from\\)\\s*\\zs\\(\\S\\+\\s\\{-}\\)*\\ze\\($\\\|as\\)
-function! PyInclude(fname)
-  let parts = split(a:fname, ' import ')
-  let l = parts[0]
-
-  if len(parts) > 1
-    let r = parts[1]
-    let joined = join([l, r], '.')
-
-    let filepath = substitute(joined, '\.', '/', 'g') . '.py'
-    echom("filepath: " . filepath)
-    let found = glob(filepath, 1)
-    if found
-      return filepath
-    endif
-  endif
-
-  return substitute(l, '\.', '/', 'g') . '.py'
-endfunction
-
-setlocal includeexpr=PyInclude(v:fname)
-
 " Run scripts using <C-c><C-v>
 nnoremap <buffer> <C-c><C-v>
       \ :w\|Trun python3 -u %<CR>
 let b:undo_ftplugin .= '|nunmap <buffer> <C-c><C-v>'
+
+" Organize imports using LSP
+nnoremap <buffer> ,i
+      \ :PyrightOrganizeImports<CR>
+let b:undo_ftplugin .= '|nunmap <buffer> ,i'
+
+command! PyTestFile Trun pytest %
+command! PyTestFunc exec 'Trun pytest % -k '. luaeval("require('ts_python').get_current_function_name()")
+
+nnoremap <buffer> ,tt :PyTestFile<CR>
+nnoremap <buffer> ,tf :PyTestFunc<CR>
+let b:undo_ftplugin .= '|nunmap <buffer> ,tt'
+let b:undo_ftplugin .= '|nunmap <buffer> ,tf'
