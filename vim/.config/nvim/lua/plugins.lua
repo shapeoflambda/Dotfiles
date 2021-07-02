@@ -12,12 +12,17 @@ return require('packer').startup(function()
 
     use 'romainl/vim-cool'
 
+    use 'ray-x/lsp_signature.nvim'
+
     -- LSP
     use {
         'neovim/nvim-lspconfig',
         config = function()
             local lsp = require 'lspconfig'
             lsp.pyright.setup{
+                on_attach = function(client, bufnr)
+                    require "lsp_signature".on_attach()
+                end,
                 handlers = {
                     ["textDocument/publishDiagnostics"] = vim.lsp.with(
                     vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -28,9 +33,16 @@ return require('packer').startup(function()
             }
             lsp.bashls.setup {}
             lsp.vimls.setup {}
-            lsp.gopls.setup {}
-            lsp.rust_analyzer.setup {}
-            lsp.tsserver.setup {}
+            lsp.gopls.setup {
+                on_attach = function(client, bufnr)
+                    require "lsp_signature".on_attach()
+                end
+            }
+            lsp.rust_analyzer.setup {
+                on_attach = function(client, bufnr)
+                    require "lsp_signature".on_attach()
+                end
+            }
             lsp.efm.setup {
                 init_options = {documentFormatting = true, codeAction = false},
                 filetypes = { 'python', 'go', 'json', 'rust', 'yaml'},
@@ -141,12 +153,37 @@ use {
   requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
 }
 
+-- Snap
+use { 'camspiers/snap', rocks = {'fzy'}}
+
+-- Smooth scroll
+use {
+    'karb94/neoscroll.nvim',
+    config = function()
+        require('neoscroll').setup()
+    end
+}
 
 use 'folke/lsp-colors.nvim'
 use 'ayu-theme/ayu-vim'
 use 'Mofiqul/dracula.nvim'
 use 'ful1e5/onedark.nvim'
 use 'shaunsingh/nord.nvim'
+use {
+    'https://gitlab.com/__tpb/monokai-pro.nvim',
+    config = function()
+        vim.g.monokaipro_filter = "spectrum"
+        vim.g.monokaipro_italic_functions = true
+        vim.g.monokaipro_sidebars = { "vista_kind", "packer" }
+        vim.g.monokaipro_flat_term = true
+
+        -- Change the "hint" color to the "orange" color, and make the "error" color bright red
+        vim.g.monokaipro_colors = { hint = "orange", error = "#ff0000" }
+
+        -- Load the colorscheme
+        vim.cmd[[colorscheme monokaipro]]
+    end
+}
 
 -------------------- Status Line --------------------
 use {
@@ -154,7 +191,7 @@ use {
     config = function()
         require('lualine').setup{
             options = {
-                theme = 'gruvbox',
+                theme = 'monokaipro',
                 section_separators = {'', ''},
                 component_separators = {'', ''},
                 icons_enabled = true,

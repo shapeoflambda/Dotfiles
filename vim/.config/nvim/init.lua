@@ -5,14 +5,14 @@ local g = vim.g
 local scopes = {o = vim.o, b = vim.bo, w = vim.wo}
 
 local function opt(scope, key, value)
-  scopes[scope][key] = value
-  if scope ~= 'o' then scopes['o'][key] = value end
+    scopes[scope][key] = value
+    if scope ~= 'o' then scopes['o'][key] = value end
 end
 
 local function map(mode, lhs, rhs, opts)
-  local options = {silent = true, noremap = true}
-  if opts then options = vim.tbl_extend('force', options, opts) end
-  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+    local options = {silent = true, noremap = true}
+    if opts then options = vim.tbl_extend('force', options, opts) end
+    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
 -- Install packer if not installed already
@@ -22,12 +22,13 @@ local fn = vim.fn
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 
 if fn.empty(fn.glob(install_path)) > 0 then
-  fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
-  execute 'packadd packer.nvim'
+    fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
+    execute 'packadd packer.nvim'
 end
 
 -------------------- Plugins --------------------
 require('plugins')
+require('snap_config').setup()
 
 -------------------- OPTIONS --------------------
 opt('o', 'hidden', true)
@@ -61,14 +62,16 @@ opt('o', 'wildignore', '*.pyc')
 map('n', '<C-p>', ':vnew<cr>')
 
 map('n', ',f', ':find *')
-map('n', ',F', '<cmd>Telescope find_files<CR>')
-map('n', ',rf', '<cmd>Telescope oldfiles<CR>')
-map('n', ',b', '<cmd>Telescope buffers<CR>')
 map('n', ',e', '<cmd>Explore<CR>')
-map('n', ',E', '<cmd>Telescope file_browser<CR>')
-map('n', ',@', '<cmd>Telescope lsp_document_symbols<CR>')
-map('n', ',h', '<cmd>Telescope help_tags<CR>')
 
+map('n', ',@', '<cmd>Telescope lsp_document_symbols<CR>')
+-- map('n', ',E', '<cmd>Telescope file_browser<CR>')
+-- map('n', ',F', '<cmd>Telescope find_files<CR>')
+-- map('n', ',b', '<cmd>Telescope buffers<CR>')
+map('n', ',h', '<cmd>Telescope help_tags<CR>')
+-- map('n', ',rf', '<cmd>Telescope oldfiles<CR>')
+
+map('n', ',B', '<Cmd>BOnly<cr>')
 map('n', 'gy', '"+y')
 map('x', 'gy', '"+y')
 map('n', 'gp', '"+p')
@@ -88,62 +91,62 @@ map('n', '<Space>gg', '<Cmd>Git<CR>')
 ---------------------- TREE-SITTER --------------------
 local ts = require 'nvim-treesitter.configs'
 ts.setup {
-  ensure_installed = 'maintained',
-  highlight = {
-    enable = true
-  },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = "gnn",
-      node_incremental = "grn",
-      scope_incremental = "grc",
-      node_decremental = "grm",
+    ensure_installed = 'maintained',
+    highlight = {
+        enable = true
     },
-  },
-  textobjects = {
-    select = {
-      enable = true,
-      keymaps = {
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["ac"] = "@class.outer",
-        ["ic"] = "@class.inner",
-        ["ii"] = "@conditional.inner",
-        ["ai"] = "@conditional.outer",
-        ["ib"] = "@block.inner",
-        ["ab"] = "@block.outer",
-      },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = "gnn",
+            node_incremental = "grn",
+            scope_incremental = "grc",
+            node_decremental = "grm",
+        },
     },
-    swap = {
-      enable = true,
-      swap_next = {
-        ["]a"] = "@parameter.inner",
-      },
-      swap_previous = {
-        ["[a"] = "@parameter.inner",
-      },
+    textobjects = {
+        select = {
+            enable = true,
+            keymaps = {
+                ["af"] = "@function.outer",
+                ["if"] = "@function.inner",
+                ["ac"] = "@class.outer",
+                ["ic"] = "@class.inner",
+                ["ii"] = "@conditional.inner",
+                ["ai"] = "@conditional.outer",
+                ["ib"] = "@block.inner",
+                ["ab"] = "@block.outer",
+            },
+        },
+        swap = {
+            enable = true,
+            swap_next = {
+                ["]a"] = "@parameter.inner",
+            },
+            swap_previous = {
+                ["[a"] = "@parameter.inner",
+            },
+        },
+        move = {
+            enable = true,
+            goto_next_start = {
+                ["]m"] = "@function.outer",
+                ["]]"] = "@class.outer",
+            },
+            goto_next_end = {
+                ["]M"] = "@function.outer",
+                ["]["] = "@class.outer",
+            },
+            goto_previous_start = {
+                ["[m"] = "@function.outer",
+                ["[["] = "@class.outer",
+            },
+            goto_previous_end = {
+                ["[M"] = "@function.outer",
+                ["[]"] = "@class.outer",
+            },
+        }
     },
-    move = {
-      enable = true,
-      goto_next_start = {
-        ["]m"] = "@function.outer",
-        ["]]"] = "@class.outer",
-      },
-      goto_next_end = {
-        ["]M"] = "@function.outer",
-        ["]["] = "@class.outer",
-      },
-      goto_previous_start = {
-        ["[m"] = "@function.outer",
-        ["[["] = "@class.outer",
-      },
-      goto_previous_end = {
-        ["[M"] = "@function.outer",
-        ["[]"] = "@class.outer",
-      },
-    }
-  },
 }
 
 map('n', ',la', '<cmd>lua vim.lsp.buf.code_action()<CR>')
@@ -180,41 +183,41 @@ vim.g.UltiSnipsEditSplit           = 'vertical'
 opt('o', 'termguicolors', true)
 vim.api.nvim_command('let ayucolor="mirage"')
 vim.g.tokyonight_style = "night"
-vim.api.nvim_command('colorscheme onedark')
+vim.api.nvim_command('colorscheme monokaipro')
 -- require('nord').set()
 
-cmd 'au ColorScheme * lua vim.api.nvim_command("highlight Normal guibg=NONE")'
+-- cmd 'au ColorScheme * lua vim.api.nvim_command("highlight Normal guibg=NONE")'
 -- cmd 'au ColorScheme * lua vim.api.nvim_command("highlight NormalFloat guibg=#393f54")'
 -- cmd 'au ColorScheme * lua vim.api.nvim_command("highlight Comment gui=italic")'
 
 -------------------- PERSISTENT UNDO --------------------
 if vim.fn.has('persistent_undo') == 1 then
-  opt('o', 'undofile', true)
-  vim.api.nvim_command('set undodir^=~/.config/nvim/cache/undo//')
+    opt('o', 'undofile', true)
+    vim.api.nvim_command('set undodir^=~/.config/nvim/cache/undo//')
 end
 
 -------------------- Autocompletion --------------------
 vim.o.completeopt = "menuone,noselect"
 require'compe'.setup {
-  enabled = true;
-  autocomplete = true;
-  debug = false;
-  min_length = 1;
-  preselect = 'enable';
-  throttle_time = 80;
-  source_timeout = 200;
-  incomplete_delay = 400;
-  max_abbr_width = 100;
-  max_kind_width = 100;
-  max_menu_width = 100;
-  documentation = true;
+    enabled = true;
+    autocomplete = true;
+    debug = false;
+    min_length = 1;
+    preselect = 'enable';
+    throttle_time = 80;
+    source_timeout = 200;
+    incomplete_delay = 400;
+    max_abbr_width = 100;
+    max_kind_width = 100;
+    max_menu_width = 100;
+    documentation = true;
 
-  source = {
-    path = true;
-    buffer = true;
-    calc = true;
-    nvim_lsp = true;
-    nvim_lua = true;
-    vsnip = true;
-  };
+    source = {
+        path = true;
+        buffer = true;
+        calc = true;
+        nvim_lsp = true;
+        nvim_lua = true;
+        vsnip = true;
+    };
 }

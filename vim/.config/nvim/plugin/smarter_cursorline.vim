@@ -15,6 +15,11 @@ let g:loaded_smarter_cursorline = 1
 
 " Suspend 'cursorline' when a window is inactive or inserting
 function! s:Suspend() abort
+  " Fix for highlighting issues with plugins like Snap
+  if &buftype == 'prompt'
+    return
+  endif
+
   let w:cursorline_current = &l:cursorline
   let &l:cursorline = 0
 endfunction
