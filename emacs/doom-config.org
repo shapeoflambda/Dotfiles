@@ -8,7 +8,7 @@
 * Appearance
 ** Theme
 #+BEGIN_SRC emacs-lisp
-(setq doom-theme 'doom-one-light)
+(setq doom-theme 'doom-dracula)
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
@@ -17,7 +17,7 @@
 
 ** Display Font
 #+BEGIN_SRC emacs-lisp
-(setq doom-font (font-spec :family "MonoLisa" :size 15))
+(setq doom-font (font-spec :family "MonoLisa" :size 14))
 #+END_SRC
 
 ** Pretty bullets for Org-mode
@@ -35,8 +35,10 @@
 
 ** Ellipsis
 #+BEGIN_SRC emacs-lisp
-(setq org-ellipsis "⤵")
+(setq org-ellipsis "")
 #+END_SRC
+
+#+RESULTS:
 
 ** Hide emphasis markers
 #+BEGIN_SRC emacs-lisp
@@ -113,6 +115,33 @@ Define the TODO states that I use
 
 (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
 #+END_SRC
+*** For checkboxes
+#+begin_src emacs-lisp
+(defun my/org-checkbox-todo ()
+  "Switch header TODO state to DONE when all checkboxes are ticked, to TODO otherwise"
+  (let ((todo-state (org-get-todo-state)) beg end)
+    (unless (not todo-state)
+      (save-excursion
+    (org-back-to-heading t)
+    (setq beg (point))
+    (end-of-line)
+    (setq end (point))
+    (goto-char beg)
+    (if (re-search-forward "\\[\\([0-9]*%\\)\\]\\|\\[\\([0-9]*\\)/\\([0-9]*\\)\\]"
+                   end t)
+        (if (match-end 1)
+        (if (equal (match-string 1) "100%")
+            (unless (string-equal todo-state "DONE")
+              (org-todo 'done))
+          (unless (string-equal todo-state "TODO")
+            (org-todo 'todo)))
+          (if (and (> (match-end 2) (match-beginning 2))
+               (equal (match-string 2) (match-string 3)))
+          (unless (string-equal todo-state "DONE")
+            (org-todo 'done))
+        (unless (string-equal todo-state "TODO")
+          (org-todo 'todo)))))))))
+#+end_src
 
 ** Log the time when a TODO item is marked as =DONE=
 #+BEGIN_SRC emacs-lisp
@@ -179,6 +208,41 @@ Define the TODO states that I use
 #+RESULTS:
 : -80
 
+** Disable proselint
+#+begin_src emacs-lisp
+(setq flycheck-disabled-checkers '(proselint))
+#+end_src
+
+#+RESULTS:
+| proselint |
+
+** Disable slow autocompletion in org mode
+#+begin_src emacs-lisp
+(remove-hook 'org-mode-hook #'auto-fill-mode)
+#+end_src
+
+** Pretty symbols
+#+begin_src emacs-lisp
+(add-hook 'org-mode-hook (lambda ()
+   "Beautify Org Checkbox Symbol"
+   (push '("[ ]" .  "☐") prettify-symbols-alist)
+   (push '("[X]" . "☑" ) prettify-symbols-alist)
+   (push '("[-]" . "❍" ) prettify-symbols-alist)
+   (push '("#+BEGIN_SRC" . "»" ) prettify-symbols-alist)
+   (push '("#+END_SRC" . "«" ) prettify-symbols-alist)
+   (push '("#+BEGIN_EXAMPLE" . "↦" ) prettify-symbols-alist)
+   (push '("#+END_EXAMPLE" . "⇤" ) prettify-symbols-alist)
+   (push '("#+BEGIN_QUOTE" . "»" ) prettify-symbols-alist)
+   (push '("#+END_QUOTE" . "«" ) prettify-symbols-alist)
+   (push '("#+begin_quote" . "↦" ) prettify-symbols-alist)
+   (push '("#+end_quote" . "⇤" ) prettify-symbols-alist)
+   (push '("#+begin_example" . "↦" ) prettify-symbols-alist)
+   (push '("#+end_example" . "⇤" ) prettify-symbols-alist)
+   (push '("#+begin_src" . "»" ) prettify-symbols-alist)
+   (push '("#+end_src" . "«" ) prettify-symbols-alist)
+   (prettify-symbols-mode)))
+#+end_src
+
 * Org-roam
 ** Configuration
 To first start using Org-roam, one needs to pick a location to store the
@@ -188,39 +252,8 @@ is specified by the variable =org-roam-directory=.
 #+BEGIN_SRC emacs-lisp
 (unless (file-exists-p "~/org-roam") (make-directory "~/org-roam"))
 (setq org-roam-directory "~/org-roam")
-(setq org-roam-graphviz-executable (executable-find "neato"))
-(setq org-roam-graphviz-extra-options '(("overlap" . "false")))
+(org-roam-setup)
 #+END_SRC
-
-#+RESULTS:
-: ((overlap . false))
-
-Enable the global minor mode org-roam-mode
-#+BEGIN_SRC emacs-lisp
-(add-hook 'after-init-hook 'org-roam-mode)
-#+END_SRC
-** Ox-Hugo export
-I use ox-hugo to export my org-roam notes to markdown and then to web pages. The
-my/org-export-all-roam loops through all the org files and exports them one by
-one.
-
-#+BEGIN_SRC emacs-lisp
-(with-eval-after-load 'ox-hugo
-  (defun my/org-export-all-roam ()
-    (interactive)
-    (mapc (lambda (fPath)
-            (ignore-errors (with-temp-buffer
-                             (find-file-read-only fPath)
-                             (org-hugo-export-to-md)
-                             (kill-buffer))))
-          (org-roam--list-files org-roam-directory)))
-  (citeproc-org-setup))
-;; Using Deft in org-mode
-(setq deft-directory "~/org-roam/")
-#+END_SRC
-
-#+RESULTS:
-: ~/org-roam/
 
 * Org-capture
 ** Capture Templates
@@ -317,15 +350,12 @@ one.
 *** File finding
 #+BEGIN_SRC emacs-lisp
 (define-key evil-normal-state-map ",f" 'counsel-fzf)
-(define-key evil-normal-state-map ",F" 'org-roam-find-file)
+(define-key evil-normal-state-map ",F" 'org-roam-node-find)
 (define-key evil-normal-state-map ",c" 'org-capture)
 (define-key evil-normal-state-map ",C" 'org-roam-capture)
 (define-key evil-normal-state-map ",rf" 'counsel-recentf)
 (define-key evil-normal-state-map ",e" 'dired)
 #+END_SRC
-
-#+RESULTS:
-: dired
 
 *** Describe things
 #+BEGIN_SRC emacs-lisp
@@ -364,7 +394,7 @@ one.
 (define-key evil-normal-state-map ",rr" 'org-babel-remove-result)
 (define-key evil-normal-state-map ",ri" 'org-roam-insert)
 (define-key evil-visual-state-map ",ri" 'org-roam-insert)
-(define-key evil-normal-state-map ",rt" 'org-roam)
+(define-key evil-normal-state-map ",rt" 'org-roam-buffer-toggle)
 #+END_SRC
 
 * Snippets

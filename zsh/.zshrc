@@ -37,3 +37,4 @@ eval "$(starship init zsh)"
 if [[ -d /home/harish/.gem/ruby/2.7.0/bin ]]; then
   export PATH="$PATH:/home/harish/.gem/ruby/2.7.0/bin"
 fi
+export PATH="$PATH:/Users/chndha/.emacs.d/bin"

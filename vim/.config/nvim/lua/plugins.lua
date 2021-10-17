@@ -15,57 +15,7 @@ return require('packer').startup(function()
     use 'ray-x/lsp_signature.nvim'
 
     -- LSP
-    use {
-        'neovim/nvim-lspconfig',
-        config = function()
-            local lsp = require 'lspconfig'
-            lsp.pyright.setup{
-                on_attach = function(client, bufnr)
-                    require "lsp_signature".on_attach()
-                end,
-                handlers = {
-                    ["textDocument/publishDiagnostics"] = vim.lsp.with(
-                    vim.lsp.diagnostic.on_publish_diagnostics, {
-                        virtual_text = false
-                    }
-                    ),
-                }
-            }
-            lsp.bashls.setup {}
-            lsp.vimls.setup {}
-            lsp.gopls.setup {
-                on_attach = function(client, bufnr)
-                    require "lsp_signature".on_attach()
-                end
-            }
-            lsp.rust_analyzer.setup {
-                on_attach = function(client, bufnr)
-                    require "lsp_signature".on_attach()
-                end
-            }
-            lsp.efm.setup {
-                init_options = {documentFormatting = true, codeAction = false},
-                filetypes = { 'python', 'go', 'json', 'rust', 'yaml'},
-                settings = {
-                    rootMarkers = {".git/"},
-                    languages = {
-                        python = {
-                            { formatCommand = "black --quiet -", formatStdin = true }
-                        },
-                        rust = {
-                            { formatCommand = "rustfmt", formatStdin = true }
-                        },
-                        go = {
-                            { formatCommand = "goimports", formatStdin = true }
-                        },
-                        json = {
-                            { formatCommand = "jq", formatStdin = true }
-                        }
-                    }
-                }
-            }
-        end
-    }
+    use 'neovim/nvim-lspconfig'
 
     use {
         'glepnir/lspsaga.nvim',
@@ -146,15 +96,13 @@ use 'nvim-treesitter/nvim-treesitter-textobjects'
 
 use 'junegunn/fzf'
 use 'junegunn/fzf.vim'
+use 'gfanto/fzf-lsp.nvim'
 
 -- Telescope
 use {
   'nvim-telescope/telescope.nvim',
   requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
 }
-
--- Snap
-use { 'camspiers/snap', rocks = {'fzy'}}
 
 -- Smooth scroll
 use {
@@ -165,7 +113,7 @@ use {
 }
 
 use 'folke/lsp-colors.nvim'
-use 'ayu-theme/ayu-vim'
+use 'Shatur/neovim-ayu'
 use 'Mofiqul/dracula.nvim'
 use 'ful1e5/onedark.nvim'
 use 'shaunsingh/nord.nvim'
@@ -185,44 +133,24 @@ use {
     end
 }
 
--------------------- Status Line --------------------
-use {
-    'hoob3rt/lualine.nvim',
-    config = function()
-        require('lualine').setup{
-            options = {
-                theme = 'monokaipro',
-                section_separators = {'', ''},
-                component_separators = {'', ''},
-                icons_enabled = true,
-            },
-            sections = {
-                lualine_a = { {'mode', upper = true} },
-                lualine_b = { {'filename', file_status = true} },
-                lualine_c = { {'diagnostics', sources = {'nvim_lsp'}} },
-                lualine_x = { 'encoding', 'filetype' },
-                lualine_y = { {'branch', icon = ''} },
-                lualine_z = { 'location' },
-            },
-            inactive_sections = {
-                lualine_a = {  },
-                lualine_b = {  },
-                lualine_c = { 'filename' },
-                lualine_x = { 'location' },
-                lualine_y = {  },
-                lualine_z = {   }
-            },
-            extensions = { 'fzf' }
-        }
-    end
-}
-
 use 'folke/tokyonight.nvim'
 use 'kyazdani42/nvim-web-devicons'
 
 -- Git
 use 'tpope/vim-fugitive'
 
-use 'hrsh7th/nvim-compe'
+use 'hrsh7th/cmp-nvim-lsp'
+use 'hrsh7th/cmp-buffer'
+use 'hrsh7th/nvim-cmp'
+use 'quangnguyen30192/cmp-nvim-ultisnips'
+use 'onsails/lspkind-nvim'
+
+use { -- A minimal, stylish and customizable statusline for Neovim written in Lua
+'Famiu/feline.nvim',
+requires = {
+    'nvim-lua/lsp-status.nvim',
+},
+config = [[ require('statusline') ]],
+                                                  }
 
 end)

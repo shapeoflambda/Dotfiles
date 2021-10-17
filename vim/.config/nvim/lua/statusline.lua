@@ -1,0 +1,307 @@
+local lsp = require('feline.providers.lsp')
+local vi_mode_utils = require('feline.providers.vi_mode')
+local lsp_status = require('lsp-status')
+
+local b = vim.b
+local fn = vim.fn
+
+local components = {
+    active = {},
+    inactive = {}
+}
+
+components.active[1] = {
+    -- {
+    --     provider = '█',
+    --     hl = {
+    --         fg = 'oceanblue'
+    --     }
+    -- },
+    {
+        provider = 'vi_mode',
+        hl = function()
+            return {
+                name = vi_mode_utils.get_mode_highlight_name(),
+                bg = vi_mode_utils.get_mode_color(),
+                style = 'bold'
+            }
+        end,
+        left_sep = { '█'},
+        right_sep = {''},
+        icon = ''
+    },
+    {
+        provider = 'file_info',
+        hl = {
+            fg = 'white',
+            style = 'bold'
+        },
+        left_sep = {
+            ' ',
+            {str = ' ', hl = {fg = 'NONE'}}
+        },
+    },
+    -- {
+    --     provider = function()
+    --         local name_with_path = os.getenv('VIRTUAL_ENV')
+    --         local venv = {};
+    --         for match in (name_with_path.."/"):gmatch("(.-)".."/") do
+    --             table.insert(venv, match);
+    --         end
+    --         return  "" .. venv[#venv]
+    --     end,
+    --     enabled = function() return os.getenv('VIRTUAL_ENV') ~= nil end,
+    --     right_sep = " ",
+    -- },
+    {
+        provider = 'diagnostic_errors',
+        enabled = function() return lsp.diagnostics_exist('Error') end,
+        hl = { fg = 'red' }
+    },
+    {
+        provider = 'diagnostic_warnings',
+        enabled = function() return lsp.diagnostics_exist('Warning') end,
+        hl = { fg = 'yellow' }
+    },
+    {
+        provider = 'diagnostic_hints',
+        enabled = function() return lsp.diagnostics_exist('Hint') end,
+        hl = { fg = 'cyan' }
+    },
+    {
+        provider = 'diagnostic_info',
+        enabled = function() return lsp.diagnostics_exist('Information') end,
+        hl = { fg = 'skyblue' }
+    },
+}
+
+components.active[2] = {
+    {
+      provider = function()
+            local msg = ''
+            local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+            local clients = vim.lsp.get_active_clients()
+            if next(clients) == nil then return msg end
+            for _, client in ipairs(clients) do
+              local filetypes = client.config.filetypes
+              if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+                return "LSP[" .. client.name .. "]"
+              end
+            end
+            return msg
+      end,
+      left_sep = {
+            ' ',
+            {
+                str = ' ',
+                hl = {
+                    fg = 'fg',
+                    bg = 'bg'
+                }
+            }
+      }
+
+    },
+}
+
+components.active[3] = {
+    {
+        provider = 'git_branch',
+        hl = {
+            fg = 'white',
+            bg = 'black',
+            style = 'bold'
+        },
+        right_sep = function()
+            local val = {hl = {fg = 'NONE', bg = 'black'}}
+            if b.gitsigns_status_dict then val.str = ' ' else val.str = '' end
+            return val
+        end
+    },
+    {
+        provider = 'git_diff_added',
+        icon = {
+            str = ' +',
+            hl = {
+              fg = 'green' ,
+              style = 'bold',
+            },
+        },
+        hl = {
+          fg = 'green' ,
+          style = 'bold',
+        },
+    },
+    {
+        provider = 'git_diff_changed',
+        icon = {
+            str = ' ~',
+            hl = {
+              fg = 'orange' ,
+              style = 'bold',
+            },
+        },
+        hl = {
+          fg = 'orange' ,
+          style = 'bold',
+        },
+    },
+    {
+        provider = 'git_diff_removed',
+        icon = {
+            str = ' -',
+            hl = {
+              fg = 'red' ,
+              style = 'bold',
+            },
+        },
+        hl = {
+          fg = 'red' ,
+          style = 'bold',
+        },
+        right_sep = function()
+            local val = {hl = {fg = 'NONE', bg = 'black'}}
+            if b.gitsigns_status_dict then val.str = ' ' else val.str = '' end
+            return val
+        end
+    },
+    {
+        provider = ' %l:%-2c ',
+        left_sep = '',
+        hl = {
+            fg = 'white',
+            bg = 'oceanblue',
+            style = 'bold'
+        },
+    },
+}
+
+components.inactive[1] = {
+    {
+        provider = 'file_type',
+        hl = {
+            fg = 'white',
+            bg = 'oceanblue',
+            style = 'bold'
+        },
+        left_sep = {
+            str = ' ',
+            hl = {
+                fg = 'NONE',
+                bg = 'oceanblue'
+            }
+        },
+        right_sep = {
+            {
+                str = ' ',
+                hl = {
+                    fg = 'NONE',
+                    bg = 'oceanblue'
+                }
+            },
+            'slant_right'
+        }
+    }
+}
+
+-- This table is equal to the default colors table
+local colors = {
+    fg          = '#D0D0D0',
+    bg          = '#1F1F23',
+    black       = '#1B1B1B',
+    skyblue     = '#50B0F0',
+    cyan        = '#009090',
+    green       = '#60A040',
+    oceanblue   = '#0066cc',
+    magenta     = '#C26BDB',
+    orange      = '#FF9000',
+    red         = '#D10000',
+    violet      = '#9E93E8',
+    white       = '#FFFFFF',
+    yellow      = '#E1E120'
+}
+
+-- This table is equal to the default separators table
+local separators        = {
+    vertical_bar        = '┃',
+    vertical_bar_thin   = '│',
+    left                = '',
+    right               = '',
+    block               = '█',
+    left_filled         = '',
+    right_filled        = '',
+    slant_left          = '',
+    slant_left_thin     = '',
+    slant_right         = '',
+    slant_right_thin    = '',
+    slant_left_2        = '',
+    slant_left_2_thin   = '',
+    slant_right_2       = '',
+    slant_right_2_thin  = '',
+    left_rounded        = '',
+    left_rounded_thin   = '',
+    right_rounded       = '',
+    right_rounded_thin  = '',
+    circle              = '●'
+}
+
+-- This table is equal to the default vi_mode_colors table
+local vi_mode_colors = {
+    ['NORMAL']      = 'oceanblue',
+    ['OP']          = 'green',
+    ['INSERT']      = 'green',
+    ['VISUAL']      = 'orange',
+    ['LINES']       = 'orange',
+    ['BLOCK']       = 'orange',
+    ['REPLACE']     = 'violet',
+    ['V-REPLACE']   = 'violet',
+    ['ENTER']       = 'cyan',
+    ['MORE']        = 'cyan',
+    ['SELECT']      = 'orange',
+    ['COMMAND']     = 'green',
+    ['SHELL']       = 'green',
+    ['TERM']        = 'green',
+    ['NONE']        = 'yellow'
+}
+
+-- This table is equal to the default force_inactive table
+local force_inactive = {
+    filetypes = {
+        'NvimTree',
+        'packer',
+        'startify',
+        'fugitive',
+        'fugitiveblame',
+        'qf',
+        'help'
+    },
+    buftypes = {
+        'terminal'
+    },
+    bufnames = {}
+}
+
+-- This table is equal to the default disable table
+local disable = {
+    filetypes = {},
+    buftypes = {},
+    bufnames = {}
+}
+
+-- This table is equal to the default update_triggers table
+local update_triggers = {
+    'VimEnter',
+    'WinEnter',
+    'WinClosed',
+    'FileChangedShellPost'
+}
+
+require('feline').setup({
+    colors = colors,
+    separators = separators,
+    vi_mode_colors = vi_mode_colors,
+    force_inactive = force_inactive,
+    disable = disable,
+    update_triggers = update_triggers,
+    components = components
+})

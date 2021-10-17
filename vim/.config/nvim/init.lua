@@ -28,7 +28,6 @@ end
 
 -------------------- Plugins --------------------
 require('plugins')
-require('snap_config').setup()
 
 -------------------- OPTIONS --------------------
 opt('o', 'hidden', true)
@@ -60,16 +59,13 @@ opt('o', 'wildignore', '*.pyc')
 
 -------------------- MAPPINGS --------------------
 map('n', '<C-p>', ':vnew<cr>')
+map('n', '<Space>pp', ':PackerSync<cr>')
 
 map('n', ',f', ':find *')
 map('n', ',e', '<cmd>Explore<CR>')
 
 map('n', ',@', '<cmd>Telescope lsp_document_symbols<CR>')
--- map('n', ',E', '<cmd>Telescope file_browser<CR>')
--- map('n', ',F', '<cmd>Telescope find_files<CR>')
--- map('n', ',b', '<cmd>Telescope buffers<CR>')
-map('n', ',h', '<cmd>Telescope help_tags<CR>')
--- map('n', ',rf', '<cmd>Telescope oldfiles<CR>')
+map('n', ',E', '<cmd>Telescope file_browser<CR>')
 
 map('n', ',B', '<Cmd>BOnly<cr>')
 map('n', 'gy', '"+y')
@@ -149,23 +145,6 @@ ts.setup {
     },
 }
 
-map('n', ',la', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-map('n', '<c-]>', '<cmd>lua vim.lsp.buf.definition()<CR>')
-map('n', ',lf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
-map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
-map('n', ',ls', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
-
-map('n', 'K', '<cmd>Lspsaga hover_doc<CR>')
-map('n', 'gs', '<cmd>Lspsaga signature_help<CR>')
-map('n', 'gR', '<cmd>Lspsaga rename<CR>')
-map('n', 'gD', '<cmd>Lspsaga preview_definition<CR>')
-map('n', '[e', '<cmd>Lspsaga diagnostic_jump_prev<CR>')
-map('n', ']e', '<cmd>Lspsaga diagnostic_jump_next<CR>')
-map('n', '<C-f>', '<cmd>lua require("lspsaga.action").smart_scroll_with_saga(1)<CR>')
-map('n', '<C-b>', '<cmd>lua require("lspsaga.action").smart_scroll_with_saga(-1)<CR>')
-
-map('n', ',ca', '<cmd>Lspsaga code_action<CR>')
-map('v', ',ca', ':<C-U>Lspsaga range_code_action<CR>')
 -------------------- COMMANDS --------------------
 cmd 'au TextYankPost * lua vim.highlight.on_yank {timeout = 300, on_visual = false}'
 cmd 'au BufEnter * lua require("sane_path").set_path()'
@@ -197,27 +176,115 @@ if vim.fn.has('persistent_undo') == 1 then
 end
 
 -------------------- Autocompletion --------------------
-vim.o.completeopt = "menuone,noselect"
-require'compe'.setup {
-    enabled = true;
-    autocomplete = true;
-    debug = false;
-    min_length = 1;
-    preselect = 'enable';
-    throttle_time = 80;
-    source_timeout = 200;
-    incomplete_delay = 400;
-    max_abbr_width = 100;
-    max_kind_width = 100;
-    max_menu_width = 100;
-    documentation = true;
+  local cmp = require'cmp'
+  local lspkind = require('lspkind')
 
-    source = {
-        path = true;
-        buffer = true;
-        calc = true;
-        nvim_lsp = true;
-        nvim_lua = true;
-        vsnip = true;
-    };
+  local has_any_words_before = function()
+      if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+          return false
+      end
+      local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+      return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+  end
+
+  local press = function(key)
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), "n", true)
+  end
+
+  cmp.setup({
+    snippet = {
+      expand = function(args)
+        vim.fn["UltiSnips#Anon"](args.body)
+      end,
+    },
+    mapping = {
+      ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.close(),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }),
+      ["<Tab>"] = cmp.mapping(function(fallback)
+          if vim.fn.complete_info()["selected"] == -1 and vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
+              press("<C-R>=UltiSnips#ExpandSnippet()<CR>")
+          elseif vim.fn["UltiSnips#CanJumpForwards"]() == 1 then
+              press("<ESC>:call UltiSnips#JumpForwards()<CR>")
+          elseif cmp.visible() then
+              cmp.select_next_item()
+          elseif has_any_words_before() then
+              press("<Tab>")
+          else
+              fallback()
+          end
+      end, {"i","s"}),
+      ["<S-Tab>"] = cmp.mapping(function(fallback)
+          if vim.fn["UltiSnips#CanJumpBackwards"]() == 1 then
+              press("<ESC>:call UltiSnips#JumpBackwards()<CR>")
+          elseif cmp.visible() then
+              cmp.select_prev_item()
+          else
+              fallback()
+          end
+      end, {"i","s"}),
+    },
+    sources = {
+      { name = 'nvim_lsp' },
+      { name = 'ultisnips' },
+      { name = 'buffer' },
+    },
+    formatting = {
+        format = lspkind.cmp_format({with_text = false, maxwidth = 50})
+    }
+  })
+
+-- LSP Settings
+local nvim_lsp = require 'lspconfig'
+
+local on_attach = function(_, bufnr)
+    map('n', ',la', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+    map('n', ',lf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+    map('n', 'gr',  '<cmd>lua vim.lsp.buf.references()<CR>')
+    map('n', ',ls', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+    map('n', 'K',   '<cmd>Lspsaga hover_doc<CR>')
+    map('n', 'gs',  '<cmd>Lspsaga signature_help<CR>')
+    map('n', 'gR',  '<cmd>Lspsaga rename<CR>')
+    map('n', 'gD',  '<cmd>Lspsaga preview_definition<CR>')
+    map('n', '[e',  '<cmd>Lspsaga diagnostic_jump_prev<CR>')
+    map('n', ']e',  '<cmd>Lspsaga diagnostic_jump_next<CR>')
+    map('n', ',ca', '<cmd>Lspsaga code_action<CR>')
+    map('v', ',ca', ':<C-U>Lspsaga range_code_action<CR>')
+    map('n', '<c-]>', '<cmd>lua vim.lsp.buf.definition()<CR>')
+end
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
+-- Enable the following language servers
+local servers = { 'bashls', 'vimls', 'gopls', 'rust_analyzer', 'pyright', 'tsserver' }
+for _, lsp in ipairs(servers) do
+    nvim_lsp[lsp].setup {
+        on_attach = on_attach,
+        capabilities = capabilities,
+    }
+end
+
+nvim_lsp.efm.setup {
+    init_options = {documentFormatting = true, codeAction = false},
+    filetypes = { 'python', 'go', 'json', 'rust', 'yaml'},
+    settings = {
+        rootMarkers = {".git/"},
+        languages = {
+            python = {
+                { formatCommand = "black --quiet -", formatStdin = true }
+            },
+            rust = {
+                { formatCommand = "rustfmt", formatStdin = true }
+            },
+            go = {
+                { formatCommand = "goimports", formatStdin = true }
+            },
+            json = {
+                { formatCommand = "jq", formatStdin = true }
+            }
+        }
+    }
 }

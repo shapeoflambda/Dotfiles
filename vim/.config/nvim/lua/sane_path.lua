@@ -1,6 +1,6 @@
 local loop = vim.loop
 
-local directories_to_ignore = {'build', 'node_modules', 'venv', '__pycache__'}
+local directories_to_ignore = {'build', 'node_modules', 'venv', '__results__', '__pycache__'}
 
 local M = {}
 

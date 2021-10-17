@@ -7,12 +7,13 @@ if !exists('g:term_eof')
   let g:term_eof = ''
 end
 
-"Open terminal in a bottom split
+" Open terminal in a bottom split
 " nnoremap <C-t> <Cmd>12sp\|terminal<cr>
 nnoremap <silent> <C-t> :call terminal#show_hide_terminal()<Cr>
 tnoremap <silent> <C-t> <C-\><C-n>:call terminal#show_hide_terminal()<Cr>
 
-tnoremap <Esc> <C-\><C-n>
+" Disabling this map here to enable fzf
+" tnoremap <Esc> <C-\><C-n>
 
 " Switching splits
 " Terminal mode:

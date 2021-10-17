@@ -18,3 +18,18 @@ snippet cf "Comment header for function"
 #######################################
 endsnippet
 	
+snippet readlines "Reads lines from a file"
+while IFS= read -r ${1:line}; do
+    echo "\$$1"$0
+done < ${2:filename}
+endsnippet
+
+snippet arr "Declare an array"
+declare -a ${1:arr}=("${2:element1}" "${3:element2}" $0)
+endsnippet
+
+snippet '(\b\w+\b)\.iter' "iterate over an array" r
+for ${1:`!p snip.rv = match.group(1)[:-1] if match.group(1).endswith('s') else 'item'`} in "\${`!p snip.rv = match.group(1)`[@]}"; do
+	echo "\$$1"${0}
+done
+endsnippet
