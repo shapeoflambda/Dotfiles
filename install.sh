@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 info() {
-    printf "\033[00;34m$@\033[0m\n"
+  printf "\033[00;34m$@\033[0m\n"
 }
 
 # ###########################################################
@@ -11,6 +11,11 @@ installPackages() {
   info "Installing required packages..."
   if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     sudo pacman -S git neovim vim thefuck zsh ripgrep stow
+  elif [ "$(uname)" == "Darwin" ]; then
+    info "Installing brew"
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    info "Installing essential packages"
+    brew install git neovim vim zsh ripgrep stow nnn fzf tldr
   fi
 
   info "Installing Extras.."
@@ -18,15 +23,6 @@ installPackages() {
   # zplugin
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
 
-  # plug.vim
-  curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-  # tmux Plugin Manager
-  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
-  # FZF
-  git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-  ~/.fzf/install
 }
 
 installFonts() {
@@ -39,16 +35,15 @@ installFonts() {
     return 1
   fi
 
-  find "$DOTFILES/fonts/" -name "*.[o,t]tf" -type f | while read -r file
-  do
+  find "$DOTFILES/fonts/" -name "*.[o,t]tf" -type f | while read -r file; do
     cp -v "$file" "$fonts"
   done
 }
 
 doAll() {
-	installPackages
-	setWallpaper
-	installFonts
+  installPackages
+  setWallpaper
+  installFonts
 }
 
 doHelp() {
@@ -71,52 +66,50 @@ doHelp() {
 setWallpaper() {
   info "Setting wallpaper..."
   if [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-    if [ "$GDMSESSION" == "gnome" ];  then
+    if [ "$GDMSESSION" == "gnome" ]; then
       gsettings set org.gnome.desktop.background picture-uri file:///home/$USER/.wallpaper_01.jpg
     fi
   fi
 }
 
 if [ $# -eq 0 ]; then
-    doHelp
+  doHelp
 else
-    for i in "$@"
-    do
-        case $i in
-            -s|--sync)
-                doSync
-                doGitConfig
-                shift
-                ;;
-            -l|--link)
-                doSymLink
-                shift
-                ;;
-            -i|--install)
-                installPackages
-                shift
-                ;;
-            -f|--fonts)
-                doFonts
-                shift
-                ;;
-            -c|--config)
-                doConfig
-                shift
-                ;;
-            -w|--wallpaper)
-                setWallpaper
-                shift
-                ;;
-            -a|--all)
-                doAll
-                shift
-                ;;
-            *)
-                doHelp
-                shift
-                ;;
-        esac
-    done
+  for i in "$@"; do
+    case $i in
+      -s | --sync)
+        doSync
+        doGitConfig
+        shift
+        ;;
+      -l | --link)
+        doSymLink
+        shift
+        ;;
+      -i | --install)
+        installPackages
+        shift
+        ;;
+      -f | --fonts)
+        doFonts
+        shift
+        ;;
+      -c | --config)
+        doConfig
+        shift
+        ;;
+      -w | --wallpaper)
+        setWallpaper
+        shift
+        ;;
+      -a | --all)
+        doAll
+        shift
+        ;;
+      *)
+        doHelp
+        shift
+        ;;
+    esac
+  done
 fi
-

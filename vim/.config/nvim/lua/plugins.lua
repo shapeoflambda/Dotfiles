@@ -145,6 +145,13 @@ use 'hrsh7th/nvim-cmp'
 use 'quangnguyen30192/cmp-nvim-ultisnips'
 use 'onsails/lspkind-nvim'
 
+use {
+    "luukvbaal/stabilize.nvim",
+    config = function()
+        require("stabilize").setup()
+    end
+}
+
 use { -- A minimal, stylish and customizable statusline for Neovim written in Lua
 'Famiu/feline.nvim',
 requires = {
@@ -152,5 +159,4 @@ requires = {
 },
 config = [[ require('statusline') ]],
                                                   }
-
 end)

@@ -27,19 +27,21 @@ components.active[1] = {
             }
         end,
         left_sep = { '█'},
-        right_sep = {''},
+        right_sep = {'', bg = 'skyblue', fg = 'skyblue'},
         icon = ''
     },
     {
         provider = 'file_info',
         hl = {
             fg = 'white',
+            bg = 'accent',
             style = 'bold'
         },
         left_sep = {
-            ' ',
-            {str = ' ', hl = {fg = 'NONE'}}
+            ' ',
+            {hl = {bg = 'cyan', fg = 'NONE'}}
         },
+        right_sep = {''},
     },
     -- {
     --     provider = function()
@@ -166,12 +168,20 @@ components.active[3] = {
         end
     },
     {
-        provider = ' %l:%-2c ',
-        left_sep = '',
+        provider = 'file_type',
+        left_sep = ' ',
+        right_sep = '',
         hl = {
             fg = 'white',
-            bg = 'oceanblue',
-            style = 'bold'
+            bg = 'accent2',
+        },
+    },
+    {
+        provider = ' %l:%-2c ',
+        left_sep = ' ',
+        hl = {
+            fg = 'white',
+            bg = 'accent3',
         },
     },
 }
@@ -208,6 +218,9 @@ components.inactive[1] = {
 local colors = {
     fg          = '#D0D0D0',
     bg          = '#1F1F23',
+    accent      = '#3E3E69',
+    accent2     = '#46464F',
+    accent3     = '#5C5C9C',
     black       = '#1B1B1B',
     skyblue     = '#50B0F0',
     cyan        = '#009090',
