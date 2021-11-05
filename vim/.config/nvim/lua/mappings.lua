@@ -39,3 +39,8 @@ map('v', '-', 'g<C-x>')
 
 map('n', '<M-`>', '<C-^>')
 map('n', '<C-s>', '<C-^>')
+
+vim.cmd[[cabbrev Q q]]
+vim.cmd[[cabbrev WQ wq]]
+vim.cmd[[cabbrev wQ wq]]
+vim.cmd[[cabbrev Wq wq]]

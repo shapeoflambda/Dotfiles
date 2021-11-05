@@ -16,6 +16,7 @@ return require('packer').startup(function()
     use {'tpope/vim-unimpaired',event="BufReadPost"}
     use {'tpope/vim-repeat',event = "BufReadPost"}
     use {'tpope/vim-commentary',event = "BufReadPost"}
+    use {'tpope/vim-abolish',event = "BufReadPost"}
     use {'romainl/vim-cool', event = "BufReadPost"}
     use {
         'SirVer/ultisnips',
