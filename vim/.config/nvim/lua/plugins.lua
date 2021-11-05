@@ -219,7 +219,19 @@ return require('packer').startup(function()
     use {
         'TimUntersberger/neogit',
         requires = 'nvim-lua/plenary.nvim',
-        cmd = "Neogit"
+        cmd = "Neogit",
+        config = function()
+            local neogit = require("neogit")
+
+            neogit.setup {
+                signs = {
+                    -- { CLOSED, OPENED }
+                    section = { "", "" },
+                    item = { "", "" },
+                    hunk = { "", "" },
+                },
+            }
+        end
     }
 
 end)
