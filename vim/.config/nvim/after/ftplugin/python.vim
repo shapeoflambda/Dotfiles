@@ -5,7 +5,10 @@ setlocal expandtab
 let b:undo_ftplugin .= '|setlocal shiftwidth< tabstop< expandtab<'
 
 " Formatting
-if executable('yapf')
+if executable('black')
+  let &l:formatprg='black --quiet -'
+  let b:undo_ftplugin .= '|setlocal formatprg<'
+elseif executable('yapf')
   let &l:formatprg='yapf'
   let b:undo_ftplugin .= '|setlocal formatprg<'
 endif

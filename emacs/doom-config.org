@@ -17,7 +17,7 @@
 
 ** Display Font
 #+BEGIN_SRC emacs-lisp
-(setq doom-font (font-spec :family "MonoLisa" :size 14))
+(setq doom-font (font-spec :family "FiraCode Nerd Font Mono" :size 14))
 #+END_SRC
 
 ** Pretty bullets for Org-mode
@@ -252,7 +252,6 @@ is specified by the variable =org-roam-directory=.
 #+BEGIN_SRC emacs-lisp
 (unless (file-exists-p "~/org-roam") (make-directory "~/org-roam"))
 (setq org-roam-directory "~/org-roam")
-(org-roam-setup)
 #+END_SRC
 
 * Org-capture

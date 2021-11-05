@@ -1,11 +1,5 @@
 local M = {}
 
-local function print_r(arr)
-    for _,value in ipairs(arr) do
-        print(value)
-    end
-end
-
 -- Parses the text and returns the command and args in a table
 -- @param command_text string: command text, e.g: "ls -la"
 -- @return table representing the command and args
@@ -47,8 +41,8 @@ function M.make(command_text, errorformat)
     local stdout_to_return = {}
     local stderr_to_return = {}
 
-    local handle, pid = vim.loop.spawn(command, {
-        stdio = {stdin, stdout, stderr},
+    local _, _ = vim.loop.spawn(command, {
+        stdio = {_, stdout, stderr},
         args = args
     },
     vim.schedule_wrap(function()

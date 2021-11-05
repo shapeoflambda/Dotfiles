@@ -1,162 +1,224 @@
+-- Install packer if not installed already
+local execute = vim.api.nvim_command
+local fn = vim.fn
+local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
+    execute 'packadd packer.nvim'
+end
+
 return require('packer').startup(function()
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
     -- Editing
-    use 'tpope/vim-surround'
-    use 'tpope/vim-unimpaired'
-    use 'tpope/vim-repeat'
-    use 'tpope/vim-commentary'
-    use 'SirVer/ultisnips'
-    use 'honza/vim-snippets'
-
-    use 'romainl/vim-cool'
-
-    use 'ray-x/lsp_signature.nvim'
+    use {'tpope/vim-surround',event = "BufReadPost"}
+    use {'tpope/vim-unimpaired',event="BufReadPost"}
+    use {'tpope/vim-repeat',event = "BufReadPost"}
+    use {'tpope/vim-commentary',event = "BufReadPost"}
+    use {'romainl/vim-cool', event = "BufReadPost"}
+    use {
+        'SirVer/ultisnips',
+        event = "BufReadPost",
+        requires = {
+            {'honza/vim-snippets'}
+        },
+        config = [[require('ultisnip_settings')]],
+    }
 
     -- LSP
-    use 'neovim/nvim-lspconfig'
+    use {
+        'neovim/nvim-lspconfig',
+        opt = true,
+        wants = {
+            "cmp-nvim-lsp",
+            "null-ls.nvim",
+        },
+        event = "BufReadPre",
+        config = [[require('lsp_settings')]],
+    }
 
     use {
-        'glepnir/lspsaga.nvim',
-        config = function()
-            local saga = require 'lspsaga'
-            saga.init_lsp_saga()
-        end
+        'jose-elias-alvarez/null-ls.nvim',
+        requires = {
+            {'nvim-lua/plenary.nvim'},
+            {'neovim/nvim-lspconfig'}
+        },
+        event = "BufReadPre",
     }
 
     use {
         'folke/trouble.nvim',
+        event = "BufReadPre,InsertEnter",
+        module = 'trouble',
         config = function()
             require("trouble").setup {
-                action_keys = { -- key mappings for actions in the trouble list
-                    close = "q", -- close the list
-                    cancel = "<esc>", -- cancel the preview and get back to your last window / buffer / cursor
-                    refresh = "r", -- manually refresh
-                    jump = {"<cr>", "<tab>"}, -- jump to the diagnostic or open / close folds
-                    jump_close = {"o"}, -- jump to the diagnostic and close the list
-                    toggle_mode = "m", -- toggle between "workspace" and "document" diagnostics mode
-                    toggle_preview = "P", -- toggle auto_preview
-                    hover = "K", -- opens a small poup with the full multiline message
-                    preview = "p", -- preview the diagnostic location
-                    close_folds = {"zM", "zm"}, -- close all folds
-                    open_folds = {"zR", "zr"}, -- open all folds
-                    toggle_fold = {"zA", "za"}, -- toggle fold of current file
-                    previous = "[q", -- preview item
-                    next = "]q" -- next item
-            }
-        }
-    end
-}
-
-use {
-    'folke/which-key.nvim',
-    config = function()
-        require("which-key").setup {
-            plugins = {
-                spelling = {
-                    enabled = true,
-                    suggestions = 20
+                mode = "lsp_document_diagnostics",
+                action_keys = {
+                    close = "q",
+                    cancel = "<esc>",
+                    refresh = "r",
+                    jump = {"<cr>", "<tab>"},
+                    jump_close = {"o"},
+                    toggle_mode = "m",
+                    toggle_preview = "P",
+                    hover = "K",
+                    preview = "p",
+                    close_folds = {"zM", "zm"},
+                    open_folds = {"zR", "zr"},
+                    toggle_fold = {"zA", "za"},
+                    previous = "[q",
+                    next = "]q",
                 }
             }
-        }
-    end
-}
+        end
+    }
 
-use {
-    'lewis6991/gitsigns.nvim',
-    requires = {
-        'nvim-lua/plenary.nvim'
-    },
-    config = function()
-        require('gitsigns').setup{
-            signs = {
-                add = {text = "▎"},
-                change = {text = "▎"},
-                delete = {text = "▎"},
-                topdelete = {text = "▎"},
-                changedelete = {text = "▎"}
-            },
-            keymaps = {
-                noremap = true,
-                buffer = true,
-                ['n ]g'] = '<cmd>Gitsigns next_hunk<CR>',
-                ['n [g'] = '<cmd>Gitsigns prev_hunk<CR>',
-                ['n ,gu'] = '<cmd>Gitsigns reset_hunk<CR>',
-                ['n ,gp'] = '<cmd>Gitsigns preview_hunk<CR>',
-                ['n ,ga'] = '<cmd>Gitsigns stage_hunk<CR>',
+    use 'folke/lua-dev.nvim'
+
+    use {
+        'folke/which-key.nvim',
+        event = "VimEnter",
+        config = function()
+            require("which-key").setup {
+                plugins = {
+                    spelling = {
+                        enabled = true,
+                        suggestions = 20
+                    }
+                }
             }
-        }
-    end
-}
+        end
+    }
 
--- Tree-sitter
-use 'nvim-treesitter/nvim-treesitter'
-use 'nvim-treesitter/nvim-treesitter-textobjects'
+    use {
+        'nvim-lua/plenary.nvim',
+        module = "plenary"
+    }
 
-use 'junegunn/fzf'
-use 'junegunn/fzf.vim'
-use 'gfanto/fzf-lsp.nvim'
+    use {
+        'lewis6991/gitsigns.nvim',
+        event = "BufReadPre",
+        requires = {
+            'nvim-lua/plenary.nvim'
+        },
+        config = function()
+            require('gitsigns').setup{
+                signs = {
+                    add = {text = "▎"},
+                    change = {text = "▎"},
+                    delete = {text = "▎"},
+                    topdelete = {text = "▎"},
+                    changedelete = {text = "▎"}
+                },
+                keymaps = {
+                    noremap = true,
+                    buffer = true,
+                    ['n ]g'] = '<cmd>Gitsigns next_hunk<CR>',
+                    ['n [g'] = '<cmd>Gitsigns prev_hunk<CR>',
+                    ['n ,gu'] = '<cmd>Gitsigns reset_hunk<CR>',
+                    ['n ,gp'] = '<cmd>Gitsigns preview_hunk<CR>',
+                    ['n ,ga'] = '<cmd>Gitsigns stage_hunk<CR>',
+                }
+            }
+        end
+    }
 
--- Telescope
-use {
-  'nvim-telescope/telescope.nvim',
-  requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
-}
+    -- Tree-sitter
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = ":TSUpdate",
+        opt = true,
+        event = "BufRead",
+        requires = {
+            {'nvim-treesitter/nvim-treesitter-textobjects'},
+        },
+        config = [[require('treesitter_settings')]],
+    }
 
--- Smooth scroll
-use {
-    'karb94/neoscroll.nvim',
-    config = function()
-        require('neoscroll').setup()
-    end
-}
+    use 'junegunn/fzf'
+    use 'junegunn/fzf.vim'
 
-use 'folke/lsp-colors.nvim'
-use 'Shatur/neovim-ayu'
-use 'Mofiqul/dracula.nvim'
-use 'ful1e5/onedark.nvim'
-use 'shaunsingh/nord.nvim'
-use {
-    'https://gitlab.com/__tpb/monokai-pro.nvim',
-    config = function()
-        vim.g.monokaipro_filter = "spectrum"
-        vim.g.monokaipro_italic_functions = true
-        vim.g.monokaipro_sidebars = { "vista_kind", "packer" }
-        vim.g.monokaipro_flat_term = true
+    -- Telescope
+    use({ "nvim-lua/popup.nvim", module = "popup" })
+    use {
+        'nvim-telescope/telescope.nvim',
+        opt = true,
+        keys = {",rf", ",b", ",F", "<M-x>", ",h", ",rg", ",gv", ",v"},
+        cmd = { "Telescope" },
+        wants = {
+            'plenary.nvim',
+            'popup.nvim',
+            'trouble.nvim'
+        },
+        config = function()
+            require('telescope_config')
+        end
+    }
+    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
-        -- Change the "hint" color to the "orange" color, and make the "error" color bright red
-        vim.g.monokaipro_colors = { hint = "orange", error = "#ff0000" }
+    -- Smooth scroll
+    use {
+        'karb94/neoscroll.nvim',
+        config = function()
+            require('neoscroll').setup()
+        end
+    }
 
-        -- Load the colorscheme
-        vim.cmd[[colorscheme monokaipro]]
-    end
-}
+    use 'EdenEast/nightfox.nvim'
 
-use 'folke/tokyonight.nvim'
-use 'kyazdani42/nvim-web-devicons'
+    use {
+        'Pocco81/Catppuccino.nvim',
+        event = "BufReadPost"
+    }
+    use {
+        'kyazdani42/nvim-web-devicons',
+        event = "VimEnter"
+    }
 
--- Git
-use 'tpope/vim-fugitive'
+    -- Git
+    use {
+        'tpope/vim-fugitive',
+        event = "VimEnter",
+    }
 
-use 'hrsh7th/cmp-nvim-lsp'
-use 'hrsh7th/cmp-buffer'
-use 'hrsh7th/nvim-cmp'
-use 'quangnguyen30192/cmp-nvim-ultisnips'
-use 'onsails/lspkind-nvim'
+    use {
+        'hrsh7th/nvim-cmp',
+        opt = true,
+        event = "InsertEnter",
+        requires = {
+            'hrsh7th/cmp-buffer',
+            'hrsh7th/cmp-nvim-lsp',
+            'quangnguyen30192/cmp-nvim-ultisnips',
+            'onsails/lspkind-nvim',
+        },
+        wants = {
+            "lspkind-nvim",
+        },
+        config = [[require('autocompletion')]],
+    }
 
-use {
-    "luukvbaal/stabilize.nvim",
-    config = function()
-        require("stabilize").setup()
-    end
-}
+    use {
+        "luukvbaal/stabilize.nvim",
+        config = function()
+            require("stabilize").setup()
+        end
+    }
 
-use { -- A minimal, stylish and customizable statusline for Neovim written in Lua
-'Famiu/feline.nvim',
-requires = {
-    'nvim-lua/lsp-status.nvim',
-},
-config = [[ require('statusline') ]],
-                                                  }
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = {'kyazdani42/nvim-web-devicons', opt = true},
+        config = function()
+            require('statusline')
+        end
+    }
+
+    use("nathom/filetype.nvim")
+
+    use {
+        'TimUntersberger/neogit',
+        requires = 'nvim-lua/plenary.nvim',
+        cmd = "Neogit"
+    }
+
 end)

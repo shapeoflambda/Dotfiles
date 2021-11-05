@@ -27,7 +27,12 @@ endfunction
 " Restore 'cursorline' when a window is active and non-insert
 function! s:Restore() abort
   let &l:cursorline = get(w:, 'cursorline_current', &g:cursorline)
-  let w:cursorline_current = &l:cursorline
+
+  if luaeval('vim.api.nvim_win_get_config("$")["relative"]') == ""
+    let w:cursorline_current = &l:cursorline
+  else
+    let &l:cursorline = 0
+  endif
 endfunction
 
 " Call s:Suspend() on all windows besides the current one

@@ -19,16 +19,6 @@ if ! has('autocmd')
   finish
 endif
 
-" Format using the formatprg
-if ! exists('g:shell_format_on_save')
-  augroup shell_autoformat_before_save
-    autocmd!
-    autocmd BufWritePre <buffer> call formatting#format_whole_buffer()
-    let b:undo_ftplugin .= '|autocmd! shell_autoformat_before_save'
-  augroup END
-endif
-let b:undo_ftplugin .= '|autocmd! shell_format_on_save'
-
 " Run scripts using <C-c><C-c>
 nnoremap <buffer> <C-c><C-c>
       \ :w\|Trun sh %<CR>
