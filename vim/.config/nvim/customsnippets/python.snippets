@@ -13,3 +13,8 @@ for ${1:index}, ${2:`!p snip.rv = match.group(1)[:-1] if match.group(1).endswith
 	${0}
 endsnippet
 
+snippet '(\b\w+\b)\.isins' "check for the type of variable" r
+if not isinstance(`!p snip.rv = match.group(1)`, ${1:type}):
+	raise TypeError${0}
+endsnippet
+
