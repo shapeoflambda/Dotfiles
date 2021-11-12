@@ -16,7 +16,7 @@ local mappings = {
 
 local custom_ivy_opts = require('telescope.themes').get_ivy {
     border = true,
-    prompt_prefix = "ﮂ ",
+    prompt_prefix = "❯ ",
     selection_caret = "▊ ",
     layout_config = {
         height = 18,
