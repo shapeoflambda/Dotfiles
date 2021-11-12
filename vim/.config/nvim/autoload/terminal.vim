@@ -4,7 +4,7 @@ function! terminal#show_hide_terminal() abort
   endif
 
   if bufwinnr(g:terminal_buffer_id) < 0
-    silent execute '12sp'
+    silent execute 'bo 12sp'
     silent execute g:terminal_buffer_id . 'buffer'
     startinsert
   else
@@ -24,7 +24,7 @@ function terminal#run_command(command) abort
 endfunction
 
 function! terminal#create_terminal() abort
-  silent execute '12sp'
+  silent execute 'bo 12sp'
   silent execute 'terminal'
   let s:terminal_buffer_number = bufnr('')
   let g:terminal_buffer_id = s:terminal_buffer_number
