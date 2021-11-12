@@ -219,7 +219,7 @@ return require('packer').startup({function()
     use {
         'nvim-telescope/telescope.nvim',
         opt = true,
-        keys = {",rf", ",b", ",F", "<M-x>", ",h", ",rg", ",gv", ",v"},
+        keys = {",ld", ",rf", ",b", ",F", "<M-x>", ",h", ",rg", ",gv", ",v"},
         cmd = { "Telescope" },
         wants = {
             'plenary.nvim',
