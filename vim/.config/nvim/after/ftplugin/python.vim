@@ -15,15 +15,13 @@ endif
 
 " Run scripts using <C-c><C-c>
 nnoremap <buffer> <C-c><C-c>
-      \ :w\|Redir !python3 -u %<CR> 
+      \ :w\|Redir !python -u %<CR> 
 let b:undo_ftplugin .= '|nunmap <buffer> <C-c><C-c>'
 
-nnoremap <buffer> <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
-let b:undo_ftplugin .= '|nunmap <buffer> gd'
 
 " Run scripts using <C-c><C-v>
 nnoremap <buffer> <C-c><C-v>
-      \ :w\|Trun python3 -u %<CR>
+      \ :w\|Trun python -u %<CR>
 let b:undo_ftplugin .= '|nunmap <buffer> <C-c><C-v>'
 
 " Organize imports using LSP
