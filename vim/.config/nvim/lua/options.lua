@@ -33,6 +33,7 @@ opt('o', 'inccommand', "nosplit")
 opt('o', 'wildignore', '*.pyc')
 opt('o', 'showmode', false)
 
+vim.opt.shortmess:append('I')
 -------------------- PERSISTENT UNDO --------------------
 if vim.fn.has('persistent_undo') == 1 then
     opt('o', 'undofile', true)
