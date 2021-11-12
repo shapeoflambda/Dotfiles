@@ -15,8 +15,3 @@ augroup better_qf
     autocmd QuitPre * nested if &filetype != 'qf' | silent! cclose | endif
   endif
 augroup end
-
-" Enable the handy Cfilter plugin if possible
-if has('packages')
-  packadd cfilter
-endif

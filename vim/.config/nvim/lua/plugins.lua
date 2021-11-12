@@ -3,21 +3,64 @@ local execute = vim.api.nvim_command
 local fn = vim.fn
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
+    packer_bootstrap = fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
     execute 'packadd packer.nvim'
 end
 
-return require('packer').startup(function()
+return require('packer').startup({function()
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
     -- Editing
-    use {'tpope/vim-surround',event = "BufReadPost"}
-    use {'tpope/vim-unimpaired',event="BufReadPost"}
-    use {'tpope/vim-repeat',event = "BufReadPost"}
-    use {'tpope/vim-commentary',event = "BufReadPost"}
-    use {'tpope/vim-abolish',event = "BufReadPost"}
-    use {'romainl/vim-cool', event = "BufReadPost"}
+    use {
+        'tpope/vim-surround',
+        event = "BufReadPost",
+    }
+    use {
+        'tpope/vim-unimpaired',
+        keys = {
+            "yon",
+            "yor",
+            "]<Space>",
+            "[<Space>",
+            "[a",
+            "]a",
+            "[A",
+            "]A",
+            "[b",
+            "]b",
+            "[B",
+            "]B",
+            "[l",
+            "]l",
+            "[L",
+            "]L",
+            "[q",
+            "]q",
+            "[Q",
+            "]Q",
+        },
+    }
+    use {
+        'tpope/vim-repeat',
+        event = "BufEnter",
+    }
+    use {
+        'tpope/vim-commentary',
+        keys = { "gc", "gcc" }
+    }
+    use {
+        'tpope/vim-abolish',
+        event = "BufReadPost",
+    }
+    use {
+        'romainl/vim-cool',
+        event = "BufReadPost",
+    }
+    use {
+        'AndrewRadev/splitjoin.vim',
+        keys = { "gS", "gJ" },
+    }
     use {
         'SirVer/ultisnips',
         event = "BufReadPost",
@@ -133,12 +176,43 @@ return require('packer').startup(function()
         event = "BufRead",
         requires = {
             {'nvim-treesitter/nvim-treesitter-textobjects'},
+            {'nvim-treesitter/playground'},
         },
         config = [[require('treesitter_settings')]],
     }
 
-    use 'junegunn/fzf'
-    use 'junegunn/fzf.vim'
+    use {
+        'junegunn/fzf.vim',
+        cmd = {
+            "Files",
+            "GFiles",
+            "GFiles",
+            "Buffers",
+            "Colors",
+            "Ag",
+            "Rg",
+            "Lines",
+            "BLines",
+            "Tags",
+            "BTags",
+            "Marks",
+            "Windows",
+            "Locate",
+            "History",
+            "History",
+            "History",
+            "Snippets",
+            "Commits",
+            "BCommits",
+            "Commands",
+            "Maps",
+            "Helptags",
+            "Filetypes",
+        },
+        requires = {
+            'junegunn/fzf',
+        }
+    }
 
     -- Telescope
     use({ "nvim-lua/popup.nvim", module = "popup" })
@@ -166,7 +240,13 @@ return require('packer').startup(function()
         end
     }
 
-    use 'EdenEast/nightfox.nvim'
+    use {
+        'EdenEast/nightfox.nvim',
+        event = "VimEnter",
+        config = function()
+            require('colorscheme')
+        end
+    }
 
     use {
         'Pocco81/Catppuccino.nvim',
@@ -180,7 +260,8 @@ return require('packer').startup(function()
     -- Git
     use {
         'tpope/vim-fugitive',
-        event = "VimEnter",
+        keys = {",gd"},
+        cmd = {"Git", "Gread"},
     }
 
     use {
@@ -211,10 +292,16 @@ return require('packer').startup(function()
         requires = {'kyazdani42/nvim-web-devicons', opt = true},
         config = function()
             require('statusline')
-        end
+        end,
+        event = "VimEnter"
     }
 
-    use("nathom/filetype.nvim")
+    use {
+        "nathom/filetype.nvim",
+        config = function()
+            vim.g.did_load_filetypes = 1
+        end
+    }
 
     use {
         'TimUntersberger/neogit',
@@ -234,4 +321,13 @@ return require('packer').startup(function()
         end
     }
 
-end)
+    use 'lewis6991/impatient.nvim'
+
+  if packer_bootstrap then
+    require('packer').sync()
+  end
+end,
+config = {
+    compile_path = vim.fn.stdpath('config')..'/lua/packer_compiled.lua'
+}
+})
